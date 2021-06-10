@@ -1,0 +1,25 @@
+.ant-layout-sider {
+  min-height: 100vh;
+}
+
+.ant-layout-footer {
+  display: flex;
+  background-color: rgb(235, 235, 235) !important;
+  justify-content: center;
+  vertical-align: middle;
+  border-top: 1px solid #001529;
+  padding: 14px 50px !important;
+}
+
+.--layout__sider-logo {
+  min-height: 64px;
+  background-color: #fff;
+  background-image: url('../assets/images/logo.png');
+  background-repeat: no-repeat;
+  background-size: 75%;
+  background-position: center;
+}
+
+.--layout__content {
+  min-height: calc(100vh - 115px);
+}

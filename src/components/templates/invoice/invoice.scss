@@ -1,0 +1,303 @@
+@import '../../../assets/css/partials/variables';
+
+// .input-group>.form-control {
+//   height: 1.6rem !important;
+// }
+
+.invoice-container {
+  background-color: white;
+  color: black;
+  font-family: Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 7.45pt;
+  margin-left: 12pt;
+  margin-top: 15pt;
+  letter-spacing: 0.2pt;
+  width: 435pt;
+}
+
+.separator {
+  padding-top: 10pt;
+  height: 2pt;
+  line-height: 0pt;
+  text-align: left;
+}
+
+.invoice-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-header {
+  flex: 1 1 75%;
+  margin-right: 5pt;
+  text-align: left;
+}
+
+.right-header {
+  flex: 1 25%;
+}
+
+.address p {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.address p:last-child {
+  margin-bottom: 5.5pt;
+}
+
+.customer-data {
+  border: thin solid black;
+  border-radius: 3pt;
+  padding: 3pt 5pt;
+  text-align: center;
+}
+
+.client-data {
+  border: thin solid black;
+  border-radius: 3pt;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5pt;
+  padding: 2pt;
+}
+
+.row-customer {
+  display: flex;
+  flex-direction: row;
+  padding: 3pt 0;
+  flex-basis: 40px;
+}
+
+.to-fill {
+  text-align: left;
+  border-bottom: thin solid black;
+  flex: 1 1 20%;
+  flex-basis: 40px;
+  font-weight: bolder;
+  line-height: 2pt;
+  padding: 2pt;
+}
+
+.row-info {
+  display: flex;
+  flex-direction: row;
+  border: 1pt solid black;
+  border-width: thin;
+  margin-bottom: 1pt;
+  padding-bottom: 1pt;
+  flex: 1 1 50%;
+}
+
+.descrip-order {
+  flex-direction: row;
+  flex: 1 1 50%;
+  text-align: left;
+  padding-left: 3pt;
+}
+
+.descrip-phones {
+  flex-direction: row;
+  flex: 1 1 20%;
+  padding-left: 3pt;
+}
+
+.descrip-rif,
+.descrip-nit {
+  flex-direction: row;
+  flex: 1 1 5%;
+  padding-left: 3pt;
+}
+
+.descrip-date {
+  flex-direction: row;
+  flex: 1 1 6%;
+  text-align: left;
+  padding-left: 3pt;
+}
+
+.to-fill-order {
+  flex-direction: row;
+  flex: 1 1 auto;
+}
+
+.to-fill-phones {
+  flex-direction: row;
+  flex: 1 1 80%;
+}
+
+.to-fill-rif,
+.to-fill-nit {
+  flex-direction: row;
+  flex: 1 1 95%;
+}
+
+.to-fill-date {
+  flex-direction: row;
+  flex: 1 1 94%;
+}
+
+.to-fill-order,
+.to-fill-phones,
+.to-fill-rif,
+.to-fill-nit,
+.to-fill-date {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 2pt;
+}
+
+.control-number-frame {
+  display: flex;
+  flex-direction: column;
+  font-weight: bolder;
+  border: thin solid black;
+  padding: 3pt 0;
+}
+
+.delivery-note,
+.quote {
+  display: flex;
+  flex-direction: row;
+  margin: 1pt 0 1.5pt 3pt;
+  line-height: 6.5pt;
+}
+
+.delivery-sqr,
+.quote-sqr {
+  flex: 1 1 10%;
+  border: thin solid black;
+  height: 6.5pt;
+}
+
+.isSelected {
+  background-color: black;
+}
+
+.delivery-descrip,
+.quote-descrip {
+  flex: 1 1 90%;
+  margin-left: 3pt;
+  text-align: left;
+}
+
+.control-number-counter {
+  padding: 3pt;
+}
+.centered {
+  display: flex;
+  justify-content: center;
+}
+
+.control-number-descrip {
+  text-align: right;
+  margin-right: 2pt;
+  font-weight: bolder;
+}
+
+.control-number-code {
+  text-align: left;
+  margin-left: 2pt;
+  font-weight: bolder;
+  color: red;
+}
+
+.invoiced-products-for-sale-table {
+  width: 100%;
+  margin-top: 2pt;
+  border-right: thin solid black;
+  border-bottom: thin solid black;
+}
+
+.invoiced-products-for-sale-table td:first-child {
+  width: 15pt;
+}
+.invoiced-products-for-sale-table td:nth-child(2) {
+  width: 30pt;
+}
+.invoiced-products-for-sale-table td:nth-child(4) {
+  width: 40pt;
+}
+.invoiced-products-for-sale-table td:nth-child(5) {
+  width: 60pt;
+}
+.invoiced-products-for-sale-table td:last-child {
+  width: 60pt;
+}
+
+.invoiced-products-for-sale-table thead tr th,
+.invoiced-products-for-sale-table tbody tr td {
+  padding: 0 5pt;
+  padding-bottom: 1pt;
+  border-left: thin solid black;
+  border-top: thin solid black;
+}
+
+.invoice-footer {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  margin-top: 2pt;
+}
+
+.left-invoice-signature,
+.right-invoice-signature {
+  flex: 1 1 28%;
+  margin-right: 2pt;
+  border-bottom: thin solid black;
+}
+
+.row-sign {
+  display: flex;
+  flex-direction: row;
+}
+
+.descrip-sign {
+  flex: 1 1 50%;
+  text-align: left;
+  border-top: thin solid black;
+  border-left: thin solid black;
+  padding: 0pt 3pt;
+}
+
+.to-fill-sign {
+  flex: 1 1 48%;
+  border-top: thin solid black;
+  border-left: thin solid black;
+  border-right: thin solid black;
+}
+
+.invoive-summary {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.gral-total {
+  border-bottom: thin solid black;
+}
+
+.row-summ {
+  display: flex;
+  flex-direction: row;
+}
+
+.descrip-summ {
+  flex: 1 1 30%;
+  font-weight: bolder;
+  padding: 0pt 3pt;
+  text-align: right;
+}
+
+.to-fill-summ {
+  flex: 1 1 22%;
+  border-left: thin solid black;
+  border-top: thin solid black;
+  border-right: thin solid black;
+  font-weight: bolder;
+  padding: 0pt 10pt;
+  text-align: right;
+}
