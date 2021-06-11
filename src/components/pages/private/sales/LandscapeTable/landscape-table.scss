@@ -1,0 +1,28 @@
+@import '../../../../../assets/css/partials/variables.scss';
+
+.landscape-table-container {
+  width: 100%;
+}
+
+.landscape-table {
+  width: 100%;
+}
+
+.landscape-table tr th {
+  text-align: center;
+  background-color: $bg-tbl-header;
+  border: 1px solid $tbl-border;
+  padding: 1px 10px;
+}
+
+.landscape-table tbody tr td {
+  border: 1px solid $tbl-border;
+  background-color: $bg-tbl-td-cell;
+  padding: 3px 10px;
+}
+
+.landscape-table tfoot tr th {
+  border: 1px solid $tbl-border;
+  background-color: $bg-tbl-tf-cell;
+  padding: 3px 10px;
+}

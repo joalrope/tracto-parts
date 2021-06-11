@@ -1,0 +1,35 @@
+.client-info-title {
+  text-align: left;
+}
+
+.client-info {
+  width: 75%;
+}
+
+.sale-mode {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.form-check {
+  height: 5rem;
+  padding-top: 1.5rem;
+  align-items: center;
+  font-size: 1.2em;
+}
+
+.options {
+  position: relative;
+  top: -5px;
+  margin-left: 15px;
+  width: 11rem !important;
+  padding: 0 10px 0 0;
+  border: 1px solid #a0a0a0;
+  mix-blend-mode: darken;
+}
+
+.legend-days {
+  font-size: 1rem;
+  color: #5e5e5e;
+  mix-blend-mode: difference;
+}

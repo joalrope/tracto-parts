@@ -1,5 +1,6 @@
 /* eslint-disable no-extend-native */
 import React from 'react';
+import PropTypes from 'prop-types';
 import './invoice.scss';
 
 export const InvoiceFooter = ({ totals }) => {
@@ -68,4 +69,8 @@ export const InvoiceFooter = ({ totals }) => {
       </div>
     </div>
   );
+};
+
+InvoiceFooter.propTypes = {
+  totals: PropTypes.object,
 };

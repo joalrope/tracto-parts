@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 // import { useSelector } from 'react-redux';
 //import moment from 'moment';
 import { InvoiceHeader } from './InvoiceHeader';
@@ -48,4 +49,8 @@ export const InvoiceHalf = ({ data }) => {
       <InvoiceFooter totals={totals} />
     </div>
   );
+};
+
+InvoiceHalf.propTypes = {
+  data: PropTypes.object,
 };

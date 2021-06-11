@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { InvoiceHalf } from './InvoiceHalf';
 
 export const Invoice = ({ data }) => {
@@ -11,4 +12,8 @@ export const Invoice = ({ data }) => {
       <InvoiceHalf data={data} />
     </div>
   );
+};
+
+Invoice.propTypes = {
+  data: PropTypes.object,
 };

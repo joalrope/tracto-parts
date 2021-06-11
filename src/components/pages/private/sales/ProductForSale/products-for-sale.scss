@@ -1,0 +1,55 @@
+@import '../../../../../assets/css/partials/variables.scss';
+
+.products-for-sale {
+  width: 100%;
+}
+.products-for-sale-title {
+  text-align: left;
+}
+
+.products-for-sale-table {
+  width: 80.5%;
+  thead tr th {
+    text-align: center;
+    background-color: $bg-tbl-header;
+    border: 1px solid $tbl-border;
+    padding: 1px 10px;
+  }
+
+  tbody tr td {
+    border: 1px solid $tbl-border;
+    background-color: $bg-tbl-td-cell;
+    padding: 3px 10px;
+  }
+
+  tfoot tr th {
+    border: 1px solid $tbl-border;
+    background-color: $bg-tbl-tf-cell;
+    padding: 3px 10px;
+  }
+}
+
+.td-input-qty {
+  width: auto;
+}
+
+.input-editable {
+  position: relative;
+  text-align: right;
+  background-color: rgb(151, 146, 113);
+  outline-color: $primary;
+  box-sizing: border-box;
+  margin: 0 !important;
+  width: max-content;
+  height: max-content;
+}
+
+// .input-qty {
+//   position: relative;
+//   text-align: right;
+//   background-color: rgb(246, 234, 162);
+//   outline-color: $primary;
+//   margin: 1px;
+//   width: 66px;
+//   height: 1.8rem;
+// }

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import logo from '../../../assets/images/logo.png';
 import './invoice.scss';
 
@@ -70,4 +71,9 @@ export const InvoiceHeader = ({ customer, transaction }) => {
       </div>
     </div>
   );
+};
+
+InvoiceHeader.propTypes = {
+  customer: PropTypes.object,
+  transaction: PropTypes.object,
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TableAttrib } from '../../../classes/table-attrib-class';
 import { columns } from '../../../assets/data/products-for-sale.dataConig';
 import './invoice.scss';
@@ -35,4 +36,8 @@ export const InvoiceBody = ({ products }) => {
       </table>
     </div>
   );
+};
+
+InvoiceBody.propTypes = {
+  products: PropTypes.object,
 };

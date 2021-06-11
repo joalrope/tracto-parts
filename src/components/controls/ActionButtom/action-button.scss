@@ -1,0 +1,23 @@
+@import "../../../assets/css/partials/variables.scss";
+
+.td-action-button {
+  width: 2em;
+  border: 0 !important;
+  background-color: transparent !important;
+  margin: 0 !important;
+  padding-left: 2px !important;
+  padding-right: 0px !important;
+}
+
+.action-button {
+  border: 1px solid $tbl-border;
+  border-radius: 3px;
+  background-color: transparent;
+  margin-left: 1px;
+  color: $bg-tbl-td-cell;
+  mix-blend-mode: difference;
+  span {
+    margin-left: 0.5em;
+    font-weight: bolder;
+  }
+}

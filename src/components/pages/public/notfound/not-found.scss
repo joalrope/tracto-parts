@@ -1,0 +1,46 @@
+@import '../../../../assets/css/partials/variables.scss';
+/*======================
+    404 page
+=======================*/
+
+.page_404 {
+  background: $primary;
+  font-family: 'Arvo', serif;
+}
+
+.page_404 img {
+  width: 100%;
+}
+
+.text-centered {
+  text-align: center;
+  font-size: 66px;
+}
+
+.four_zero_four_bg {
+  background-image: url('https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif');
+  height: 46.5vh;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.four_zero_four_bg h1 {
+  display: block;
+  font-size: 80px;
+}
+
+.lost {
+  font-size: 50px;
+}
+
+.link_404 {
+  color: $white !important;
+  padding: 10px 20px;
+  background: $black;
+  margin: 20px 0;
+  display: inline-block;
+}
+
+.contant_box_404 {
+  margin-top: 5px;
+}

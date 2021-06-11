@@ -22,4 +22,5 @@
 
 .--layout__content {
   min-height: calc(100vh - 115px);
+  padding: 30px;
 }
