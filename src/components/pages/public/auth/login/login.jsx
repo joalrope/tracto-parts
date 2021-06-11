@@ -21,7 +21,7 @@ export const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(startLogin(Email, Password));
-    goBack();
+    //goBack();
   };
 
   const handleShowRegister = () => {

@@ -1,0 +1,11 @@
+.--item-found__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.--item-found__code {
+  flex: 0 1 100px;
+}
+.--item-found__title {
+  margin-left: 50px;
+}

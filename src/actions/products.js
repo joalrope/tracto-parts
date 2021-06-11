@@ -3,7 +3,7 @@ import { fetchWithToken } from '../helpers/fetch';
 import { jsonSort } from '../helpers/json-sort';
 import { types } from '../types/types';
 
-export const findProductByCode = (code) => {
+export const findProductByCode = (code = 'todos') => {
   return async (dispatch) => {
     try {
       if (code.length > 1) {
