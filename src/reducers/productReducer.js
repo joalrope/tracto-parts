@@ -14,7 +14,7 @@ export const productReducer = (state = initialState, action) => {
         products: [...action.payload],
       };
 
-    case types.clearProductsLoaded:
+    case types.productclearProductsLoaded:
       return {
         ...state,
         products: [],

@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Divider } from 'antd';
+import './item-found.scss';
 
 export const ItemFound = ({ item }) => {
   return (
-    <div className='--item-found__container'>
-      <span className='--item-found__code'> {item.code} </span>
-      <Divider type='vertical' />
-      <span className='--item-found__title'>{item.title}</span>
+    <div className='--list-item__container'>
+      <span className='--list-item__code'> {item.key} </span>
+      <span className='--list-item__title'>{item.label}</span>
     </div>
   );
 };

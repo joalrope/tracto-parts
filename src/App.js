@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from '../src/store/store';
 import { AppLayout } from './layouts/AppLayout';
-import './App.css';
+import './index.css';
 
 function App() {
   return (

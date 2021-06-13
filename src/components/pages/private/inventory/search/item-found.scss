@@ -1,11 +1,19 @@
-.--item-found__container {
+.--list-item__container {
   display: flex;
-  justify-content: space-between;
+  font-size: 12px;
+}
+.--list-item__container:nth-child(even) {
+  background: rgb(180, 180, 180);
 }
 
-.--item-found__code {
-  flex: 0 1 100px;
+.--list-item__code {
+  flex: 1 0 33%;
+  font-weight: bold;
+  overflow: hidden !important;
 }
-.--item-found__title {
-  margin-left: 50px;
+.--list-item__title {
+  flex: 1 1 66%;
+  margin-left: 5px;
+  text-align: left;
+  overflow: hidden !important;
 }

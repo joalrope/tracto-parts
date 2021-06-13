@@ -3,7 +3,7 @@ import { fetchWithToken } from '../helpers/fetch';
 import { jsonSort } from '../helpers/json-sort';
 import { types } from '../types/types';
 
-export const findProductByCode = (code = 'todos') => {
+export const findProductByCode = (code) => {
   return async (dispatch) => {
     try {
       if (code.length > 1) {
@@ -18,6 +18,21 @@ export const findProductByCode = (code = 'todos') => {
       console.log(error);
     }
   };
+};
+
+export const getProductByCode = async (code) => {
+  try {
+    if (code.length > 1) {
+      const { ok, result } = await fetchWithToken(`/products/code/${code}`);
+      if (ok) {
+        return result;
+      }
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const findProductById = (id) => {
