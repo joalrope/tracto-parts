@@ -1,17 +1,17 @@
-.--list-item__container {
+.--select-list-item__container {
   display: flex;
   font-size: 12px;
 }
-.--list-item__container:nth-child(even) {
+.--select-list-item__container:nth-child(even) {
   background: rgb(180, 180, 180);
 }
 
-.--list-item__code {
+.--select-list-item__code {
   flex: 1 0 33%;
   font-weight: bold;
   overflow: hidden !important;
 }
-.--list-item__title {
+.--select-list-item__title {
   flex: 1 1 66%;
   margin-left: 5px;
   text-align: left;
