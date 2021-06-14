@@ -20,6 +20,26 @@ export const findCustomerByCode = (code) => {
   };
 };
 
+export const getCustomerByCode = (code) => {
+  return async () => {
+    try {
+      if (code.length > 1) {
+        const { ok, result } = await fetchWithToken(`/customers/code/${code}`);
+        if (ok) {
+          const json = result;
+          console.log(json)
+          console.log(JSON.parse(JSON.stringify(json).replace(/title/gi, 'label').replace(/code/gi, 'key').replace(/id/gi, 'value')));
+          return  (JSON.parse(JSON.stringify(json).replace(/title/gi, 'label').replace(/code/gi, 'key').replace(/id/gi, 'value')));
+        }
+      } else {
+        return [];
+      }
+    } catch (error) {
+      //console.log(error);
+    }
+  };
+};
+
 export const findCustomerById = (id) => {
   return async (dispatch) => {
     try {

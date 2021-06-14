@@ -1,75 +1,44 @@
-import React /* useEffect, useState*/ from 'react';
-//import { Select } from 'antd';
-//import {  useDispatch,  useSelector } from 'react-redux';
-//import { getProductByCode, findProductById } from '../../../../actions/products';
-//import { SelectListItem } from './search/SelectListItem';
-//import { NotFoundContentMsg } from './search/NotFoundContentMsg';
-//const { Option } = Select;
+import React from 'react';
+import { useDispatch,  useSelector } from 'react-redux';
+import { getCustomerByCode } from '../../../../actions/customers';
+import { findProductById, getProductByCode } from '../../../../actions/products';
+import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
 
 export const Inventory = () => {
-  //const [options, setOptions] = useState([]);
-  //const [value, setValue] = useState([]);
-  //const dispatch = useDispatch();
-  // const { activeProduct } = useSelector((state) => state.product);
-  //let productsFound = [];
+  const dispatch = useDispatch();
+  const { activeProduct } = useSelector((state) => state.product);
+  const products = async (value) => await getProductByCode(value)
+  const customers = async (value) => await getCustomerByCode(value)
+  console.log(customers)
 
-  /* const getItems = async (value) => {
-    //setValue(value);
-    const products = await await getProductByCode(value);
-    if (products) {
-      products.map((item) => {
-        productsFound.push({
-          label: item.title,
-          key: item.code,
-          value: item.id,
-        });
-      });
-      //setOptions(productsFound);
-    } else {
-      //setOptions([]);
-    }
-  }; */
+  const result =(id) => {
+    dispatch(findProductById(id))
+  }
 
-  /*  const onSearch = (value) => {
-    if (value) {
-      getItems(value);
-    } else {
-      setOptions([]);
-    }
-  };
-
-  const onChange = (value) => {
-    setValue(value);
-    dispatch(findProductById(value));
-    setValue('');
-    setOptions([]);
-  }; */
+  const noDataFounded = (msg) =>{
+    console.log(msg)
+  } 
 
   return (
     <div>
       <h2>Inventario</h2>
-      {/*       <Select
-        showSearch
-        value={value}
-        placeholder='Encuentre un Producto'
-        style={{ width: 250 }}
-        defaultActiveFirstOption={false}
-        showArrow={false}
-        filterOption={false}
-        onSearch={onSearch}
-        onChange={onChange}
-        notFoundContent={value.length <= 1 ? null : <NotFoundContentMsg />}
-        onBlur={() => setValue('')}
-      >
-        {options &&
-          options.map((obj) => (
-            <Option key={obj.value} value={obj.value}>
-              <SelectListItem item={obj} />
-            </Option>
-          ))}
-      </Select>
- */}
-      {/* <p>{activeProduct && JSON.stringify(activeProduct)}</p> */}
+      <div className="--search-data__container">
+        <AsyncDataSelect 
+          placeholder={'Seleccione un Cliente'}
+          style={{width: '200px' }}
+          dataSource={customers}
+          result={result}
+          notFoundAsyncData={noDataFounded}
+        />
+        
+        <AsyncDataSelect
+          placeholder={'Encuentre un Producto'}
+          style={{width: '200px', marginTop: '10px' }}
+          dataSource={products}
+          result={result}
+        />
+      </div>
+      {<p>{activeProduct && JSON.stringify(activeProduct)}</p>}
     </div>
   );
 };

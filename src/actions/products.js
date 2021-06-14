@@ -25,7 +25,8 @@ export const getProductByCode = async (code) => {
     if (code.length > 1) {
       const { ok, result } = await fetchWithToken(`/products/code/${code}`);
       if (ok) {
-        return result;
+        const json = await result;
+        return (JSON.parse(JSON.stringify(json).replace(/title/gi, 'label').replace(/code/gi, 'key').replace(/id/gi, 'value')));
       }
     } else {
       return [];
