@@ -5,7 +5,7 @@ import { NotFoundContentMsg } from './NotFoundContentMsg';
 import { SelectListItem } from './SelectListItem';
 const { Option } = Select;
 
-export const AsyncDataSelect = ({placeholder, dataSource, result, notFoundAsyncData, style}) => {
+export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundAsyncData, style }) => {
   const [options, setOptions] = useState([]);
   const [value, setValue] = useState([]);
 
@@ -37,10 +37,17 @@ export const AsyncDataSelect = ({placeholder, dataSource, result, notFoundAsyncD
         filterOption={false}
         onSearch={onSearch}
         onChange={onChange}
-        notFoundContent={value.length <= 1 ? null : notFoundAsyncData ? <NotFoundContentMsg noFoundresult={notFoundAsyncData} /> : 'Sin datos que mostrar'}
+        notFoundContent={
+          value.length <= 1 ? null : notFoundAsyncData ? (
+            <NotFoundContentMsg noFoundresult={notFoundAsyncData} />
+          ) : (
+            'Sin datos que mostrar'
+          )
+        }
         onBlur={() => setValue('')}
       >
-        {options.length >= 0 &&
+        {options &&
+          options.length >= 0 &&
           options.map((obj) => (
             <Option key={obj.value} value={obj.value}>
               <SelectListItem item={obj} />
