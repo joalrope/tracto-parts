@@ -24,3 +24,9 @@
   min-height: calc(100vh - 115px);
   padding: 30px;
 }
+
+.--menu-options__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

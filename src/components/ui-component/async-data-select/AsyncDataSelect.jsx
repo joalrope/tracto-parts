@@ -9,6 +9,14 @@ export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundAsync
   const [options, setOptions] = useState([]);
   const [value, setValue] = useState([]);
 
+  const notFoundContent = () => {
+    if (value.length <= 1) null;
+    if (notFoundAsyncData) {
+      return NotFoundContentMsg(notFoundAsyncData);
+    }
+    return 'Sin datos que mostrar';
+  };
+
   const onSearch = async (value) => {
     if (value) {
       setValue(value);
@@ -37,13 +45,7 @@ export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundAsync
         filterOption={false}
         onSearch={onSearch}
         onChange={onChange}
-        notFoundContent={
-          value.length <= 1 ? null : notFoundAsyncData ? (
-            <NotFoundContentMsg noFoundresult={notFoundAsyncData} />
-          ) : (
-            'Sin datos que mostrar'
-          )
-        }
+        notFoundContent={notFoundContent}
         onBlur={() => setValue('')}
       >
         {options &&
