@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { routes } from './routes';
+import { NotFound } from '../components/pages';
 
 export const AppRouter = ({ type }) => {
   return (
@@ -11,13 +12,13 @@ export const AppRouter = ({ type }) => {
           return <Redirect from={prop.path} to={prop.pathTo} key={key} />;
         } else if (prop.type === 'public') {
           return <Route path={prop.path} component={prop.component} key={key} />;
+        } else if (prop.type === 'auth' && prop.role === type) {
+          return <Route path={prop.path} component={prop.component} key={key} />;
         } else if (prop.type === type) {
           return <Route path={prop.path} component={prop.component} key={key} />;
         }
-        {
-          prop.type === 'error' && <Route component={prop.component} />;
-        }
       })}
+      <Route component={NotFound} />;
     </Switch>
   );
 };

@@ -116,9 +116,13 @@ export const startHidePassForgot = () => {
 
 export const serCurrentPath = (path) => {
   return (dispatch) => {
-    dispatch(currentPath(path))
-  }
-}
+    if (path === '/logout') {
+      path = '/home';
+      dispatch(startLogout());
+    }
+    dispatch(currentPath(path));
+  };
+};
 
 const login = (user) => ({
   type: types.authlogin,
@@ -146,4 +150,4 @@ const showPassForgotForm = (valVisible) => ({
 const currentPath = (path) => ({
   type: types.authSetCurrentPath,
   payload: path,
-})
+});

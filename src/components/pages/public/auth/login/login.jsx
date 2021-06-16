@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 
-import { startLogin } from '../../../../../actions/auth';
+import { serCurrentPath, startLogin } from '../../../../../actions/auth';
 import { useForm } from '../../../../../hooks/userForm';
 import { goBack } from '../controllers/goBack';
 import '../auth.scss';
@@ -21,6 +21,7 @@ export const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(startLogin(Email, Password));
+    dispatch(serCurrentPath('/home'));
     history.push('/app/sales');
   };
 
