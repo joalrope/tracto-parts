@@ -1,11 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { AppRouter } from '../router/AppRouter';
 
 export const ContentContent = () => {
-  const type = 'private';
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  const type = (isLoggedIn)? 'private' : 'public';
   return (
     <div className='--layout__content'>
-      <AppRouter type={type} />
+      {isLoggedIn && <AppRouter type={type} />}
     </div>
   );
 };

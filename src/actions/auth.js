@@ -114,6 +114,12 @@ export const startHidePassForgot = () => {
   };
 };
 
+export const serCurrentPath = (path) => {
+  return (dispatch) => {
+    dispatch(currentPath(path))
+  }
+}
+
 const login = (user) => ({
   type: types.authlogin,
   payload: user,
@@ -136,3 +142,8 @@ const showPassForgotForm = (valVisible) => ({
   type: types.authShowPassForgot,
   payload: valVisible,
 });
+
+const currentPath = (path) => ({
+  type: types.authSetCurrentPath,
+  payload: path,
+})

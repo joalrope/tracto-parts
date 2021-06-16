@@ -8,6 +8,7 @@ export const types = {
   authShowLogin: '[auth] Show Login form',
   authShowRegister: '[auth] Show Register form',
   authShowPassForgot: '[auth] Show Password Forgot form',
+  authSetCurrentPath: '[auth] Set Current Path',
 
   uiOpenModal: '[UI] Open modal',
   uiCloseModal: '[UI] Close modal',

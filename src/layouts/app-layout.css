@@ -1,5 +1,9 @@
-.ant-layout-sider {
-  min-height: 100vh;
+
+.ant-layout-header {
+  padding: 0 !important;
+}
+.--public-menu__container {
+  float: left;
 }
 
 .ant-layout-footer {
@@ -11,8 +15,11 @@
   padding: 14px 50px !important;
 }
 
-.--layout__sider-logo {
-  min-height: 64px;
+.--layout-logo__container {
+  float: left;
+  width: 200px;
+  height: 64px;
+  margin: 0;
   background-color: #fff;
   background-image: url('../assets/images/logo.png');
   background-repeat: no-repeat;
@@ -25,8 +32,13 @@
   padding: 30px;
 }
 
-.--menu-options__container {
+.--header-content__container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.--auth-menu__container{
+  
+  margin-right: 30px !important;
 }

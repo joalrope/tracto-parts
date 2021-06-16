@@ -55,6 +55,12 @@ export const authReducer = (state = initialState, action) => {
         PassForgotVisible: action.payload,
       };
 
+    case types.authSetCurrentPath:
+      return {
+        ...state,
+        currentPath: action.payload
+      }
+
     default:
       return state;
   }
