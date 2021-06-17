@@ -10,13 +10,13 @@
   font-family: Calibri, 'Trebuchet MS', sans-serif;
   font-size: 7.45pt;
   margin-left: 12pt;
-  margin-top: 15pt;
+  margin-top: 10pt;
   letter-spacing: 0.2pt;
   width: 435pt;
 }
 
 .separator {
-  padding-top: 10pt;
+  padding-top: 5pt;
   height: 2pt;
   line-height: 0pt;
   text-align: left;
@@ -231,7 +231,7 @@
 .invoiced-products-for-sale-table thead tr th,
 .invoiced-products-for-sale-table tbody tr td {
   padding: 0 5pt;
-  padding-bottom: 1pt;
+  //padding-bottom: 1pt;
   border-left: thin solid black;
   border-top: thin solid black;
 }

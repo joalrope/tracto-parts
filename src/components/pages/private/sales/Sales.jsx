@@ -5,7 +5,7 @@ import { findCustomerById, getCustomerByCode } from '../../../../actions/custome
 import { findProductById, getProductByCode } from '../../../../actions/products';
 import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
 
-import { CustomerInfo } from './CustomerInfo/CustomerInfo';
+import { CustomerInfo } from '../../../ui-component/customer/info/CustomerInfo';
 import { ProductInfo } from './ProductInfo/ProductInfo';
 import { Invoice } from '../../../templates/invoice/Invoice';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
@@ -19,6 +19,7 @@ import './sales.scss';
 export const Sales = () => {
   const dispatch = useDispatch();
   const { activeProduct, productsForSale } = useSelector((state) => state.product);
+  const { activeCustomer } = useSelector((state) => state.customer);
   const { displayInvoicePdf } = useSelector((state) => state.display);
   const customers = async (value) => await getCustomerByCode(value);
   const products = async (value) => await getProductByCode(value);
@@ -73,7 +74,7 @@ export const Sales = () => {
       </div>
 
       {/* {displayAddCustomerForm && <AddCustomerForm />} */}
-      <CustomerInfo />
+      {activeCustomer && <CustomerInfo data={activeCustomer} />}
       {activeProduct && <ProductInfo product={activeProduct} mode={'landscape'} />}
       {productsForSale.length > 0 && <ProductsForSale products={productsForSale} tax={ivaTax} />}
     </div>
