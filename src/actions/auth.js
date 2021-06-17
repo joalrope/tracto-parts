@@ -1,6 +1,8 @@
 import Swal from 'sweetalert2';
 import { types } from '../types/types';
 import { fetchWithoutToken, fetchWithToken } from '../helpers/fetch';
+import { clearActivePoduct, setProductsForSale } from './products';
+import { customerClearActive } from './customers';
 
 export const startLogin = (email, password) => {
   return async (dispatch) => {
@@ -118,10 +120,18 @@ export const serCurrentPath = (path) => {
   return (dispatch) => {
     if (path === '/logout') {
       path = '/home';
-      dispatch(startLogout());
+      clearStore(dispatch);
     }
     dispatch(currentPath(path));
   };
+};
+
+const clearStore = (dispatch) => {
+  sessionStorage.clear();
+  dispatch(setProductsForSale([]));
+  dispatch(customerClearActive());
+  dispatch(clearActivePoduct());
+  dispatch(startLogout());
 };
 
 const login = (user) => ({
