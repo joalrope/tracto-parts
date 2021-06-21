@@ -6,7 +6,7 @@ import { findProductById, getProductByCode } from '../../../../actions/products'
 import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
 
 import { CustomerInfo } from '../../../ui-component/customer/info/CustomerInfo';
-import { ProductInfo } from './ProductInfo/ProductInfo';
+import { ProductInfo } from '../../../ui-component/product/ProductInfo';
 import { Invoice } from '../../../templates/invoice/Invoice';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
 import { ProductsForSale } from './ProductForSale/ProductsForSale';
@@ -72,11 +72,19 @@ export const Sales = () => {
           </Col>
         </Row>
       </div>
-
       {/* {displayAddCustomerForm && <AddCustomerForm />} */}
       {activeCustomer && <CustomerInfo data={activeCustomer} />}
-      {activeProduct && <ProductInfo product={activeProduct} mode={'landscape'} />}
-      {productsForSale.length > 0 && <ProductsForSale products={productsForSale} tax={ivaTax} />}
+      <Row>
+        <Col xs={24} sm={24} md={18} lg={12} xl={12}>
+          {activeProduct && [
+            <Divider style={{ margin: '25px 0 5px 0' }} orientation='center'>
+              Datos del Producto
+            </Divider>,
+            <ProductInfo product={activeProduct} mode={'landscape'} />,
+          ]}
+        </Col>
+      </Row>
+      ){productsForSale.length > 0 && <ProductsForSale products={productsForSale} tax={ivaTax} />}
     </div>
   );
 };

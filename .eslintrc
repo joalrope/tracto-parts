@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "prettier"
+  ],
+  "parser": "babel-eslint",
+  "plugins": [
+    "prettier", "react"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}

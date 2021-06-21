@@ -58,8 +58,8 @@ export const authReducer = (state = initialState, action) => {
     case types.authSetCurrentPath:
       return {
         ...state,
-        currentPath: action.payload
-      }
+        currentPath: action.payload,
+      };
 
     default:
       return state;

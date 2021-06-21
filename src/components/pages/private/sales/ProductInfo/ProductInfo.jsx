@@ -1,4 +1,3 @@
-/* eslint-disable array-callback-return */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
@@ -87,7 +86,7 @@ export const ProductInfo = ({ product, mode }) => {
   }
 
   return (
-    <div className='list-product-found-container mt-5 animate__animated animate__fadeInDown animate__faster'>
+    <div className='mt-5 list-product-found-container animate__animated animate__fadeInDown animate__faster'>
       <div className='list-product-found'>
         <h5 className='list-products-found-title'>Detalle de Producto</h5>
         {mode === 'portrait' ? (

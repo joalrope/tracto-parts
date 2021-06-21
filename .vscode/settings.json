@@ -20,4 +20,8 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ddb17498987d87bf71939e622ed36e97000306e8
