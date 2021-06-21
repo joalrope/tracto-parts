@@ -29,12 +29,19 @@ export const AppLayout = () => {
   const role = isLoggedIn ? 'private' : 'public';
   return (
     <Layout>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-        <div className='--layout-header__logo' />
-        isLoggedIn && <SiderMenu />
-      </Sider>
+      {isLoggedIn && (
+        <Sider className='--layout-sider' collapsible collapsed={collapsed} onCollapse={onCollapse}>
+          <div className='--app__logo' />
+          <SiderMenu />
+        </Sider>
+      )}
       <Layout>
         <Header>
+          {!isLoggedIn && (
+            <div className='--layout-header__logo'>
+              <div className='--app__logo' />
+            </div>
+          )}
           <Menu theme='dark' mode='horizontal' selectedKeys={[currentPath]} onClick={handleClick}>
             {routes
               .filter((route) => route.type === 'public' || (route.type === 'auth' && route.role === role))

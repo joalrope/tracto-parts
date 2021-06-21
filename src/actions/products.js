@@ -1,4 +1,4 @@
-import { template } from '../assets/data/products.dataConfig';
+import { activeProductTemplate } from '../assets/data/products.dataConfig';
 import { fetchWithToken } from '../helpers/fetch';
 import { jsonSort } from '../helpers/json-sort';
 import { types } from '../types/types';
@@ -42,7 +42,7 @@ export const findProductById = (id) => {
   return async (dispatch) => {
     try {
       const { ok, result } = await fetchWithToken(`/products/${id}`);
-      const product = jsonSort(result, template);
+      const product = jsonSort(result, activeProductTemplate);
       if (ok) {
         dispatch(productSetActive(product));
       }

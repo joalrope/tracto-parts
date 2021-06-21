@@ -1,7 +1,6 @@
 {
   "extends": [
-    "prettier",
-    "prettier/react"
+    "prettier"
   ],
   "parser": "babel-eslint",
   "plugins": [

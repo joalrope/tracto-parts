@@ -1,4 +1,3 @@
-/* eslint-disable no-extend-native */
 import React from 'react';
 import PropTypes from 'prop-types';
 import './invoice.scss';

@@ -97,13 +97,4 @@ export const columns = [
   },
 ];
 
-export const template = [
-  'item',
-  'code',
-  'title',
-  'trademark',
-  'qty',
-  'qtyAvailable',
-  'salePrice',
-  'total',
-];
+export const template = ['item', 'code', 'title', 'trademark', 'qty', 'qtyAvailable', 'salePrice', 'total'];

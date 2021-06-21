@@ -1,4 +1,3 @@
-/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -50,7 +49,7 @@ export const CustomerInfo = ({ mode = 'landscape' }) => {
   }
 
   return (
-    <div className='client-info-container mt-5'>
+    <div className='mt-5 client-info-container'>
       <div className='client-info'>
         <h5 className='client-info-title'>Información del Cliente</h5>
         {mode === 'portrait' ? (
