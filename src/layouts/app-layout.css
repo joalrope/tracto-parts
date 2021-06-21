@@ -5,11 +5,13 @@
   float: left;
 }
 
-.--layout-footer__containertt {
-  display: flex;
+.--layout-sider__container {
+  height: 100vh;
+}
+
+.--layout-footer__container {
+  text-align: center;
   background-color: rgb(235, 235, 235) !important;
-  justify-content: center;
-  vertical-align: middle;
   border-top: 1px solid #001529;
   padding: 14px 50px !important;
 }
@@ -27,7 +29,7 @@
 }
 
 .--layout__content {
-  min-height: calc(100vh - 115px) !important;
+  height: calc(100vh - 115px);
   padding: 30px;
 }
 

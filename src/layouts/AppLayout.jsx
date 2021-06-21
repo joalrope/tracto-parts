@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Layout, Menu, Col, Row, Space } from 'antd';
-//import { MailOutlined, AppstoreOutlined } from '@ant-design/icons';
-import { AntDesignOutlined, FacebookFilled, GithubOutlined } from '@ant-design/icons';
+import { MailOutlined, AppstoreOutlined } from '@ant-design/icons'; //eslint-disable-line
+import { AntDesignOutlined, FacebookFilled, GithubOutlined } from '@ant-design/icons'; //eslint-disable-line
 import { serCurrentPath } from '../actions/auth';
 import { routes } from '../router/routes';
 import { AppRouter } from '../router/AppRouter';
@@ -23,18 +23,22 @@ export const AppLayout = () => {
   };
 
   const onCollapse = () => {
+    alert('fjkfikfjk'); //eslint-disable-line
     setCollapsed(!collapsed);
   };
 
   const role = isLoggedIn ? 'private' : 'public';
   return (
     <Layout>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-        <div className='--layout-header__logo' />
-        isLoggedIn && <SiderMenu />
-      </Sider>
+      {isLoggedIn && (
+        <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} className='--layout-sider__container'>
+          <div className='--layout-header__logo' />
+          <SiderMenu />
+        </Sider>
+      )}
       <Layout>
         <Header>
+          {!isLoggedIn && <div className='--layout-header__logo' style={{ width: '200px' }} />}
           <Menu theme='dark' mode='horizontal' selectedKeys={[currentPath]} onClick={handleClick}>
             {routes
               .filter((route) => route.type === 'public' || (route.type === 'auth' && route.role === role))
@@ -52,7 +56,7 @@ export const AppLayout = () => {
         <Row>
           <Col xs={0} sm={24}>
             <Footer className='--layout-footer__container'>
-              <Space align="baseline" >
+              <Space align='baseline'>
                 <div className='--layout__footer'>
                   {new Date().getFullYear()} -{'  '}
                   <a href='https://ant.design/' target='blank'>

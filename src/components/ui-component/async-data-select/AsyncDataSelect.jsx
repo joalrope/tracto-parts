@@ -10,11 +10,15 @@ export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundAsync
   const [value, setValue] = useState([]);
 
   const notFoundContent = () => {
-    if (value.length <= 1) null;
-    if (notFoundAsyncData) {
-      return NotFoundContentMsg(notFoundAsyncData);
+    if (value.length <= 1) {
+      console.log('null');
+      return null;
     }
-    return 'Sin datos que mostrar';
+    if (notFoundAsyncData) {
+      return <NotFoundContentMsg noFoundResult={notFoundAsyncData} />;
+    } else {
+      return 'Sin datos que mostrar';
+    }
   };
 
   const onSearch = async (value) => {

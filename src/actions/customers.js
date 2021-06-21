@@ -26,6 +26,10 @@ export const getCustomerByCode = async (code) => {
       const { ok, result } = await fetchWithToken(`/customers/code/${code}`);
       if (ok) {
         const json = await result;
+        console.log(json);
+        console.log(
+          JSON.parse(JSON.stringify(json).replace(/title/gi, 'label').replace(/code/gi, 'key').replace(/id/gi, 'value'))
+        );
         return JSON.parse(
           JSON.stringify(json).replace(/title/gi, 'label').replace(/code/gi, 'key').replace(/id/gi, 'value')
         );

@@ -49,7 +49,7 @@ export const Sales = () => {
           <GeneratePdfFromHtml WrappedComponent={Invoice} data={data} msgWhenUnmounting={msgWhenUnmounting} />
         )}
         <Row>
-          <Col xs={24} sm={12} md={8} lg={6} xl={4}>
+          <Col xs={24} sm={12} md={8} lg={8} xl={8}>
             <div className='--search-data__container'>
               <Divider style={{ margin: '5px 0' }} orientation='center'>
                 Busqueda
