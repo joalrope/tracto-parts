@@ -52,7 +52,7 @@ export const AppLayout = () => {
         <Row>
           <Col xs={0} sm={24}>
             <Footer className='--layout-footer__container'>
-              <Space align="baseline" >
+              <Space align='baseline'>
                 <div className='--layout__footer'>
                   {new Date().getFullYear()} -{'  '}
                   <a href='https://ant.design/' target='blank'>
@@ -63,12 +63,9 @@ export const AppLayout = () => {
                   <a href='https://www.facebook.com/Joalrope' target='blank'>
                     <FacebookFilled style={style} />
                   </a>
-                  {'  '}
-                  {'  '}
                   <a href='https://github.com/joalrope' target='blank'>
                     <GithubOutlined style={style} />
                   </a>
-                  {'  '}
                 </div>
               </Space>
             </Footer>
