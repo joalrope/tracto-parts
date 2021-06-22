@@ -53,14 +53,14 @@ export const AppLayout = () => {
               ))}
           </Menu>
         </Header>
-        <Content className='--layout__content'>
+        <Content className='--layout-content__container'>
           <AppRouter type={role} />
         </Content>
         <Row>
           <Col xs={0} sm={24}>
             <Footer className='--layout-footer__container'>
               <Space align='baseline'>
-                <div className='--layout__footer'>
+                <div className='--layout-footer__info'>
                   {new Date().getFullYear()} -{'  '}
                   <a href='https://ant.design/' target='blank'>
                     <AntDesignOutlined style={style} />

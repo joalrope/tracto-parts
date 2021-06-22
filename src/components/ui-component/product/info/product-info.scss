@@ -1,6 +1,13 @@
 .--product-info__table {
   overflow: overlay;
   width: 100%;
+
+  & thead th {
+    text-align: center !important;
+    color: aliceblue !important;
+    padding: 0 !important;
+    background-color: darkgoldenrod !important;
+  }
 }
 
 .product-info__container {

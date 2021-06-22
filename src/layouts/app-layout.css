@@ -32,9 +32,9 @@
   background-position: center;
 }
 
-.--layout__content {
+.--layout-content__container {
   height: calc(100vh - 115px);
-  padding: 30px;
+  padding: 10px 30px;
 }
 
 .--header-content__container {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Space, Table } from 'antd';
+import { Space, Table, Tooltip } from 'antd';
 import { CloseSquareOutlined, PlusSquareFilled } from '@ant-design/icons';
 
 import { jsonToTabular } from '../../../../helpers/jsonTab/json-to-tabular';
@@ -15,15 +15,19 @@ export const ProductInfo = ({ product, mode }) => {
     dispatch(productClearActive());
   };
 
-  /* const addProducForSale = () => {
-    console.log(object);
-  }; */
+  const addProducForSale = (record) => {
+    console.log(record);
+  };
 
   const actionRender = (record) => {
     return (
       <Space size='small'>
-        <CloseSquareOutlined className='--action-icon__remove' onClick={clearActiveProduc} />
-        <PlusSquareFilled className='--action-icon__add' onClick={() => console.log(record)} />
+        <Tooltip placement='topLeft' title='Eliminar Producto'>
+          <CloseSquareOutlined className='--action-icon__remove' onClick={clearActiveProduc} />
+        </Tooltip>
+        <Tooltip placement='topLeft' title='Agregar para la venta'>
+          <PlusSquareFilled className='--action-icon__add' onClick={() => addProducForSale(record)} />
+        </Tooltip>
       </Space>
     );
   };
@@ -31,6 +35,7 @@ export const ProductInfo = ({ product, mode }) => {
   const actionColumn = {
     title: '',
     key: 'action',
+    width: 8,
     render: actionRender,
   };
 

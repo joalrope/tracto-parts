@@ -1,6 +1,9 @@
 .--customer-info__table {
   overflow: overlay;
   width: 100%;
+  & table thead th {
+    padding: 0;
+  }
 }
 
 .--customer-info__container {

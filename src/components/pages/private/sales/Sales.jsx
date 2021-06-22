@@ -43,7 +43,7 @@ export const Sales = () => {
   };
 
   return (
-    <div className='container mt-5'>
+    <div className='container'>
       <div className='search'>
         {displayInvoicePdf && (
           <GeneratePdfFromHtml WrappedComponent={Invoice} data={data} msgWhenUnmounting={msgWhenUnmounting} />

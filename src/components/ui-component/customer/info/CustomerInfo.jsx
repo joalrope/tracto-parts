@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Table, Space } from 'antd';
+import { Table, Space, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
 import { jsonToTabular } from '../../../../helpers/jsonTab/json-to-tabular';
@@ -18,8 +18,10 @@ export const CustomerInfo = ({ customer }) => {
   const actionRender = () => {
     return (
       <Space className='--action-buttons' size='small'>
-        <CloseSquareOutlined className='--action-icon__remove' onClick={clearActiveCustomer} />
-        <EditOutlined className='--action-icon__edit' />
+        <Tooltip placement='topLeft' title='Eliminar Comprador'>
+          <CloseSquareOutlined className='--action-icon__remove' onClick={clearActiveCustomer} />
+        </Tooltip>
+        <EditOutlined className='--action-icon__edit' onClick={clearActiveCustomer} />
       </Space>
     );
   };
