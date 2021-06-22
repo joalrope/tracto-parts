@@ -1,21 +1,13 @@
-.ant-descriptions-header {
-  margin-bottom: 2px !important;
+.--customer-info__table {
+  overflow: overlay;
+  width: 100%;
 }
 
-.ant-descriptions-item-label,
-.ant-descriptions-item-content {
-  padding: 2px 2px !important;
-}
-
-.ant-descriptions-view {
-  border: 1px solid #d9d9d9 !important;
-  border-radius: 3px !important;
-  padding: 12px !important;
-}
-
-.customer-info__container {
-  margin-top: 25px;
-  width: 800px;
+.--customer-info__container {
   padding: 5px;
   border: 1px solid hsla(0, 0%, 0%, 0.1);
+}
+
+.--action-buttons {
+  text-align: center;
 }

@@ -58,7 +58,7 @@ export const productSetActive = (product) => ({
 });
 
 export const productClearActive = () => ({
-  type: types.productClearActive,
+  type: types.productClearActivePoduct,
 });
 
 export const clearProductsLoaded = () => ({

@@ -4,3 +4,11 @@ export const objectMax = (array, key) => {
   const maxValueIndex = targetValues.indexOf(maxValue);
   return array[maxValueIndex];
 };
+
+export const keyExists = (array, value) => {
+  let result = false;
+  array.map((obj) => {
+    if (Object.values(obj).includes(value)) result = true;
+  });
+  return result;
+};

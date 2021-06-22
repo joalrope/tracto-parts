@@ -6,7 +6,7 @@ import { findProductById, getProductByCode } from '../../../../actions/products'
 import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
 
 import { CustomerInfo } from '../../../ui-component/customer/info/CustomerInfo';
-import { ProductInfo } from '../../../ui-component/product/ProductInfo';
+import { ProductInfo } from '../../../ui-component/product/info/ProductInfo';
 import { Invoice } from '../../../templates/invoice/Invoice';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
 import { ProductsForSale } from './ProductForSale/ProductsForSale';
@@ -67,24 +67,35 @@ export const Sales = () => {
                 style={{ width: '100%', marginTop: '10px' }}
                 dataSource={products}
                 result={productResult}
+                notFoundAsyncData={() => {}}
               />
             </div>
           </Col>
         </Row>
       </div>
       {/* {displayAddCustomerForm && <AddCustomerForm />} */}
-      {activeCustomer && <CustomerInfo data={activeCustomer} />}
       <Row>
-        <Col xs={24} sm={24} md={18} lg={12} xl={12}>
-          {activeProduct && [
-            <Divider style={{ margin: '25px 0 5px 0' }} orientation='center'>
-              Datos del Producto
-            </Divider>,
-            <ProductInfo product={activeProduct} mode={'landscape'} />,
-          ]}
+        <Col xs={24} sm={24} md={22} lg={22} xl={22}>
+          {activeCustomer && (
+            <div className='--customer-active__container'>
+              <Divider style={{ margin: '25px 0 5px 0' }} orientation='center'>
+                Datos del Comprador
+              </Divider>
+              <CustomerInfo customer={activeCustomer} />
+            </div>
+          )}
+
+          {activeProduct && (
+            <div className='--product-active__container'>
+              <Divider style={{ margin: '25px 0 5px 0' }} orientation='center'>
+                Datos del Producto
+              </Divider>
+              <ProductInfo product={activeProduct} mode={'landscape'} />
+            </div>
+          )}
         </Col>
       </Row>
-      ){productsForSale.length > 0 && <ProductsForSale products={productsForSale} tax={ivaTax} />}
+      {productsForSale.length > 0 && <ProductsForSale products={productsForSale} tax={ivaTax} />}
     </div>
   );
 };
