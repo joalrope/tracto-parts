@@ -1,12 +1,18 @@
+@import '../../../../assets/css/partials/variables.scss';
+
 .--customer-info__table {
-  overflow: overlay;
+  // overflow: scroll !important;
+  scroll-snap-type: x mandatory;
   width: 100%;
-  & table thead th {
-    padding: 0;
+  & thead th {
+    text-align: center !important;
+    padding: 0 12px !important;
+    background-color: $primary !important;
   }
 }
 
 .--customer-info__container {
+  display: flex;
   padding: 5px;
   border: 1px solid hsla(0, 0%, 0%, 0.1);
 }

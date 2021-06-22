@@ -5,7 +5,7 @@ import { NotFoundContent } from './NotFoundContent';
 import { SelectListItem } from './SelectListItem';
 const { Option } = Select;
 
-export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundAsyncData, style }) => {
+export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundAsyncData, disabled }) => {
   const [options, setOptions] = useState([]);
   const [value, setValue] = useState([]);
 
@@ -25,9 +25,12 @@ export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundAsync
     setOptions([]);
   };
 
+  const style = { width: '100%' };
+
   return (
     <div>
       <Select
+        className='--search-select__container'
         showSearch
         value={value}
         placeholder={placeholder}
@@ -41,6 +44,9 @@ export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundAsync
           value.length <= 1 ? null : <NotFoundContent value={value} notFoundAsyncData={notFoundAsyncData} />
         }
         onBlur={() => setValue('')}
+        disabled={disabled}
+        listItemHeight={10}
+        listHeight={250}
       >
         {options &&
           options.length >= 0 &&
@@ -60,4 +66,5 @@ AsyncDataSelect.propTypes = {
   result: PropTypes.func,
   notFoundAsyncData: PropTypes.func,
   style: PropTypes.object,
+  disabled: PropTypes.bool,
 };

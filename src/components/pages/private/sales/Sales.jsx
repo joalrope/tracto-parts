@@ -43,58 +43,65 @@ export const Sales = () => {
   };
 
   return (
-    <div className='container'>
-      <div className='search'>
-        {displayInvoicePdf && (
-          <GeneratePdfFromHtml WrappedComponent={Invoice} data={data} msgWhenUnmounting={msgWhenUnmounting} />
-        )}
-        <Row>
-          <Col xs={24} sm={12} md={8} lg={8} xl={8}>
-            <div className='--search-data__container'>
-              <Divider style={{ margin: '5px 0' }} orientation='center'>
-                Busqueda
-              </Divider>
-              <AsyncDataSelect
-                placeholder={'Seleccione un Cliente'}
-                style={{ width: '100%' }}
-                dataSource={customers}
-                result={customerResult}
-                notFoundAsyncData={noDataFounded}
-              />
-
-              <AsyncDataSelect
-                placeholder={'Encuentre un Producto'}
-                style={{ width: '100%', marginTop: '10px' }}
-                dataSource={products}
-                result={productResult}
-                notFoundAsyncData={() => {}}
-              />
-            </div>
-          </Col>
-        </Row>
-      </div>
-      {/* {displayAddCustomerForm && <AddCustomerForm />} */}
+    <div className='--sale-page__container'>
+      {displayInvoicePdf && (
+        <GeneratePdfFromHtml WrappedComponent={Invoice} data={data} msgWhenUnmounting={msgWhenUnmounting} />
+      )}
       <Row>
-        <Col xs={24} sm={24} md={22} lg={22} xl={22}>
-          {activeCustomer && (
-            <div className='--customer-active__container'>
-              <Divider style={{ margin: '25px 0 5px 0' }} orientation='center'>
-                Datos del Comprador
-              </Divider>
-              <CustomerInfo customer={activeCustomer} />
-            </div>
-          )}
+        <Col className='--sale-page__display'>
+          <div className='--search-data__container'>
+            <Divider orientation='center'>Busqueda</Divider>
+            <div className='--search-customer__title'>Cliente:</div>
+            <AsyncDataSelect
+              placeholder={'Seleccione un Cliente'}
+              dataSource={customers}
+              result={customerResult}
+              notFoundAsyncData={noDataFounded}
+              disabled={Boolean(activeCustomer)}
+            />
+
+            <div className='--search-product__title'>Producto:</div>
+            <AsyncDataSelect
+              placeholder={'Encuentre un Producto'}
+              dataSource={products}
+              result={productResult}
+              notFoundAsyncData={() => {}}
+              disabled={Boolean(activeProduct)}
+            />
+          </div>
+
+          <div className='--info-data__container'>
+            {activeCustomer && (
+              <div className='--customer-active__container'>
+                <Divider style={{ margin: '18px 0 5px 0' }} orientation='center'>
+                  Datos del Comprador
+                </Divider>
+                <CustomerInfo customer={activeCustomer} />
+              </div>
+            )}
+            {activeProduct && (
+              <div className='--product-active__container'>
+                <Divider style={{ margin: '25px 0 5px 0' }} orientation='center'>
+                  Datos del Producto
+                </Divider>
+                <ProductInfo product={activeProduct} mode={'landscape'} />
+              </div>
+            )}
+          </div>
 
           {activeProduct && (
-            <div className='--product-active__container'>
-              <Divider style={{ margin: '25px 0 5px 0' }} orientation='center'>
-                Datos del Producto
+            <div className='--image-active__container'>
+              <Divider style={{ margin: '16px 0 8px 0' }} orientation='center'>
+                Imagen
               </Divider>
-              <ProductInfo product={activeProduct} mode={'landscape'} />
+              <div className='--image-data__frame'>
+                <img src='' alt='' />
+              </div>
             </div>
           )}
         </Col>
       </Row>
+      {/* {displayAddCustomerForm && <AddCustomerForm />} */}
       {productsForSale.length > 0 && <ProductsForSale products={productsForSale} tax={ivaTax} />}
     </div>
   );

@@ -1,12 +1,13 @@
+@import '../../../../assets/css/partials/variables.scss';
+
 .--product-info__table {
-  overflow: overlay;
+  // overflow: overlay;
   width: 100%;
 
   & thead th {
     text-align: center !important;
-    color: aliceblue !important;
-    padding: 0 !important;
-    background-color: darkgoldenrod !important;
+    padding: 0 12px !important;
+    background-color: $primary !important;
   }
 }
 
