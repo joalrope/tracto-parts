@@ -35,6 +35,7 @@
 .--layout-content__container {
   height: calc(100vh - 115px);
   padding: 10px 30px;
+  overflow: scroll;
 }
 
 .--header-content__container {

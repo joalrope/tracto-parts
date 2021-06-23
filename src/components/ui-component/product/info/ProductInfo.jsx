@@ -7,7 +7,7 @@ import { jsonToTabular } from '../../../../helpers/jsonTab/json-to-tabular';
 import { columns } from '../../../../assets/data/products.dataConfig';
 import './product-info.scss';
 import { useDispatch } from 'react-redux';
-import { productClearActive } from '../../../../actions/products';
+import { addProductForSale, productClearActive } from '../../../../actions/products';
 
 export const ProductInfo = ({ product, mode }) => {
   const dispatch = useDispatch();
@@ -15,7 +15,8 @@ export const ProductInfo = ({ product, mode }) => {
     dispatch(productClearActive());
   };
 
-  const addProducForSale = (record) => {
+  const setProducForSale = (record) => {
+    dispatch(addProductForSale(record));
     console.log(record);
   };
 
@@ -26,7 +27,7 @@ export const ProductInfo = ({ product, mode }) => {
           <CloseSquareOutlined className='--action-icon__remove' onClick={clearActiveProduc} />
         </Tooltip>
         <Tooltip placement='topLeft' title='Agregar para la venta'>
-          <PlusSquareFilled className='--action-icon__add' onClick={() => addProducForSale(record)} />
+          <PlusSquareFilled className='--action-icon__add' onClick={() => setProducForSale(record)} />
         </Tooltip>
       </Space>
     );
@@ -35,7 +36,7 @@ export const ProductInfo = ({ product, mode }) => {
   const actionColumn = {
     title: '',
     key: 'action',
-    width: 8,
+    width: 50,
     render: actionRender,
   };
 

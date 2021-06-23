@@ -30,6 +30,7 @@ export const CustomerInfo = ({ customer }) => {
     title: '',
     key: 'action',
     align: 'center',
+    width: 50,
     render: actionRender,
   };
 

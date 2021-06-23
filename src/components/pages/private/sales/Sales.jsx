@@ -89,7 +89,7 @@ export const Sales = () => {
             )}
           </div>
 
-          {activeProduct && (
+          {activeProduct && false && (
             <div className='--image-active__container'>
               <Divider style={{ margin: '16px 0 8px 0' }} orientation='center'>
                 Imagen

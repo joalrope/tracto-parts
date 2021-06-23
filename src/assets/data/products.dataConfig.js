@@ -15,7 +15,7 @@ export const activeProductTemplate = ['code', 'title', 'category', 'details', 'r
 
 export const columns = [
   { title: 'Código', dataIndex: 'code', key: 'code' },
-  { title: 'Descripción', dataIndex: 'title', key: 'title', width: 150 },
+  { title: 'Descripción', dataIndex: 'title', key: 'title' },
   { title: 'Marca', dataIndex: 'trademark', key: 'trademark' },
   { title: 'Cantidad', dataIndex: 'qty', key: 'qty', align: 'right' },
   { title: 'Locación', dataIndex: 'location', key: 'location' },

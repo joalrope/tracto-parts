@@ -1,4 +1,9 @@
 @import 'antd/dist/antd.css';
+@import './assets/css/partials/variables.scss';
+
+.ant-table-layout-fixed table {
+  table-layout: auto !important;
+}
 
 .--action-icon__remove {
   font-size: 24px;
