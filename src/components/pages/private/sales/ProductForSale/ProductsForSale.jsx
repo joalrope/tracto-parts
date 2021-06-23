@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { ActionButtom } from '../../../../controls/ActionButtom/ActionButtom';
 import { TableAttrib } from '../../../../../classes/table-attrib-class';
-import { columns } from '../../../../../assets/data/products-for-sale.dataConig';
+import { pdfColumns } from '../../../../../assets/data/products-for-sale.dataConfig';
 import { deleteItemProdForSale, replaceItemProdForSale } from '../../../../../helpers/sales/sales-utils';
 import { setProductsForSale } from '../../../../../actions/products';
 import { displayPdfGenerated } from '../../../../../actions/display';
@@ -17,7 +17,7 @@ export const ProductsForSale = ({ products, tax }) => {
   const [indexRow, setIndexRow] = useState(null);
   const [headData] = products;
   const { activeCustomer } = useSelector((state) => state.customer);
-  const attrib = new TableAttrib(columns);
+  const attrib = new TableAttrib(pdfColumns);
   const coin = 'USD$.';
   const initRow = products[0]['id'];
 
@@ -122,7 +122,7 @@ export const ProductsForSale = ({ products, tax }) => {
   const handleFocus = (e) => e.target.select();
 
   return (
-    <div className='products-for-sale-container mt-5'>
+    <div className='mt-5 products-for-sale-container'>
       <div className='products-for-sale'>
         <h5 className='products-for-sale-title'>Productos a Facturar</h5>
         <table className='products-for-sale-table'>

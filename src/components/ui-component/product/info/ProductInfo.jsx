@@ -1,23 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { Space, Table, Tooltip } from 'antd';
 import { CloseSquareOutlined, PlusSquareFilled } from '@ant-design/icons';
-
+import { productClearActive } from '../../../../actions/products';
 import { jsonToTabular } from '../../../../helpers/jsonTab/json-to-tabular';
 import { columns } from '../../../../assets/data/products.dataConfig';
 import './product-info.scss';
-import { useDispatch } from 'react-redux';
-import { addProductForSale, productClearActive } from '../../../../actions/products';
 
-export const ProductInfo = ({ product, mode }) => {
+export const ProductInfo = ({ product, mode, setProductForSale }) => {
   const dispatch = useDispatch();
+
   const clearActiveProduc = () => {
     dispatch(productClearActive());
-  };
-
-  const setProducForSale = (record) => {
-    dispatch(addProductForSale(record));
-    console.log(record);
   };
 
   const actionRender = (record) => {
@@ -27,7 +22,7 @@ export const ProductInfo = ({ product, mode }) => {
           <CloseSquareOutlined className='--action-icon__remove' onClick={clearActiveProduc} />
         </Tooltip>
         <Tooltip placement='topLeft' title='Agregar para la venta'>
-          <PlusSquareFilled className='--action-icon__add' onClick={() => setProducForSale(record)} />
+          <PlusSquareFilled className='--action-icon__add' onClick={() => setProductForSale(record)} />
         </Tooltip>
       </Space>
     );
@@ -74,4 +69,5 @@ export const ProductInfo = ({ product, mode }) => {
 ProductInfo.propTypes = {
   product: PropTypes.object,
   mode: PropTypes.string,
+  setProductForSale: PropTypes.func,
 };

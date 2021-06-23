@@ -1,4 +1,4 @@
-export const columns = [
+export const pdfColumns = [
   {
     name: 'id',
     title: 'id',
@@ -6,6 +6,14 @@ export const columns = [
     visible: false,
     editable: false,
     class: 'text-left',
+  },
+  {
+    name: 'key',
+    title: 'Item',
+    type: 'string',
+    visible: true,
+    editable: false,
+    class: 'text-center',
   },
   {
     name: 'item',
@@ -32,12 +40,28 @@ export const columns = [
     class: 'text-left',
   },
   {
+    name: 'category',
+    title: 'Categoría',
+    type: 'string',
+    visible: false,
+    editable: true,
+    class: 'text-left',
+  },
+  {
     name: 'trademark',
     title: 'Marca',
     type: 'string',
     visible: true,
     editable: false,
     class: 'text-center',
+  },
+  {
+    name: 'costPrice',
+    title: 'Precio Costo',
+    type: 'number',
+    visible: false,
+    editable: false,
+    class: 'bold text-right',
   },
   {
     name: 'salePrice',

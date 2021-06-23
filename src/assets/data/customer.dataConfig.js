@@ -16,7 +16,6 @@ export const columns = [
     dataIndex: 'address',
     title: 'Dirección',
     //width: 400,
-    align: 'center',
   },
   {
     key: 'email',

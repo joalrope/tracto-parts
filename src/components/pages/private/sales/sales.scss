@@ -16,11 +16,30 @@
   flex: 1 0 20%;
 }
 
+.--search-product__title {
+  margin-top: 18px;
+}
+
 .--info-data__container {
   flex: 1 0 70%;
   justify-content: flex-start;
   overflow: auto;
   scroll-snap-type: x mandatory;
+}
+
+.--customer-active__container .ant-divider .ant-divider-inner-text,
+.--products-for-sale__container .ant-divider .ant-divider-inner-text,
+.--product-active__container .ant-divider .ant-divider-inner-text {
+  font-size: 13px;
+}
+
+.--customer-active__divider {
+  margin: 18px 0 5px 0 !important;
+}
+
+.--products-for-sale__divider,
+.--product-active__divider {
+  margin: 9px 0 5px 0 !important;
 }
 
 .--image-active__container {
