@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Divider, Row, Col } from 'antd';
 import { findCustomerById, getCustomerByCode } from '../../../../actions/customers';
-import { addProductForSale, findProductById, getProductByCode } from '../../../../actions/products';
+import {
+  addProductForSale,
+  /* setProductsForSale, */ findProductById,
+  getProductByCode,
+} from '../../../../actions/products';
 import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
 
 import { CustomerInfo } from '../../../ui-component/customer/info/CustomerInfo';
@@ -14,7 +18,10 @@ import { getTransactionInfo } from './controllers/getTransactionInfo';
 import { getTotals } from './controllers/totals';
 import { msgWhenUnmounting } from './controllers/pdfRenderResult';
 import { controlNumber, ivaTax } from './controllers/getTransactionInfo';
+import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import './sales.scss';
+
+import AntdTable from '../../../ui-component/product/foldertest/AntdTable';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -23,10 +30,9 @@ export const Sales = () => {
   const { displayInvoicePdf } = useSelector((state) => state.display);
   const customers = async (value) => await getCustomerByCode(value);
   const products = async (value) => await getProductByCode(value);
-  const [key, setKey] = useState(1);
 
-  useEffect(() => {
-    getTransactionInfo();
+  useEffect(async () => {
+    await getTransactionInfo();
   }, []);
 
   const data = getTotals(controlNumber, ivaTax);
@@ -43,13 +49,13 @@ export const Sales = () => {
     console.log(msg);
   };
 
-  const setProductForSale = (record) => {
-    setKey(key + 1);
-    const product = JSON.parse(JSON.stringify(record));
-    product.key = key;
-    product.qty = 1;
-    product.totalItem = product.salePrice;
-    dispatch(addProductForSale(product));
+  const setProductForSale2 = (record) => {
+    record.qty = 1;
+    record.totalItem = record.qty * record.salePrice;
+    dispatch(addProductForSale(record));
+    Object.values(productsForSale).map((value, index) => {
+      console.log(value, index);
+    });
   };
 
   return (
@@ -67,7 +73,7 @@ export const Sales = () => {
               dataSource={customers}
               result={customerResult}
               notFoundAsyncData={noDataFounded}
-              disabled={Boolean(activeCustomer)}
+              //disabled={Boolean(activeCustomer)}
             />
 
             <div className='--search-product__title'>Producto:</div>
@@ -76,7 +82,7 @@ export const Sales = () => {
               dataSource={products}
               result={productResult}
               notFoundAsyncData={() => {}}
-              disabled={Boolean(activeProduct)}
+              //disabled={Boolean(activeProduct)}
             />
           </div>
 
@@ -94,7 +100,7 @@ export const Sales = () => {
                 <Divider className='--product-active__divider' orientation='center'>
                   Datos del Producto
                 </Divider>
-                <ProductInfo product={activeProduct} mode={'landscape'} setProductForSale={setProductForSale} />
+                <ProductInfo product={activeProduct} mode={'landscape'} setProductForSale={setProductForSale2} />
               </div>
             )}
             {productsForSale.length > 0 && (
@@ -119,6 +125,9 @@ export const Sales = () => {
           )}
         </Col>
       </Row>
+      {productsForSale.length > 0 && (
+        <AntdTable /* data={productsForSale} */ cols={forSaleColumns} count={productsForSale.length} />
+      )}
       {/* {displayAddCustomerForm && <AddCustomerForm />} */}
     </div>
   );

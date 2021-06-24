@@ -10,7 +10,7 @@ import './product-info.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSelectedProduct } from '../../../../../helpers/sales/add-products-for-sale';
 import { replaceItemProdForSale } from '../../../../../helpers/sales/sales-utils';
-import { addProductForSale, clearActivePoduct, setProductsForSale } from '../../../../../actions/products';
+import { addProductForSale /* , clearActivePoduct */, setProductsForSale } from '../../../../../actions/products';
 
 export const ProductInfo = ({ product, mode }) => {
   const dispatch = useDispatch();
@@ -69,11 +69,11 @@ export const ProductInfo = ({ product, mode }) => {
     const brand = activeProduct.details[pos].trademark;
 
     handleClick('trademark', brand);
-    dispatch(clearActivePoduct());
+    //dispatch(clearActivePoduct());
   };
 
   const handleDeleteBtnClick = () => {
-    dispatch(clearActivePoduct());
+    //dispatch(clearActivePoduct());
   };
 
   const actionButtonsProductInfo = [

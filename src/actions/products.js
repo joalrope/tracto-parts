@@ -70,10 +70,6 @@ export const addProductForSale = (product) => ({
   payload: product,
 });
 
-export const clearActivePoduct = () => ({
-  type: types.productClearActivePoduct,
-});
-
 export const setProductsForSale = (data) => ({
   type: types.productSetProductsForSale,
   payload: data,

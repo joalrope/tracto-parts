@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { types } from '../types/types';
 import { fetchWithoutToken, fetchWithToken } from '../helpers/fetch';
-import { clearActivePoduct, setProductsForSale } from './products';
+import { productClearActive, setProductsForSale } from './products';
 import { customerClearActive } from './customers';
 
 export const startLogin = (email, password) => {
@@ -130,7 +130,7 @@ const clearStore = (dispatch) => {
   sessionStorage.clear();
   dispatch(setProductsForSale([]));
   dispatch(customerClearActive());
-  dispatch(clearActivePoduct());
+  dispatch(productClearActive());
   dispatch(startLogout());
 };
 

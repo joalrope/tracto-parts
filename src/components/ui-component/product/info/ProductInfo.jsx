@@ -39,11 +39,11 @@ export const ProductInfo = ({ product, mode, setProductForSale }) => {
     columns.push(actionColumn);
   }
 
-  const productTab = jsonToTabular(product, mode);
+  const tabulatedProduct = jsonToTabular(product, mode);
   let dataSource = [];
 
-  Object.values(productTab).map((product, index) => {
-    let json = { key: index };
+  Object.values(tabulatedProduct).map((product) => {
+    let json = { key: 1 };
     Object.entries(product).map((value) => {
       return (json[value[0]] = value[1]['value']);
     });
