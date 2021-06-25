@@ -13,7 +13,7 @@ import { CustomerInfo } from '../../../ui-component/customer/info/CustomerInfo';
 import { ProductInfo } from '../../../ui-component/product/info/ProductInfo';
 import { Invoice } from '../../../templates/invoice/Invoice';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
-import { ProductsForSale } from '../../../ui-component/product/for-sale/ProductsForSale';
+//import { ProductsForSale } from '../../../ui-component/product/for-sale/ProductsForSale';
 import { getTransactionInfo } from './controllers/getTransactionInfo';
 import { getTotals } from './controllers/totals';
 import { msgWhenUnmounting } from './controllers/pdfRenderResult';
@@ -108,7 +108,8 @@ export const Sales = () => {
                 <Divider className='--products-for-sale__divider' orientation='center'>
                   Productos para la Venta
                 </Divider>
-                <ProductsForSale products={productsForSale} tax={ivaTax} />
+                {/* <ProductsForSale products={productsForSale} tax={ivaTax} /> */}
+                <AntdTable cols={forSaleColumns} count={productsForSale.length} />
               </div>
             )}
           </div>
@@ -125,9 +126,7 @@ export const Sales = () => {
           )}
         </Col>
       </Row>
-      {productsForSale.length > 0 && (
-        <AntdTable /* data={productsForSale} */ cols={forSaleColumns} count={productsForSale.length} />
-      )}
+
       {/* {displayAddCustomerForm && <AddCustomerForm />} */}
     </div>
   );

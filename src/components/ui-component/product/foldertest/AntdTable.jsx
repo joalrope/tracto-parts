@@ -1,20 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Table, Button /* , Popconfirm  */ } from 'antd';
+import { Table /*Button , Popconfirm  */ } from 'antd';
 
 import { EditableRow } from './EditableRow';
 import { EditableCell } from './EditableCell';
+import './antd-table.scss';
+
 export const EditableContext = React.createContext(null);
 
 export class AntdTable extends React.Component {
   constructor(props) {
     super(props);
     this.columns = props.cols;
-    this.state = {
-      count: this.props.count,
-      dataSource: this.props.dataSource2,
-    };
   }
 
   handleDelete = (key) => {
@@ -23,19 +21,7 @@ export class AntdTable extends React.Component {
       dataSource: dataSource.filter((item) => item.key !== key),
     });
   };
-  handleAdd = () => {
-    const { count, dataSource } = this.state;
-    const newData = {
-      key: count,
-      name: `Edward King ${count}`,
-      age: '32',
-      address: `London, Park Lane no. ${count}`,
-    };
-    this.setState({
-      dataSource: [...dataSource, newData],
-      count: count + 1,
-    });
-  };
+
   handleSave = (row) => {
     const newData = [...this.state.dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
@@ -47,7 +33,6 @@ export class AntdTable extends React.Component {
   };
 
   render() {
-    const { dataSource } = this.state;
     const components = {
       body: {
         row: EditableRow,
@@ -74,20 +59,12 @@ export class AntdTable extends React.Component {
 
     return (
       <div>
-        <Button
-          onClick={this.handleAdd}
-          type='primary'
-          style={{
-            marginBottom: 16,
-          }}
-        >
-          Add a row
-        </Button>
         <Table
+          className='--product-for-sale__table'
           components={components}
           rowClassName={() => 'editable-row'}
           bordered
-          dataSource={dataSource}
+          dataSource={this.props.dataSource}
           columns={columns}
           pagination={false}
         />
@@ -99,13 +76,13 @@ export class AntdTable extends React.Component {
 AntdTable.propTypes = {
   cols: PropTypes.array,
   dataSource: PropTypes.array,
-  dataSource2: PropTypes.array,
+  //dataSource2: PropTypes.array,
   count: PropTypes.number,
 };
 
 const mapStateToProps = (state) => {
   return {
-    dataSource2: state.product.productsForSale,
+    dataSource: state.product.productsForSale,
   };
 };
 

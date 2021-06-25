@@ -8,7 +8,6 @@ export const EditableCell = ({ title, editable, children, dataIndex, record, han
   const [editing, setEditing] = useState(false);
   const inputRef = useRef(null);
   const form = useContext(EditableContext);
-  console.log(children);
   useEffect(() => {
     if (editing) {
       inputRef.current.focus();
@@ -48,13 +47,13 @@ export const EditableCell = ({ title, editable, children, dataIndex, record, han
           },
         ]}
       >
-        <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+        <Input ref={inputRef} style={{ width: '100px', padding: '0 8px' }} onPressEnter={save} onBlur={save} />
       </Form.Item>
     ) : (
       <div
         className='editable-cell-value-wrap'
         style={{
-          paddingRight: 24,
+          paddingRight: 0,
         }}
         onClick={toggleEdit}
       >
