@@ -43,17 +43,22 @@ export const EditableCell = ({ title, editable, children, dataIndex, record, han
         rules={[
           {
             required: true,
-            message: `${title} is required.`,
+            message: `Indique el ${title}.`,
           },
         ]}
       >
-        <Input ref={inputRef} style={{ width: '100px', padding: '0 8px' }} onPressEnter={save} onBlur={save} />
+        <Input
+          ref={inputRef}
+          style={{ maxWidth: '100px', textAlign: 'right', padding: '0 8px' }}
+          onPressEnter={save}
+          onBlur={save}
+        />
       </Form.Item>
     ) : (
       <div
         className='editable-cell-value-wrap'
         style={{
-          paddingRight: 0,
+          paddingRight: 2,
         }}
         onClick={toggleEdit}
       >
@@ -62,14 +67,18 @@ export const EditableCell = ({ title, editable, children, dataIndex, record, han
     );
   }
 
-  return <td {...restProps}>{childNode}</td>;
+  return (
+    <td style={{ maxWidth: '100px', textAlign: 'right', padding: '0 8px' }} {...restProps}>
+      {childNode}
+    </td>
+  );
 };
 
 EditableCell.propTypes = {
   title: PropTypes.string,
   editable: PropTypes.bool,
-  children: PropTypes.string,
+  children: PropTypes.array,
   dataIndex: PropTypes.string,
-  record: PropTypes.array,
+  record: PropTypes.object,
   handleSave: PropTypes.func,
 };

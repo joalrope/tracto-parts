@@ -15,9 +15,9 @@ import { Invoice } from '../../../templates/invoice/Invoice';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
 //import { ProductsForSale } from '../../../ui-component/product/for-sale/ProductsForSale';
 import { getTransactionInfo } from './controllers/getTransactionInfo';
-import { getTotals } from './controllers/totals';
+//import { getTotals } from './controllers/totals';
 import { msgWhenUnmounting } from './controllers/pdfRenderResult';
-import { controlNumber, ivaTax } from './controllers/getTransactionInfo';
+//import { controlNumber, ivaTax } from './controllers/getTransactionInfo';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import './sales.scss';
 
@@ -35,7 +35,7 @@ export const Sales = () => {
     await getTransactionInfo();
   }, []);
 
-  const data = getTotals(controlNumber, ivaTax);
+  //const data = getTotals(controlNumber, ivaTax);
 
   const customerResult = (id) => {
     dispatch(findCustomerById(id));
@@ -61,7 +61,7 @@ export const Sales = () => {
   return (
     <div className='--sale-page__container'>
       {displayInvoicePdf && (
-        <GeneratePdfFromHtml WrappedComponent={Invoice} data={data} msgWhenUnmounting={msgWhenUnmounting} />
+        <GeneratePdfFromHtml WrappedComponent={Invoice} /* data={data} */ msgWhenUnmounting={msgWhenUnmounting} />
       )}
       <Row>
         <Col className='--sale-page__display'>

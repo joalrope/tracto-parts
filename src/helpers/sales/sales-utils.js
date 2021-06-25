@@ -5,6 +5,6 @@ export const replaceItemProdForSale = (item, array) => {
   });
 };
 
-export const deleteItemProdForSale = (id, array) => {
-  return array.filter((product) => product.id !== id);
+export const deleteItemProdForSale = async (id, array) => {
+  return await array.filter((product) => product.id !== id);
 };

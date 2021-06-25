@@ -1,5 +1,36 @@
 import React from 'react';
+import { Space, Tooltip } from 'antd';
+import { CloseSquareOutlined } from '@ant-design/icons';
+import { deleteItemProdForSale } from '../../helpers/sales/sales-utils';
+import { setProductsForSale } from '../../actions/products';
+
+import { store } from '../../store/store';
+
 //const auth = ['storer-chief', 'admin', 'owner'];
+
+const productForSaleactionRender = (record) => {
+  console.log(record);
+
+  const handleDeleteSelectedProduct = () => {
+    const state = store.getState();
+    const products = deleteItemProdForSale(record.id, state.product.productsForSale);
+
+    console.log(state.product.productsForSale);
+
+    if (products.length > 0) {
+      store.dispatch(setProductsForSale(products));
+    }
+  };
+
+  return (
+    <Space size='small'>
+      <Tooltip placement='topLeft' title='Eliminar Producto'>
+        <CloseSquareOutlined className='--action-icon__remove' onClick={handleDeleteSelectedProduct} />
+      </Tooltip>
+    </Space>
+  );
+};
+
 export const productInfoTemplate = [
   'code',
   'title',
@@ -64,7 +95,7 @@ export const forSaleColumns = [
     editable: true,
     render: /*eslint-disable-line*/ (value) => {
       return (
-        <span>
+        <span style={{ maxWidth: '100px' }}>
           {Number(value).toLocaleString('es-CO', {
             maximumFractionDigits: 2,
             minimumFractionDigits: 2,
@@ -88,5 +119,11 @@ export const forSaleColumns = [
         </span>
       );
     },
+  },
+  {
+    title: '',
+    key: 'action',
+    width: 50,
+    render: productForSaleactionRender,
   },
 ];
