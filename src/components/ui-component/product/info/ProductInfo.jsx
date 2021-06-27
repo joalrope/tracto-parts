@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Space, Table, Tooltip } from 'antd';
 import { CloseSquareOutlined, PlusSquareFilled } from '@ant-design/icons';
 import { productClearActive } from '../../../../actions/products';
@@ -10,6 +10,11 @@ import './product-info.scss';
 
 export const ProductInfo = ({ product, mode, setProductForSale }) => {
   const dispatch = useDispatch();
+  const { productsForSale } = useSelector((state) => state.product);
+  const item = productsForSale.length + 1;
+
+  /*  const Item = productForSale.length;
+  console.log(Item); */
 
   const clearActiveProduc = () => {
     dispatch(productClearActive());
@@ -43,7 +48,7 @@ export const ProductInfo = ({ product, mode, setProductForSale }) => {
   let dataSource = [];
 
   Object.values(tabulatedProduct).map((product) => {
-    let json = { key: 1 };
+    let json = { key: item };
     Object.entries(product).map((value) => {
       return (json[value[0]] = value[1]['value']);
     });

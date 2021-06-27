@@ -21,7 +21,8 @@ import { msgWhenUnmounting } from './controllers/pdfRenderResult';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import './sales.scss';
 
-import AntdTable from '../../../ui-component/product/foldertest/AntdTable';
+import { AntdTable } from '../../../ui-component/product/foldertest/AntdTable';
+import { ActionRender } from '../../../ui-component/product/for-sale/ActionRender';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,17 @@ export const Sales = () => {
   }, []);
 
   //const data = getTotals(controlNumber, ivaTax);
+
+  const actionColumn = {
+    title: '',
+    key: 'action',
+    width: 50,
+    render: ActionRender,
+  };
+
+  if (!forSaleColumns.find((obj) => obj.key === 'action')) {
+    forSaleColumns.push(actionColumn);
+  }
 
   const customerResult = (id) => {
     dispatch(findCustomerById(id));
@@ -100,7 +112,12 @@ export const Sales = () => {
                 <Divider className='--product-active__divider' orientation='center'>
                   Datos del Producto
                 </Divider>
-                <ProductInfo product={activeProduct} mode={'landscape'} setProductForSale={setProductForSale2} />
+                <ProductInfo
+                  product={activeProduct}
+                  mode={'landscape'}
+                  //item={productsForSale.length + 1}
+                  setProductForSale={setProductForSale2}
+                />
               </div>
             )}
             {productsForSale.length > 0 && (
@@ -109,7 +126,7 @@ export const Sales = () => {
                   Productos para la Venta
                 </Divider>
                 {/* <ProductsForSale products={productsForSale} tax={ivaTax} /> */}
-                <AntdTable cols={forSaleColumns} count={productsForSale.length} />
+                <AntdTable dataSource={productsForSale} cols={forSaleColumns} />
               </div>
             )}
           </div>

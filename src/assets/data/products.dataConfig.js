@@ -1,35 +1,5 @@
 import React from 'react';
-import { Space, Tooltip } from 'antd';
-import { CloseSquareOutlined } from '@ant-design/icons';
-import { deleteItemProdForSale } from '../../helpers/sales/sales-utils';
-import { setProductsForSale } from '../../actions/products';
-
-import { store } from '../../store/store';
-
-//const auth = ['storer-chief', 'admin', 'owner'];
-
-const productForSaleactionRender = (record) => {
-  console.log(record);
-
-  const handleDeleteSelectedProduct = () => {
-    const state = store.getState();
-    const products = deleteItemProdForSale(record.id, state.product.productsForSale);
-
-    console.log(state.product.productsForSale);
-
-    if (products.length > 0) {
-      store.dispatch(setProductsForSale(products));
-    }
-  };
-
-  return (
-    <Space size='small'>
-      <Tooltip placement='topLeft' title='Eliminar Producto'>
-        <CloseSquareOutlined className='--action-icon__remove' onClick={handleDeleteSelectedProduct} />
-      </Tooltip>
-    </Space>
-  );
-};
+// import { ActionRender } from '../../components/ui-component/product/for-sale/ActionRender';
 
 export const productInfoTemplate = [
   'code',
@@ -119,11 +89,5 @@ export const forSaleColumns = [
         </span>
       );
     },
-  },
-  {
-    title: '',
-    key: 'action',
-    width: 50,
-    render: productForSaleactionRender,
   },
 ];
