@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Divider, Row, Col } from 'antd';
+import { Divider, Row, Col, Space, Tooltip } from 'antd';
+import { CloseSquareOutlined } from '@ant-design/icons';
+import { deleteItemProdForSale } from '../../../../helpers/sales/sales-utils';
+import { setProductsForSale } from '../../../../actions/products';
 import { findCustomerById, getCustomerByCode } from '../../../../actions/customers';
 import {
   addProductForSale,
@@ -22,7 +25,6 @@ import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import './sales.scss';
 
 import { AntdTable } from '../../../ui-component/product/foldertest/AntdTable';
-import { ActionRender } from '../../../ui-component/product/for-sale/ActionRender';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -38,11 +40,28 @@ export const Sales = () => {
 
   //const data = getTotals(controlNumber, ivaTax);
 
+  const handleDelete = (id) => {
+    const newProducts = deleteItemProdForSale(id);
+    dispatch(setProductsForSale(newProducts));
+  };
+
+  const actionRender = (record) => {
+    return (
+      <div className='action-button__column'>
+        <Space size='small'>
+          <Tooltip placement='topLeft' title='Eliminar Producto'>
+            <CloseSquareOutlined className='--action-icon__remove' onClick={() => handleDelete(record.id)} />
+          </Tooltip>
+        </Space>
+      </div>
+    );
+  };
+
   const actionColumn = {
     title: '',
     key: 'action',
     width: 50,
-    render: ActionRender,
+    render: actionRender,
   };
 
   if (!forSaleColumns.find((obj) => obj.key === 'action')) {
@@ -61,7 +80,7 @@ export const Sales = () => {
     console.log(msg);
   };
 
-  const setProductForSale2 = (record) => {
+  const setProductForSale = (record) => {
     record.qty = 1;
     record.totalItem = record.qty * record.salePrice;
     dispatch(addProductForSale(record));
@@ -116,7 +135,7 @@ export const Sales = () => {
                   product={activeProduct}
                   mode={'landscape'}
                   //item={productsForSale.length + 1}
-                  setProductForSale={setProductForSale2}
+                  setProductForSale={setProductForSale}
                 />
               </div>
             )}
