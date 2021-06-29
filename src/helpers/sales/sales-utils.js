@@ -11,11 +11,18 @@ export const deleteItemProdForSale = (id) => {
   const state = store.getState();
   const { productsForSale } = state.product;
   const filteredProducts = productsForSale.filter((product) => product.id !== id);
-  let newProducts = [];
 
-  filteredProducts.map((product, index) => {
-    newProducts.push({ key: index + 1, ...product });
+  return reorderedByKey(filteredProducts);
+};
+
+const reorderedByKey = (objectsArray) => {
+  let reorderedItems = [];
+
+  objectsArray.map((object, index) => {
+    let { key, ...rest } = object;
+    key = index + 1;
+    reorderedItems.push({ key, ...rest });
   });
 
-  return filteredProducts;
+  return reorderedItems;
 };

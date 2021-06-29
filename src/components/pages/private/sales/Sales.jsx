@@ -112,7 +112,7 @@ export const Sales = () => {
               placeholder={'Encuentre un Producto'}
               dataSource={products}
               result={productResult}
-              notFoundAsyncData={() => {}}
+              //notFoundAsyncData={() => {}}
               //disabled={Boolean(activeProduct)}
             />
           </div>

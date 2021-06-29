@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Space, Table, Tooltip } from 'antd';
+import { Space, Card, Avatar, Image, /*Table,*/ Tooltip } from 'antd';
 import { CloseSquareOutlined, PlusSquareFilled } from '@ant-design/icons';
 import { productClearActive } from '../../../../actions/products';
 import { jsonToTabular } from '../../../../helpers/jsonTab/json-to-tabular';
 import { columns } from '../../../../assets/data/products.dataConfig';
 import './product-info.scss';
+import cat from '../../../../assets/images/cat.png';
+
+//import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+
+const { Meta } = Card;
 
 export const ProductInfo = ({ product, mode, setProductForSale }) => {
   const dispatch = useDispatch();
@@ -56,9 +61,11 @@ export const ProductInfo = ({ product, mode, setProductForSale }) => {
     dataSource.push(json);
   });
 
+  console.log(dataSource[0]);
+
   return (
     <div className='product-info__container'>
-      <Table
+      {/* <Table
         className='--product-info__table'
         dataSource={dataSource}
         columns={columns}
@@ -66,7 +73,31 @@ export const ProductInfo = ({ product, mode, setProductForSale }) => {
         bordered={true}
         scroll={{ x: 'max-content' }}
         pagination={false}
-      />
+      /> */}
+      <Card
+        style={{ width: 200 }}
+        cover={<img alt='example' src='https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png' />}
+        actions={[
+          <p key='ctp' style={{ margin: 0, padding: 0 }}>
+            <p style={{ margin: 0, padding: 0 }}>{dataSource[0].qty}</p>
+            <Avatar src={<Image src={cat} />} />
+            <p style={{ margin: 0, padding: 0 }}>{`${dataSource[0].salePrice}`}</p>
+          </p>,
+          <p key='cat' style={{ margin: 0, padding: 0 }}>
+            <p style={{ margin: 0, padding: 0 }}>{dataSource[0].qty}</p>
+            <Avatar src={<Image src='https://www.costex.com/wp-content/uploads/2021/01/ctp_2021-logo.png' />} />
+            <p style={{ margin: 0, padding: 0 }}>{`${dataSource[0].salePrice}`}</p>
+          </p>,
+        ]}
+        size='small'
+        //type='inner'
+      >
+        <Meta
+          //avatar={<Avatar src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png' />}
+          description={dataSource[0].title}
+          title={dataSource[0].code}
+        />
+      </Card>
     </div>
   );
 };
