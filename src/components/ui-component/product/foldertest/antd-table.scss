@@ -26,8 +26,8 @@
 
   & thead th {
     text-align: center !important;
-    padding: 2px 8px !important;
-    background-color: $primary !important;
+    padding: 4px 8px !important;
+    //background-color: $primary !important;
     font-size: 0.75rem;
     max-width: 80px;
     overflow: hidden;
@@ -36,7 +36,7 @@
   }
 
   & tbody tr td {
-    padding: 2px 8px !important;
+    padding: 4px 8px !important;
     font-size: 0.75rem;
     max-width: 300px;
     overflow: hidden;

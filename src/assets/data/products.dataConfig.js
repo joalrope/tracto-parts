@@ -52,7 +52,7 @@ export const columns = [
 ];
 
 export const forSaleColumns = [
-  { title: 'Item', dataIndex: 'key', key: 'key', aling: 'center' },
+  //{ title: 'Item', dataIndex: 'key', key: 'key', aling: 'center' },
   { title: 'Código', dataIndex: 'code', key: 'code', aling: 'center' },
   { title: 'Descripción', dataIndex: 'title', key: 'title' },
   { title: 'Marca', dataIndex: 'trademark', key: 'trademark', aling: 'center' },

@@ -19,7 +19,7 @@ export const ProductsForSale = ({ products, mode }) => {
   });
 
   return (
-    <div className='products-for-sale__container'>
+    <div className='--products-for-sale__container'>
       <Table
         className='--product-for-sale__table'
         dataSource={dataSource}
