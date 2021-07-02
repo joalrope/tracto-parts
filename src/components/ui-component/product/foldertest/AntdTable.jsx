@@ -9,19 +9,6 @@ import './antd-table.scss';
 export const EditableContext = React.createContext(null);
 
 export const AntdTable = ({ dataSource, cols }) => {
-  //const [dataSource, setDataSource] = useState([]);
-  /* constructor(props) {
-    super(props);
-    this.columns = props.cols;
-  } */
-
-  /*  handleDelete = (key) => {
-    const dataSource = [...this.props.dataSource];
-    this.setState({
-      dataSource: dataSource.filter((item) => item.key !== key),
-    });
-  }; */
-
   const handleSave = (row) => {
     const newData = [...dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
@@ -60,7 +47,6 @@ export const AntdTable = ({ dataSource, cols }) => {
         className='--product-for-sale__table'
         components={components}
         rowClassName={() => 'editable-row'}
-        bordered
         dataSource={dataSource}
         columns={columns}
         pagination={false}

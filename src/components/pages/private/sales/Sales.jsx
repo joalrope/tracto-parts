@@ -41,11 +41,13 @@ export const Sales = () => {
   //const data = getTotals(controlNumber, ivaTax);
 
   const handleDelete = (id) => {
+    console.log(id);
     const newProducts = deleteItemProdForSale(id);
     dispatch(setProductsForSale(newProducts));
   };
 
   const actionRender = (record) => {
+    console.log(record);
     return (
       <div className='action-button__column'>
         <Space size='small'>
@@ -81,6 +83,7 @@ export const Sales = () => {
   };
 
   const setProductForSale = (record) => {
+    console.log(record);
     record.qty = 1;
     record.totalItem = record.qty * record.salePrice;
     dispatch(addProductForSale(record));
