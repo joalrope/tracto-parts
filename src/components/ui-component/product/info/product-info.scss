@@ -29,3 +29,40 @@
   padding: 5px;
   border: 1px solid hsla(0, 0%, 0%, 0.1);
 }
+
+.--product-card__carousel {
+  & .slick-prev,
+  .slick-next,
+  .slick-prev:hover,
+  .slick-next:hover {
+    top: 30% !important;
+    font-size: 16px !important;
+    color: currentColor !important;
+  }
+
+  & .slick-prev,
+  .slick-prev:hover {
+    left: -6px !important;
+  }
+
+  & .slick-next,
+  .slick-next:hover {
+    right: -8px !important;
+  }
+}
+
+.--product-card__details {
+  margin-top: 1em;
+  text-align: center;
+
+  & .--product-card__stock {
+    text-align: center;
+    & p {
+      margin-bottom: 0 !important;
+    }
+  }
+}
+
+.--product-card__brand-avatar {
+  font-size: 12px;
+}
