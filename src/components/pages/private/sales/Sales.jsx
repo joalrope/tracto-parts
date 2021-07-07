@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Divider, Row, Col, Space, Tooltip } from 'antd';
+import { Divider, Row, Col, Space, Tooltip, Button } from 'antd';
 import { CloseSquareOutlined } from '@ant-design/icons';
 import { deleteItemProdForSale } from '../../../../helpers/sales/sales-utils';
 import { setProductsForSale } from '../../../../actions/products';
@@ -25,6 +25,7 @@ import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import './sales.scss';
 
 import { AntdTable } from '../../../ui-component/product/foldertest/AntdTable';
+import { ResultModal } from '../../../wrappers/ResultModal';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -40,19 +41,20 @@ export const Sales = () => {
 
   //const data = getTotals(controlNumber, ivaTax);
 
-  const handleDelete = (id) => {
-    console.log(id);
-    const newProducts = deleteItemProdForSale(id);
+  const handleDelete = (id, trademark) => {
+    const newProducts = deleteItemProdForSale(id, trademark);
     dispatch(setProductsForSale(newProducts));
   };
 
   const actionRender = (record) => {
-    console.log(record);
     return (
       <div className='action-button__column'>
         <Space size='small'>
           <Tooltip placement='topLeft' title='Eliminar Producto'>
-            <CloseSquareOutlined className='--action-icon__remove' onClick={() => handleDelete(record.id)} />
+            <CloseSquareOutlined
+              className='--action-icon__remove'
+              onClick={() => handleDelete(record.id, record.trademark)}
+            />
           </Tooltip>
         </Space>
       </div>
@@ -82,18 +84,50 @@ export const Sales = () => {
     console.log(msg);
   };
 
+  const [showModal, setShowModal] = useState(false);
+
   const setProductForSale = (record) => {
-    console.log(record);
-    record.qty = 1;
-    record.totalItem = record.qty * record.salePrice;
-    dispatch(addProductForSale(record));
-    Object.values(productsForSale).map((value, index) => {
-      console.log(value, index);
-    });
+    const isLoadedProduct = productsForSale.some(
+      (product) => product.code === record.code && product.trademark === record.trademark
+    );
+
+    if (!isLoadedProduct) {
+      record.key = productsForSale.length + 1;
+      record.qty = 1;
+      record.totalItem = record.qty * record.salePrice;
+      dispatch(addProductForSale(record));
+    } else {
+      setShowModal(true);
+    }
+  };
+
+  const extra = [
+    <Button type='primary' key='console'>
+      Go Console
+    </Button>,
+    <Button key='buy'>Buy Again</Button>,
+  ];
+
+  const handleCancel = () => {
+    setShowModal(false);
+  };
+  const handleOk = () => {
+    setShowModal(false);
   };
 
   return (
     <div className='--sale-page__container'>
+      {showModal && (
+        <ResultModal
+          status={'warning'}
+          title={'informacion'}
+          subTitle={'Subtitulo'}
+          extra={extra}
+          visible={showModal}
+          handleOk={handleOk}
+          handleCancel={handleCancel}
+        />
+      )}
       {displayInvoicePdf && (
         <GeneratePdfFromHtml WrappedComponent={Invoice} /* data={data} */ msgWhenUnmounting={msgWhenUnmounting} />
       )}
@@ -167,6 +201,14 @@ export const Sales = () => {
       </Row>
 
       {/* {displayAddCustomerForm && <AddCustomerForm />} */}
+    </div>
+  );
+};
+
+export const wrapped = () => {
+  return (
+    <div>
+      <p>Deasea Agregar?</p>
     </div>
   );
 };

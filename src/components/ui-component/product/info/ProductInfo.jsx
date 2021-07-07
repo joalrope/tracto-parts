@@ -1,9 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { Card, Avatar, Image, Tooltip, Carousel } from 'antd';
+import { Card, Avatar, Image, Tooltip, Carousel, Tag } from 'antd';
 import { CloseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { productClearActive } from '../../../../actions/products';
+//import { getImageFromUrl } from '../../../../helpers/getImage';
+import noImage from '../../../../assets/images/no-image.jpeg';
 import './product-info.scss';
 
 const { Meta } = Card;
@@ -34,7 +36,6 @@ export const ProductInfo = ({ product, setProductForSale }) => {
   };
 
   const handleClickPrev = () => {
-    console.log('uuuuuuuuu');
     carouselRef.current.prev();
   };
 
@@ -47,14 +48,36 @@ export const ProductInfo = ({ product, setProductForSale }) => {
     nextArrow: <RightOutlined onClick={handleClickNext} />,
   };
 
+  const [productImage, setProductImage] = useState(noImage);
+
+  useEffect(async () => {
+    if (product.details[0].trademark.toUpperCase() === 'CAT' || product.details[0].trademark.toUpperCase() === 'CTP') {
+      /* const result = await getImageFromUrl(
+        `https://www.ctpsales.costex.com:11443/Webpics/BigPictures/${product.code}.jpg`
+      );
+      console.log(result); */
+      setProductImage(`https://www.ctpsales.costex.com:11443/Webpics/BigPictures/${product.code}.jpg`);
+      //console.log(productImage);
+    } else {
+      console.log('no CAT or CTP', product.details[0].trademark);
+    }
+  }, [product.code]);
+
+  //let productImage = '../../../../assets/images/no-image.jpeg';
+  //`https://www.ctpsales.costex.com:11443/Webpics/BigPictures/${product.code}.jpg`
+
   return (
     <div className='product-info__container'>
       <Card
-        style={{ width: 150 }}
-        cover={<Image alt='example' src='https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png' />}
+        style={{ width: 200 }}
+        cover={<Image alt='example' src={productImage} />}
         //actions={actions}
         size='small'
-        title={product.code}
+        title={
+          <Tag color='#001529' style={{ fontWeight: 'bolder' }}>
+            {product.code}
+          </Tag>
+        }
         extra={<CloseOutlined onClick={clearActiveProduc} />}
       >
         <Meta description={<span>{product.title}</span>} />
@@ -69,6 +92,7 @@ export const ProductInfo = ({ product, setProductForSale }) => {
           {Object.values(product.details).map((item) => {
             return (
               <div key={item.trademark} className='--product-card__details'>
+                {}
                 <Tooltip key={item.trademark} placement='topLeft' title='Clic para agregar a la venta'>
                   <Avatar
                     className='--product-card__brand-avatar'
@@ -81,9 +105,16 @@ export const ProductInfo = ({ product, setProductForSale }) => {
                   {Object.values(item.stock).map((stock) => {
                     return (
                       <div key={1} className='--product-card__stock'>
-                        <p>{`Precio: $${item.salePrice}`}</p>
-                        <p>{`Cantidad: ${stock.qty}`}</p>
-                        <p>{`Locación : ${stock.location}`}</p>
+                        <div className='--product-card__stock-items'>
+                          <p>Precio:</p>
+                          <p>Cantidad:</p>
+                          <p>Locación:</p>
+                        </div>
+                        <div className='--product-card__stock-values'>
+                          <p>{item.salePrice}</p>
+                          <p>{stock.qty}</p>
+                          <p>{stock.location}</p>
+                        </div>
                       </div>
                     );
                   })}

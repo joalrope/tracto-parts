@@ -7,10 +7,13 @@ export const replaceItemProdForSale = (item, array) => {
   });
 };
 
-export const deleteItemProdForSale = (id) => {
+export const deleteItemProdForSale = (id, trademark) => {
+  console.log(id, trademark);
   const state = store.getState();
   const { productsForSale } = state.product;
-  const filteredProducts = productsForSale.filter((product) => product.id !== id);
+  const filteredProducts = productsForSale.filter(
+    (product) => product.id !== id || (product.id === id && product.trademark !== trademark)
+  );
 
   return reorderedByKey(filteredProducts);
 };
