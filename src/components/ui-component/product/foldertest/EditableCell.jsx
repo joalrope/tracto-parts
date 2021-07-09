@@ -52,6 +52,7 @@ export const EditableCell = ({ title, editable, children, dataIndex, record, han
           style={{ maxWidth: '100px', textAlign: 'right', padding: '0 8px' }}
           onPressEnter={save}
           onBlur={save}
+          onFocus={(e) => e.target.select()}
         />
       </Form.Item>
     ) : (

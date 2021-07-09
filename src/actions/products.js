@@ -43,6 +43,10 @@ export const findProductById = (id) => {
     try {
       const { ok, result } = await fetchWithToken(`/products/${id}`);
       const product = jsonSort(result, activeProductTemplate);
+
+      /*  const urlImage = await getProductImage(product.code, product.details[0].trademark);
+      console.log(urlImage); */
+
       if (ok) {
         dispatch(productSetActive(product));
       }

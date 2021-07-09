@@ -7,7 +7,17 @@ const ResultBody = ({ status, title, subTitle }) => {
   return <Result status={status} title={title} subTitle={subTitle} />;
 };
 
-export const ResultModal = ({ status, title, subTitle, extra, visible, handleOk, handleCancel }) => {
+export const ResultModal = ({
+  status,
+  title,
+  subTitle,
+  extra,
+  visible,
+  okText,
+  handleOk,
+  cancelText,
+  handleCancel,
+}) => {
   return (
     <ModalWrapper
       WrappedComponent={() => {
@@ -16,7 +26,9 @@ export const ResultModal = ({ status, title, subTitle, extra, visible, handleOk,
       title={null}
       draggable={false}
       visible={visible}
+      okText={okText}
       handleOk={handleOk}
+      cancelText={cancelText}
       handleCancel={handleCancel}
     />
   );
@@ -28,7 +40,9 @@ ResultModal.propTypes = {
   subTitle: PropTypes.string,
   extra: PropTypes.node,
   visible: PropTypes.bool,
+  okText: PropTypes.string,
   handleOk: PropTypes.func,
+  cancelText: PropTypes.string,
   handleCancel: PropTypes.func,
 };
 

@@ -20,7 +20,7 @@
 }
 
 .--product-for-sale__table {
-  table-layout: fixed !important;
+  //table-layout: fixed !important;
   scroll-snap-type: x mandatory;
   width: 100%;
 
@@ -43,6 +43,10 @@
   }
 
   & tbody {
+    & tr:nth-child(even) {
+      background-color: hsla(209, 100%, 8%, 0.075) !important;
+    }
+
     & tr {
       & td {
         padding: 4px 8px !important;
@@ -57,7 +61,13 @@
     }
   }
 
-  & tr:nth-child(even) {
-    background-color: hsla(209, 100%, 8%, 0.075) !important;
+  & tfoot {
+    & tr {
+      & td {
+        padding: 4px 8px !important;
+        font-size: 0.85rem !important;
+        font-weight: bolder;
+      }
+    }
   }
 }

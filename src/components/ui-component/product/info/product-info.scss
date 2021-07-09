@@ -31,6 +31,10 @@
 }
 
 .--product-card__carousel {
+  & .slick-prev::before,
+  .slick-next::before {
+    display: none;
+  }
   & .slick-prev,
   .slick-next,
   .slick-prev:hover,

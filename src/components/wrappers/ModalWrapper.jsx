@@ -3,7 +3,16 @@ import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 import Draggable from 'react-draggable';
 
-export const ModalWrapper = ({ WrappedComponent, title, draggable, visible, handleOk, handleCancel }) => {
+export const ModalWrapper = ({
+  WrappedComponent,
+  title,
+  draggable,
+  visible,
+  okText,
+  handleOk,
+  cancelText,
+  handleCancel,
+}) => {
   const [disable, setDisable] = useState(true);
   const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
 
@@ -61,6 +70,8 @@ export const ModalWrapper = ({ WrappedComponent, title, draggable, visible, hand
       visible={visible}
       onOk={handleOk}
       onCancel={handleCancel}
+      cancelText={cancelText}
+      okText={okText}
       modalRender={(modal) => (
         <Draggable disabled={disable} bounds={bounds} onStart={(event, uiData) => onStart(event, uiData)}>
           <div ref={draggleRef}>{modal}</div>
@@ -75,8 +86,15 @@ export const ModalWrapper = ({ WrappedComponent, title, draggable, visible, hand
 ModalWrapper.propTypes = {
   WrappedComponent: PropTypes.node,
   title: PropTypes.string || PropTypes.node,
+  okText: PropTypes.string,
+  cancelText: PropTypes.string,
   draggable: PropTypes.bool,
   visible: PropTypes.bool,
   handleOk: PropTypes.func,
   handleCancel: PropTypes.func,
+};
+
+ModalWrapper.defaultProps = {
+  okText: 'Aceptar',
+  cancel: 'Cancelar',
 };

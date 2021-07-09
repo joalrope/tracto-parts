@@ -1,31 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Divider, Row, Col, Space, Tooltip, Button } from 'antd';
+import { Divider, Row, Col, Popconfirm } from 'antd';
 import { CloseSquareOutlined } from '@ant-design/icons';
-import { deleteItemProdForSale } from '../../../../helpers/sales/sales-utils';
-import { setProductsForSale } from '../../../../actions/products';
+import { addProductForSale, setProductsForSale, findProductById, getProductByCode } from '../../../../actions/products';
 import { findCustomerById, getCustomerByCode } from '../../../../actions/customers';
-import {
-  addProductForSale,
-  /* setProductsForSale, */ findProductById,
-  getProductByCode,
-} from '../../../../actions/products';
+import { deleteItemProdForSale, replaceItemProdForSale } from '../../../../helpers/sales/sales-utils';
+//import { ProductsForSale } from '../../../ui-component/product/for-sale/ProductsForSale';
 import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
-
+import { AntdTable } from '../../../ui-component/product/foldertest/AntdTable';
 import { CustomerInfo } from '../../../ui-component/customer/info/CustomerInfo';
 import { ProductInfo } from '../../../ui-component/product/info/ProductInfo';
 import { Invoice } from '../../../templates/invoice/Invoice';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
-//import { ProductsForSale } from '../../../ui-component/product/for-sale/ProductsForSale';
+import { ResultModal } from '../../../wrappers/ResultModal';
 import { getTransactionInfo } from './controllers/getTransactionInfo';
 //import { getTotals } from './controllers/totals';
 import { msgWhenUnmounting } from './controllers/pdfRenderResult';
 //import { controlNumber, ivaTax } from './controllers/getTransactionInfo';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import './sales.scss';
-
-import { AntdTable } from '../../../ui-component/product/foldertest/AntdTable';
-import { ResultModal } from '../../../wrappers/ResultModal';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -49,14 +42,14 @@ export const Sales = () => {
   const actionRender = (record) => {
     return (
       <div className='action-button__column'>
-        <Space size='small'>
-          <Tooltip placement='topLeft' title='Eliminar Producto'>
-            <CloseSquareOutlined
-              className='--action-icon__remove'
-              onClick={() => handleDelete(record.id, record.trademark)}
-            />
-          </Tooltip>
-        </Space>
+        <Popconfirm
+          title={`¿Seguro desea eliminar ${record.code}?`}
+          onConfirm={() => handleDelete(record.id, record.trademark)}
+          okText='Si'
+          cancelText='No'
+        >
+          <CloseSquareOutlined className='--action-icon__remove' />
+        </Popconfirm>
       </div>
     );
   };
@@ -85,8 +78,12 @@ export const Sales = () => {
   };
 
   const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [title, setTitle] = useState('');
+  const [subTitle, setSubTitle] = useState('');
 
   const setProductForSale = (record) => {
+    setSelectedProduct(record);
     const isLoadedProduct = productsForSale.some(
       (product) => product.code === record.code && product.trademark === record.trademark
     );
@@ -97,34 +94,48 @@ export const Sales = () => {
       record.totalItem = record.qty * record.salePrice;
       dispatch(addProductForSale(record));
     } else {
+      setTitle('Producto repetido');
+      setSubTitle(`El Producto ${record.code} ya existe en la venta. ¿Desea aumentar la cantidad a vender?`);
       setShowModal(true);
     }
   };
 
-  const extra = [
-    <Button type='primary' key='console'>
-      Go Console
-    </Button>,
-    <Button key='buy'>Buy Again</Button>,
-  ];
+  const selectedIndex = (id, trademark) =>
+    productsForSale.findIndex((item) => item.id === id && item.trademark === trademark);
+
+  const saveEditedProducts = (products) => {
+    Object.values(products).map((product) => {
+      product.totalItem = product.qty * product.salePrice;
+    });
+    dispatch(setProductsForSale(products));
+  };
 
   const handleCancel = () => {
     setShowModal(false);
   };
   const handleOk = () => {
     setShowModal(false);
+    const index = selectedIndex(selectedProduct.id, selectedProduct.trademark);
+    const prodForSaleSel = productsForSale[index];
+
+    selectedProduct.key = productsForSale.length + 1;
+    prodForSaleSel.qty++;
+    prodForSaleSel.totalItem = prodForSaleSel.qty * prodForSaleSel.salePrice;
+    const products = replaceItemProdForSale(prodForSaleSel, productsForSale);
+    dispatch(setProductsForSale(products));
   };
 
   return (
     <div className='--sale-page__container'>
       {showModal && (
         <ResultModal
-          status={'warning'}
-          title={'informacion'}
-          subTitle={'Subtitulo'}
-          extra={extra}
+          status={'info'}
+          title={title}
+          subTitle={subTitle}
           visible={showModal}
+          okText={'Si'}
           handleOk={handleOk}
+          cancelText={'No'}
           handleCancel={handleCancel}
         />
       )}
@@ -168,12 +179,7 @@ export const Sales = () => {
                 <Divider className='--product-active__divider' orientation='center'>
                   Datos del Producto
                 </Divider>
-                <ProductInfo
-                  product={activeProduct}
-                  mode={'landscape'}
-                  //item={productsForSale.length + 1}
-                  setProductForSale={setProductForSale}
-                />
+                <ProductInfo product={activeProduct} mode={'landscape'} setProductForSale={setProductForSale} />
               </div>
             )}
             {productsForSale.length > 0 && (
@@ -182,7 +188,7 @@ export const Sales = () => {
                   Productos para la Venta
                 </Divider>
                 {/* <ProductsForSale products={productsForSale} tax={ivaTax} /> */}
-                <AntdTable dataSource={productsForSale} cols={forSaleColumns} />
+                <AntdTable dataSource={productsForSale} cols={forSaleColumns} saveRow={saveEditedProducts} />
               </div>
             )}
           </div>
@@ -201,14 +207,6 @@ export const Sales = () => {
       </Row>
 
       {/* {displayAddCustomerForm && <AddCustomerForm />} */}
-    </div>
-  );
-};
-
-export const wrapped = () => {
-  return (
-    <div>
-      <p>Deasea Agregar?</p>
     </div>
   );
 };

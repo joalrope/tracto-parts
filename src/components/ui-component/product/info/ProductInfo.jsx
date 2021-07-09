@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Card, Avatar, Image, Tooltip, Carousel, Tag } from 'antd';
 import { CloseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { productClearActive } from '../../../../actions/products';
-//import { getImageFromUrl } from '../../../../helpers/getImage';
+import { urlImages } from '../../../../assets/data/urlImages';
 import noImage from '../../../../assets/images/no-image.jpeg';
 import './product-info.scss';
 
@@ -31,10 +31,6 @@ export const ProductInfo = ({ product, setProductForSale }) => {
     setProductForSale(selectedProduct);
   };
 
-  const onChangeCarousel = (e) => {
-    console.log(e);
-  };
-
   const handleClickPrev = () => {
     carouselRef.current.prev();
   };
@@ -48,29 +44,17 @@ export const ProductInfo = ({ product, setProductForSale }) => {
     nextArrow: <RightOutlined onClick={handleClickNext} />,
   };
 
-  const [productImage, setProductImage] = useState(noImage);
-
-  useEffect(async () => {
-    if (product.details[0].trademark.toUpperCase() === 'CAT' || product.details[0].trademark.toUpperCase() === 'CTP') {
-      /* const result = await getImageFromUrl(
-        `https://www.ctpsales.costex.com:11443/Webpics/BigPictures/${product.code}.jpg`
-      );
-      console.log(result); */
-      setProductImage(`https://www.ctpsales.costex.com:11443/Webpics/BigPictures/${product.code}.jpg`);
-      //console.log(productImage);
-    } else {
-      console.log('no CAT or CTP', product.details[0].trademark);
-    }
-  }, [product.code]);
-
-  //let productImage = '../../../../assets/images/no-image.jpeg';
-  //`https://www.ctpsales.costex.com:11443/Webpics/BigPictures/${product.code}.jpg`
-
   return (
     <div className='product-info__container'>
       <Card
         style={{ width: 200 }}
-        cover={<Image alt='example' src={productImage} />}
+        cover={
+          <Image
+            alt='example'
+            src={`${urlImages[product.details[0].trademark.toLowerCase()]}${product.code}.jpg`}
+            fallback={noImage}
+          />
+        }
         //actions={actions}
         size='small'
         title={
@@ -87,12 +71,11 @@ export const ProductInfo = ({ product, setProductForSale }) => {
           arrows
           {...settings}
           dots={false}
-          afterChange={onChangeCarousel}
+          //afterChange={onChangeCarousel}
         >
           {Object.values(product.details).map((item) => {
             return (
               <div key={item.trademark} className='--product-card__details'>
-                {}
                 <Tooltip key={item.trademark} placement='topLeft' title='Clic para agregar a la venta'>
                   <Avatar
                     className='--product-card__brand-avatar'
