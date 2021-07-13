@@ -94,7 +94,12 @@ export const ProductInfo = ({ product, setProductForSale }) => {
                           <p>Locación:</p>
                         </div>
                         <div className='--product-card__stock-values'>
-                          <p>{item.salePrice}</p>
+                          <p>
+                            {Number(item.salePrice).toLocaleString('es-ES', {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            })}
+                          </p>
                           <p>{stock.qty}</p>
                           <p>{stock.location}</p>
                         </div>

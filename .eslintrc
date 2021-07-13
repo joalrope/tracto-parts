@@ -1,18 +1,18 @@
 {
-  "extends": [
-    "prettier"
-  ],
-  "parser": "babel-eslint",
-  "plugins": [
-    "prettier", "react"
-  ],
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": ["prettier", "eslint:recommended", "plugin:react/recommended"],
   "parserOptions": {
-    "ecmaVersion": 6,
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "ecmaVersion": 6,
+    "sourceType": "module"
   },
-  "rules": {
-    "prettier/prettier": "error"
-  }
+  "parser": "babel-eslint",
+  "plugins": [ "prettier", "react" ],
+  "rules": {"prettier/prettier": "error" }
 }

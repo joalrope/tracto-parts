@@ -27,7 +27,7 @@ export class TableAttrib {
     if (!this.colData(id)) return this.msg(id);
 
     if (this.colData(id).type === 'number') {
-      return value.toLocaleString('es-ES', {
+      return Number(value).toLocaleString('es-ES', {
         maximumFractionDigits: 2,
         minimumFractionDigits: 2,
       });

@@ -41,14 +41,15 @@ export const AntdTable = ({ dataSource, cols, saveRow }) => {
   });
 
   return (
-    <div className='--customer-info__container'>
+    <div className='--editable-info__container'>
       <Table
-        className='--product-for-sale__table'
+        className='--editable-info__table'
         components={components}
         rowClassName={() => 'editable-row'}
         dataSource={dataSource}
         columns={columns}
         pagination={false}
+        scroll={{ x: 'max-content' }}
         summary={(pageData) => {
           let totalInvoice = 0;
           let totalTax = 0;
@@ -65,7 +66,7 @@ export const AntdTable = ({ dataSource, cols, saveRow }) => {
                   Total Venta:
                 </Table.Summary.Cell>
                 <Table.Summary.Cell align={'right'}>
-                  {totalInvoice.toLocaleString('es-CO', {
+                  {Number(totalInvoice).toLocaleString('es-CO', {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}
@@ -76,7 +77,7 @@ export const AntdTable = ({ dataSource, cols, saveRow }) => {
                   {`I.V.A. (${'16%'}):`}
                 </Table.Summary.Cell>
                 <Table.Summary.Cell align={'right'}>
-                  {totalTax.toLocaleString('es-CO', {
+                  {Number(totalTax).toLocaleString('es-CO', {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}
@@ -87,7 +88,7 @@ export const AntdTable = ({ dataSource, cols, saveRow }) => {
                   Total Factura:
                 </Table.Summary.Cell>
                 <Table.Summary.Cell align={'right'}>
-                  {(totalInvoice + totalTax).toLocaleString('es-CO', {
+                  {(Number(totalInvoice) + Number(totalTax)).toLocaleString('es-CO', {
                     maximumFractionDigits: 2,
                     minimumFractionDigits: 2,
                   })}

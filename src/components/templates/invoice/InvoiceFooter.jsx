@@ -41,7 +41,7 @@ export const InvoiceFooter = ({ totals }) => {
         <div className='row-summ'>
           <div className='descrip-summ'>SUB-TOTAL:</div>
           <div className='to-fill-summ'>
-            {purchaseTotal.toLocaleString(locale, {
+            {Number(purchaseTotal).toLocaleString(locale, {
               maximumFractionDigits: Number(digits),
               minimumFractionDigits: Number(digits),
             })}
@@ -50,7 +50,7 @@ export const InvoiceFooter = ({ totals }) => {
         <div className='row-summ'>
           <div className='descrip-summ'>IVA 16% Bs.:</div>
           <div className='to-fill-summ'>
-            {ivaTaxAmount.toLocaleString(locale, {
+            {Number(ivaTaxAmount).toLocaleString(locale, {
               maximumFractionDigits: Number(digits),
               minimumFractionDigits: Number(digits),
             })}
@@ -59,7 +59,7 @@ export const InvoiceFooter = ({ totals }) => {
         <div className='row-summ'>
           <div className='descrip-summ'>TOTAL GENERAL:</div>
           <div className='to-fill-summ gral-total'>
-            {invoiceTotal.toLocaleString(locale, {
+            {Number(invoiceTotal).toLocaleString(locale, {
               maximumFractionDigits: Number(digits),
               minimumFractionDigits: Number(digits),
             })}
