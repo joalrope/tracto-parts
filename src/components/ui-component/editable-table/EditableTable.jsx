@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import { Table } from 'antd';
 import { EditableRow } from './EditableRow';
 import { EditableCell } from './EditableCell';
-import './antd-table.scss';
+import './editable-table.scss';
 
 export const EditableContext = React.createContext(null);
 
-export const AntdTable = ({ dataSource, cols, saveRow }) => {
+export const EditableTable = ({ dataSource, cols, saveTableData }) => {
   const handleSave = (row) => {
     const newData = [...dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
     const item = newData[index];
     newData.splice(index, 1, { ...item, ...row });
-    saveRow(newData);
+    saveTableData(newData);
   };
 
   const components = {
@@ -102,8 +102,8 @@ export const AntdTable = ({ dataSource, cols, saveRow }) => {
   );
 };
 
-AntdTable.propTypes = {
+EditableTable.propTypes = {
   cols: PropTypes.array,
   dataSource: PropTypes.array,
-  saveRow: PropTypes.func,
+  saveTableData: PropTypes.func,
 };

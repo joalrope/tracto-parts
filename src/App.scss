@@ -1,24 +1,29 @@
 @import 'antd/dist/antd.css';
 @import './assets/css/partials/variables.scss';
 
-.ant-table-layout-fixed table {
-  table-layout: auto !important;
+/* start Aside & menu */
+.ant-menu.ant-menu-dark .ant-menu-item-selected,
+.ant-menu-submenu-popup .ant-menu-dark .ant-menu-item-selected {
+  background-color: $secondary !important;
 }
 
-.--action-icon__remove {
-  font-size: 18px;
-  margin-left: 10px;
-  color: red;
+.ant-menu-item-selected a,
+.ant-menu-item-selected a:hover {
+  background-color: $secondary !important;
 }
 
-.--action-icon__edit {
-  font-size: 18px;
-  margin-right: 10px;
-  color: green;
+.ant-layout-sider {
+  background-color: $primary !important;
 }
 
-.--action-icon__add {
-  font-size: 18px;
-  margin-right: 10px;
-  color: blue;
+.ant-menu.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub,
+.ant-menu.ant-menu-dark .ant-menu-sub {
+  background-color: $primary !important;
 }
+
+.ant-layout-sider-trigger {
+  background-color: $primary !important;
+}
+
+/* end Aside & menu */

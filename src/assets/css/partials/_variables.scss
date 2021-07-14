@@ -1,5 +1,8 @@
 //Colores basicos
-$primary: #f2bd15;
+$primary: #001529;
+$secondary: #f2bd15;
+$div-background: hsla(209, 100%, 8%, 0.03);
+$border-color: hsla(209, 100%, 8%, 0.5);
 $form-bg: #00000080;
 $white: white;
 $black: black;
@@ -16,7 +19,3 @@ $nav-link-border: #f2be1540;
 
 //Colores de Texto
 $text-color: black;
-
-// Ancho de Inputs
-$inputs-width-big-screen: 200pt;
-$inputs-width-litle-screen: 100%;

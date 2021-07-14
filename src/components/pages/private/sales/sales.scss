@@ -13,7 +13,13 @@
 }
 
 .--search-data__container {
+  background-color: $div-background;
+  border: 1px solid $border-color;
+  border-radius: 5px;
   flex: 1 0 20%;
+  max-height: 32em;
+  min-height: 32em;
+  padding: 0 1em;
 }
 
 .--search-product__title {

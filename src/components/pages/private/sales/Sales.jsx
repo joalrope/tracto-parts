@@ -7,7 +7,7 @@ import { findCustomerById, getCustomerByCode } from '../../../../actions/custome
 import { deleteItemProdForSale, replaceItemProdForSale } from '../../../../helpers/sales/sales-utils';
 //import { ProductsForSale } from '../../../ui-component/product/for-sale/ProductsForSale';
 import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
-import { AntdTable } from '../../../ui-component/product/foldertest/AntdTable';
+import { EditableTable } from '../../../ui-component/editable-table/EditableTable';
 import { CustomerInfo } from '../../../ui-component/customer/info/CustomerInfo';
 import { ProductInfo } from '../../../ui-component/product/info/ProductInfo';
 import { Invoice } from '../../../templates/invoice/Invoice';
@@ -188,21 +188,10 @@ export const Sales = () => {
                   Productos para la Venta
                 </Divider>
                 {/* <ProductsForSale products={productsForSale} tax={ivaTax} /> */}
-                <AntdTable dataSource={productsForSale} cols={forSaleColumns} saveRow={saveEditedProducts} />
+                <EditableTable dataSource={productsForSale} cols={forSaleColumns} saveTableData={saveEditedProducts} />
               </div>
             )}
           </div>
-
-          {activeProduct && false && (
-            <div className='--image-active__container'>
-              <Divider style={{ margin: '10px 0 8px 0' }} orientation='center'>
-                Imagen
-              </Divider>
-              <div className='--image-data__frame'>
-                <img src='' alt='' />
-              </div>
-            </div>
-          )}
         </Col>
       </Row>
 
