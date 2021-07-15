@@ -8,8 +8,8 @@ import { deleteItemProdForSale, replaceItemProdForSale } from '../../../../helpe
 //import { ProductsForSale } from '../../../ui-component/product/for-sale/ProductsForSale';
 import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
 import { EditableTable } from '../../../ui-component/editable-table/EditableTable';
-import { CustomerInfo } from '../../../ui-component/customer/info/CustomerInfo';
-import { ProductInfo } from '../../../ui-component/product/info/ProductInfo';
+import { CustomerCard } from '../../../ui-component/customer/card/CustomerCard';
+import { ProductCard } from '../../../ui-component/product/card/ProductCard';
 import { Invoice } from '../../../templates/invoice/Invoice';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
 import { ResultModal } from '../../../wrappers/ResultModal';
@@ -171,7 +171,7 @@ export const Sales = () => {
                 <Divider className='--customer-active__divider' orientation='center'>
                   Datos del Comprador
                 </Divider>
-                <CustomerInfo customer={activeCustomer} />
+                <CustomerCard customer={activeCustomer} />
               </div>
             )}
             {activeProduct && (
@@ -179,7 +179,7 @@ export const Sales = () => {
                 <Divider className='--product-active__divider' orientation='center'>
                   Datos del Producto
                 </Divider>
-                <ProductInfo product={activeProduct} mode={'landscape'} setProductForSale={setProductForSale} />
+                <ProductCard product={activeProduct} mode={'landscape'} setProductForSale={setProductForSale} />
               </div>
             )}
             {productsForSale.length > 0 && (

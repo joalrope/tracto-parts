@@ -1,21 +1,13 @@
 //Colores basicos
 $primary: #000000bf;
 $secondary: #f2bd15;
-$div-background: hsla(209, 100%, 8%, 0.03);
-$border-color: hsla(209, 100%, 8%, 0.5);
+$danger: #ff0000;
+$div-background: #00152908;
+$tbl-td-background: #eff4f7;
+$tbl-tf-background: #e0e7eb;
+$border-color: #00152980;
+$nav-link-border: #f2be1540;
 $form-bg: #00000080;
+$text-color: black;
 $white: white;
 $black: black;
-
-// Colores de tablas
-$bg-tbl-header: $primary;
-$bg-tbl-td-cell: #eff4f7;
-$bg-tbl-tf-cell: #e0e7eb;
-$tbl-border: rgba(0, 0, 0, 0.1);
-
-//Colores Navbar
-$bg-navbar: #000000bf;
-$nav-link-border: #f2be1540;
-
-//Colores de Texto
-$text-color: black;
