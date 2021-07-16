@@ -23,7 +23,7 @@ export const InvoiceHalf = ({ data }) => {
       title: product.title,
       qty: product.qty,
       salePrice: product.salePrice,
-      total: product.total,
+      total: product.totalItem,
     };
   });
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Divider, Row, Col, Popconfirm } from 'antd';
-import { CloseSquareOutlined } from '@ant-design/icons';
+import { Divider, Row, Col, Popconfirm, Button, Modal } from 'antd';
+import { CloseSquareOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { addProductForSale, setProductsForSale, findProductById, getProductByCode } from '../../../../actions/products';
 import { findCustomerById, getCustomerByCode } from '../../../../actions/customers';
 import { deleteItemProdForSale, replaceItemProdForSale } from '../../../../helpers/sales/sales-utils';
@@ -13,12 +13,12 @@ import { ProductCard } from '../../../ui-component/product/card/ProductCard';
 import { Invoice } from '../../../templates/invoice/Invoice';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
 import { ResultModal } from '../../../wrappers/ResultModal';
-import { getTransactionInfo } from './controllers/getTransactionInfo';
-//import { getTotals } from './controllers/totals';
+import { getTransactionInfo, controlNumber, ivaTax } from './controllers/getTransactionInfo';
+import { getTotals } from './controllers/totals';
 import { msgWhenUnmounting } from './controllers/pdfRenderResult';
-//import { controlNumber, ivaTax } from './controllers/getTransactionInfo';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import './sales.scss';
+import { displayPdfGenerated } from '../../../../actions/display';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ export const Sales = () => {
     await getTransactionInfo();
   }, []);
 
-  //const data = getTotals(controlNumber, ivaTax);
+  const data = getTotals(controlNumber, ivaTax);
 
   const handleDelete = (id, trademark) => {
     const newProducts = deleteItemProdForSale(id, trademark);
@@ -77,8 +77,17 @@ export const Sales = () => {
     console.log(msg);
   };
 
-  const [showModal, setShowModal] = useState(false);
+  const missingCustomer = () => {
+    Modal.warning({
+      title: 'No ha seleccionado un comprador al cual facturar',
+      content: 'Por favor seleccione uno',
+      okText: 'Aceptar',
+    });
+  };
+
+  const [showRepeatProductModal, setShowRepeatProductModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [status, setStatus] = useState('');
   const [title, setTitle] = useState('');
   const [subTitle, setSubTitle] = useState('');
 
@@ -94,9 +103,19 @@ export const Sales = () => {
       record.totalItem = record.qty * record.salePrice;
       dispatch(addProductForSale(record));
     } else {
+      setStatus('info');
       setTitle('Producto repetido');
       setSubTitle(`El Producto ${record.code} ya existe en la venta. ¿Desea aumentar la cantidad a vender?`);
-      setShowModal(true);
+      setShowRepeatProductModal(true);
+    }
+  };
+
+  const handleCheckIn = () => {
+    console.log('vender');
+    if (activeCustomer) {
+      return dispatch(displayPdfGenerated(true));
+    } else {
+      missingCustomer();
     }
   };
 
@@ -110,37 +129,35 @@ export const Sales = () => {
     dispatch(setProductsForSale(products));
   };
 
-  const handleCancel = () => {
-    setShowModal(false);
-  };
-  const handleOk = () => {
-    setShowModal(false);
-    const index = selectedIndex(selectedProduct.id, selectedProduct.trademark);
-    const prodForSaleSel = productsForSale[index];
-
-    selectedProduct.key = productsForSale.length + 1;
-    prodForSaleSel.qty++;
-    prodForSaleSel.totalItem = prodForSaleSel.qty * prodForSaleSel.salePrice;
-    const products = replaceItemProdForSale(prodForSaleSel, productsForSale);
-    dispatch(setProductsForSale(products));
-  };
-
   return (
     <div className='--sale-page__container'>
-      {showModal && (
+      {showRepeatProductModal && (
         <ResultModal
-          status={'info'}
+          status={status}
           title={title}
           subTitle={subTitle}
-          visible={showModal}
+          visible={showRepeatProductModal}
           okText={'Si'}
-          handleOk={handleOk}
+          handleOk={() => {
+            console.log('clic Ok producto repetido');
+            const index = selectedIndex(selectedProduct.id, selectedProduct.trademark);
+            const prodForSaleSel = productsForSale[index];
+
+            selectedProduct.key = productsForSale.length + 1;
+            prodForSaleSel.qty++;
+            prodForSaleSel.totalItem = prodForSaleSel.qty * prodForSaleSel.salePrice;
+            const products = replaceItemProdForSale(prodForSaleSel, productsForSale);
+            dispatch(setProductsForSale(products));
+            setShowRepeatProductModal(false);
+          }}
           cancelText={'No'}
-          handleCancel={handleCancel}
+          handleCancel={() => {
+            setShowRepeatProductModal(false);
+          }}
         />
       )}
       {displayInvoicePdf && (
-        <GeneratePdfFromHtml WrappedComponent={Invoice} /* data={data} */ msgWhenUnmounting={msgWhenUnmounting} />
+        <GeneratePdfFromHtml WrappedComponent={Invoice} data={data} msgWhenUnmounting={msgWhenUnmounting} />
       )}
       <Row>
         <Col className='--sale-page__display'>
@@ -166,29 +183,46 @@ export const Sales = () => {
           </div>
 
           <div className='--info-data__container'>
-            {activeCustomer && (
-              <div className='--customer-active__container'>
-                <Divider className='--customer-active__divider' orientation='center'>
-                  Datos del Comprador
-                </Divider>
-                <CustomerCard customer={activeCustomer} />
-              </div>
-            )}
-            {activeProduct && (
-              <div className='--product-active__container'>
-                <Divider className='--product-active__divider' orientation='center'>
-                  Datos del Producto
-                </Divider>
-                <ProductCard product={activeProduct} mode={'landscape'} setProductForSale={setProductForSale} />
-              </div>
-            )}
+            <div className='--asset-selector__container'>
+              {activeCustomer && (
+                <div className='--customer-active__container'>
+                  <Divider className='--customer-active__divider' orientation='center'>
+                    Comprador
+                  </Divider>
+                  <CustomerCard customer={activeCustomer} />
+                </div>
+              )}
+              {activeProduct && (
+                <div className='--product-active__container'>
+                  <Divider className='--product-active__divider' orientation='center'>
+                    Productos
+                  </Divider>
+                  <ProductCard product={activeProduct} mode={'landscape'} setProductForSale={setProductForSale} />
+                </div>
+              )}
+            </div>
             {productsForSale.length > 0 && (
               <div className='--products-for-sale__container'>
                 <Divider className='--products-for-sale__divider' orientation='center'>
                   Productos para la Venta
                 </Divider>
                 {/* <ProductsForSale products={productsForSale} tax={ivaTax} /> */}
-                <EditableTable dataSource={productsForSale} cols={forSaleColumns} saveTableData={saveEditedProducts} />
+                <EditableTable
+                  dataSource={productsForSale}
+                  cols={forSaleColumns}
+                  tax={ivaTax}
+                  saveTableData={saveEditedProducts}
+                />
+                <div className='--products-for-sale__check-in-container'>
+                  <Button
+                    className='--products-for-sale__check-in-button'
+                    disabled={!activeCustomer ? true : false}
+                    icon={<ShoppingCartOutlined />}
+                    onClick={handleCheckIn}
+                  >
+                    Facturar
+                  </Button>
+                </div>
               </div>
             )}
           </div>

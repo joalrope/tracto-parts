@@ -27,7 +27,7 @@ export const InvoiceBody = ({ products }) => {
                 ([key, value]) =>
                   attrib.isCellVisible(key) && (
                     <td key={key} className={attrib.getCellClass(key)}>
-                      {attrib.getCellValue(key, value)}
+                      {attrib.getCellValue(key, value) !== 0 ? attrib.getCellValue(key, value) : ''}
                     </td>
                   )
               )}

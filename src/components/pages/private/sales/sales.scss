@@ -31,6 +31,13 @@
   justify-content: flex-start;
   overflow: auto;
   scroll-snap-type: x mandatory;
+
+  & .--asset-selector__container {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5em;
+    flex-wrap: wrap;
+  }
 }
 
 .--customer-active__container .ant-divider .ant-divider-inner-text,
@@ -39,64 +46,31 @@
   font-size: 13px;
 }
 
-.--customer-active__divider {
+/* .--customer-active__divider {
   margin: 18px 0 5px 0 !important;
-}
+} */
 
+.--customer-active__divider,
 .--products-for-sale__divider,
 .--product-active__divider {
   margin: 9px 0 5px 0 !important;
 }
 
-.--image-active__container {
-  flex: 1 0 10%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.--image-data__frame {
-  border: 1px solid $border-color;
-  width: 100%;
-  height: 10rem;
-}
-
-.bold {
-  font-weight: bold;
+.--products-for-sale__container {
+  & .--products-for-sale__check-in-container {
+    text-align: right;
+    & .--products-for-sale__check-in-button {
+      text-align: right;
+      margin-top: 1em;
+    }
+  }
 }
 
 .content-22 {
   position: absolute;
-  bottom: 10pt;
+  bottom: 1200pt;
   display: flex;
   flex-direction: column;
   /* border: 1px solid #000; */
   /* background: green; */
-}
-
-.fade-in {
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
 }

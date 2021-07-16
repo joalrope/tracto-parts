@@ -47,7 +47,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
   return (
     <div className='product-card__container'>
       <Card
-        style={{ width: 200 }}
+        style={{ width: 250 }}
         cover={
           <Image
             alt='example'

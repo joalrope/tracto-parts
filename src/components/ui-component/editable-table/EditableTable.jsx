@@ -7,7 +7,7 @@ import './editable-table.scss';
 
 export const EditableContext = React.createContext(null);
 
-export const EditableTable = ({ dataSource, cols, saveTableData }) => {
+export const EditableTable = ({ dataSource, cols, tax, saveTableData }) => {
   const handleSave = (row) => {
     const newData = [...dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
@@ -56,7 +56,7 @@ export const EditableTable = ({ dataSource, cols, saveTableData }) => {
 
           pageData.forEach(({ totalItem }) => {
             totalInvoice += totalItem;
-            totalTax += totalItem * 0.16;
+            totalTax += totalItem * (tax / 100);
           });
 
           return (
@@ -74,7 +74,7 @@ export const EditableTable = ({ dataSource, cols, saveTableData }) => {
               </Table.Summary.Row>
               <Table.Summary.Row>
                 <Table.Summary.Cell align='right' colSpan={6}>
-                  {`I.V.A. (${'16%'}):`}
+                  {`I.V.A. (${tax}%):`}
                 </Table.Summary.Cell>
                 <Table.Summary.Cell align={'right'}>
                   {Number(totalTax).toLocaleString('es-CO', {
@@ -105,5 +105,6 @@ export const EditableTable = ({ dataSource, cols, saveTableData }) => {
 EditableTable.propTypes = {
   cols: PropTypes.array,
   dataSource: PropTypes.array,
+  tax: PropTypes.number,
   saveTableData: PropTypes.func,
 };
