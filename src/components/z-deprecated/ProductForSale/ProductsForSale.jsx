@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { ActionButtom } from '../../../../controls/ActionButtom/ActionButtom';
-import { TableAttrib } from '../../../../../classes/table-attrib-class';
-import { pdfColumns } from '../../../../../assets/data/products-for-sale.dataConfig';
-import { deleteItemProdForSale, replaceItemProdForSale } from '../../../../../helpers/sales/sales-utils';
-import { setProductsForSale } from '../../../../../actions/products';
-import { displayPdfGenerated } from '../../../../../actions/display';
+import { ActionButtom } from '../../controls/ActionButtom/ActionButtom';
+import { TableAttrib } from '../../../classes/table-attrib-class';
+import { pdfColumns } from '../../../assets/data/products-for-sale.dataConfig';
+import { deleteItemProdForSale, replaceItemProdForSale } from '../../../helpers/sales/sales-utils';
+import { setProductsForSale } from '../../../actions/products';
+import { displayPdfGenerated } from '../../../actions/display';
 import './products-for-sale.scss';
 
 export const ProductsForSale = ({ products, tax }) => {

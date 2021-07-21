@@ -37,5 +37,5 @@ export const types = {
   transactionUpdatePaymentConditions: '[invoice] update payment conditions',
 
   displayGeneratePdf: '[display] Generate pdf',
-  displayAddCustomerForm: '[display] Add Customer Form',
+  displayFormCustomerAdd: '[display] Add Customer Form',
 };

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { displayPdfGenerated } from '../../actions/display';
+import { setDisplayPdfGenerated } from '../../actions/display';
 
 export const GeneratePdfFromHtml = ({ WrappedComponent, data, msgWhenUnmounting }) => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export const GeneratePdfFromHtml = ({ WrappedComponent, data, msgWhenUnmounting 
         urlBlob = URL.createObjectURL(blob);
         window.open(urlBlob);
 
-        dispatch(displayPdfGenerated(false));
+        dispatch(setDisplayPdfGenerated(false));
       },
       margin: [40, 40, 40, 40],
     });

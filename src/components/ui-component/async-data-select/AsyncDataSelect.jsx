@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Select } from 'antd';
-import { NotFoundContent } from './NotFoundContent';
+//import { NotFoundContent } from './NotFoundContent';
 import { SelectListItem } from './SelectListItem';
 const { Option } = Select;
 
-export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundAsyncData, disabled }) => {
+export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundContent, disabled }) => {
   const [options, setOptions] = useState([]);
   const [value, setValue] = useState([]);
 
@@ -40,9 +40,7 @@ export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundAsync
         filterOption={false}
         onSearch={onSearch}
         onChange={onChange}
-        notFoundContent={
-          value.length <= 1 ? null : <NotFoundContent value={value} notFoundAsyncData={notFoundAsyncData} />
-        }
+        notFoundContent={notFoundContent}
         onBlur={() => setValue('')}
         disabled={disabled}
         listItemHeight={10}
@@ -64,7 +62,7 @@ AsyncDataSelect.propTypes = {
   dataSource: PropTypes.func,
   placeholder: PropTypes.string,
   result: PropTypes.func,
-  notFoundAsyncData: PropTypes.func,
+  notFoundContent: PropTypes.object,
   style: PropTypes.object,
   disabled: PropTypes.bool,
 };

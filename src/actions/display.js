@@ -1,12 +1,12 @@
 import { types } from '../types/types';
 
-export const displayPdfGenerated = (show) => ({
+export const setDisplayPdfGenerated = (show) => ({
   type: types.displayGeneratePdf,
   payload: show,
 });
 
-export const displayAddCustomerForm = (show) => ({
-  type: types.displayAddCustomerForm,
+export const setDisplayAddCustomerForm = (show) => ({
+  type: types.displayFormCustomerAdd,
   payload: show,
 });
 

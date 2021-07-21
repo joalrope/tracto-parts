@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { customerSetActive } from '../../../../../actions/customers';
-import { RadioInput } from '../../../../controls/RadioInput/RadioInput';
+import { customerSetActive } from '../../../actions/customers';
+import { RadioInput } from '../../controls/RadioInput/RadioInput';
 
 export const OnCredit = () => {
   const dispatch = useDispatch();

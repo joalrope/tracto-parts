@@ -29,9 +29,9 @@ export const CustomerCard = ({ customer }) => {
             <div className='--customer-card__header'>
               <Space align='center'>
                 <Avatar shape='square' style={{ backgroundColor: '#000000bf' }} size={58}>
-                  <spam className='--customer_card__avatar-letter'>
+                  <span className='--customer_card__avatar-letter'>
                     {((initials.shift() || '') + (initials.pop() || '')).toUpperCase()}
-                  </spam>
+                  </span>
                 </Avatar>
                 <div className='--customer-card__name'>{customer.name}</div>
               </Space>

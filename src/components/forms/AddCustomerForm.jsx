@@ -1,76 +1,87 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { useFormik } from 'formik';
-import { displayAddCustomerForm } from '../../actions/display';
-import { Input } from '../controls/Input/Input';
-import './add-customer.scss';
+import { Form, Input, Checkbox } from 'antd';
+import './customer-add.scss';
+import { ModalForm } from '../wrappers/ModalForm';
+import { useSelector } from 'react-redux';
 
-export const AddCustomerForm = ({ result }) => {
-  const dispatch = useDispatch();
-
-  const formik = useFormik({
-    initialValues: {
-      type: '',
-      name: '',
-      code: '',
-      address: '',
-      phones: '',
-      email: '',
-      credit: '',
-      limit: '',
-    },
-    onSubmit: () => {},
-  });
-
-  const onClickOk = (e) => {
-    console.log(e.target.value);
-    result({ ok: true, data: formik.values });
-    dispatch(displayAddCustomerForm(false));
-  };
-  const onClickCancel = () => {
-    dispatch(displayAddCustomerForm(false));
-  };
+const AddCustomer = ({ form }) => {
   return (
-    <form>
-      <div className='--rows'>
-        <Input
-          title={'V/J'}
-          type={'checkbox'}
-          name={'type'}
-          onChange={formik.handleChange}
-          value={formik.values.type}
-        />
-        <Input title={'RIF o Cedula'} name={'code'} onChange={formik.handleChange} value={formik.values.code} />
-        <Input title={'Nombre'} name={'name'} onChange={formik.handleChange} value={formik.values.name} />
-      </div>
-      <div className='--rows'>
-        <Input title={'Direccion'} name={'address'} onChange={formik.handleChange} value={formik.values.address} />
-      </div>
+    <Form
+      name='customer-add'
+      form={form}
+      labelCol={{
+        span: 8,
+      }}
+      wrapperCol={{
+        span: 16,
+      }}
+      initialValues={{
+        remember: true,
+      }}
+    >
+      <Form.Item
+        label='R.I.F:'
+        name='code'
+        rules={[
+          {
+            required: true,
+            message: 'Por Favor indique el Rif del Cliente!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
 
-      <div className='--rows'>
-        <Input title={'Teléfonos'} name={'phones'} onChange={formik.handleChange} value={formik.values.phones} />
-        <Input title={'Correo'} name={'email'} onChange={formik.handleChange} value={formik.values.email} />
-        <Input
-          title={'¿Tendrá crédito?:'}
-          type={'checkbox'}
-          name={'credit'}
-          onChange={formik.handleChange}
-          value={formik.values.credit}
-        />
-        {formik.values.credit === true && (
-          <Input title={'Limite'} name={'limit'} onChange={formik.handleChange} value={formik.values.limit} />
-        )}
-      </div>
-      {formik.values.code && formik.values.code.charAt(0) !== 'V' && <h4>CONTACTO</h4>}
-      <div className='--buttons'>
-        <button onClick={onClickOk}>Aceptar</button>
-        <button onClick={onClickCancel}>Cancelar</button>
-      </div>
-    </form>
+      <Form.Item
+        label='Nombre'
+        name='username'
+        rules={[
+          {
+            required: true,
+            message: 'Por Favor indique un Nombre!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        name='remember'
+        valuePropName='checked'
+        wrapperCol={{
+          offset: 16,
+          span: 16,
+        }}
+      >
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item>
+    </Form>
+  );
+};
+
+AddCustomer.propTypes = {
+  form: PropTypes.object,
+};
+
+export const AddCustomerForm = ({ onOk, onCancel }) => {
+  const { displayFormCustomerAdd } = useSelector((state) => state.display);
+
+  return (
+    <ModalForm
+      WrappedComponent={AddCustomer}
+      title={'Crear Cliente'}
+      visible={displayFormCustomerAdd}
+      onOk={onOk}
+      okText='Aceptar'
+      onCancel={onCancel}
+      cancelText={'Cancelar'}
+      draggable
+    />
   );
 };
 
 AddCustomerForm.propTypes = {
-  result: PropTypes.func,
+  onOk: PropTypes.func,
+  onCancel: PropTypes.func,
 };

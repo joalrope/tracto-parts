@@ -2,7 +2,7 @@ import { types } from '../types/types';
 
 const initialState = {
   displayInvoicePdf: false,
-  displayCustomerFrm: false,
+  displayFormCustomerAdd: false,
 };
 
 export const displayReducer = (state = initialState, action) => {
@@ -13,10 +13,10 @@ export const displayReducer = (state = initialState, action) => {
         displayInvoicePdf: action.payload,
       };
 
-    case types.displayAddCustomerForm:
+    case types.displayFormCustomerAdd:
       return {
         ...state,
-        displayAddCustomerFrm: action.payload,
+        displayFormCustomerAdd: action.payload,
       };
 
     // case types.uiCloseModal:

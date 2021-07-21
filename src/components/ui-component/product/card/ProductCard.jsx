@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import { Card, Avatar, Image, Tooltip, Carousel, Tag } from 'antd';
 import { CloseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { productClearActive } from '../../../../actions/products';
-import { urlImages } from '../../../../assets/data/urlImages';
+import { getUrlImage } from '../../../../helpers/getUrlImage';
+//import { urlImages } from '../../../../assets/data/urlImages';
 import noImage from '../../../../assets/images/no-image.jpeg';
 import './product-card.scss';
 
@@ -44,14 +45,17 @@ export const ProductCard = ({ product, setProductForSale }) => {
     nextArrow: <RightOutlined onClick={handleClickNext} />,
   };
 
+  const url = getUrlImage(product.code, product.details[0].trademark);
+
   return (
     <div className='product-card__container'>
       <Card
         style={{ width: 250 }}
         cover={
           <Image
-            alt='example'
-            src={`${urlImages[product.details[0].trademark.toLowerCase()]}${product.code}.jpg`}
+            alt={`${product.code}.jpg`}
+            src={url}
+            //src={`${urlImages[product.details[0].trademark.toLowerCase()]}${product.code}.jpg`}
             fallback={noImage}
           />
         }

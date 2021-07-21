@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Divider, Row, Col, Popconfirm, Button, Modal } from 'antd';
+import { Divider, Row, Col, Popconfirm, Button } from 'antd';
 import { CloseSquareOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { addProductForSale, setProductsForSale, findProductById, getProductByCode } from '../../../../actions/products';
 import { findCustomerById, getCustomerByCode } from '../../../../actions/customers';
+import { setDisplayPdfGenerated, setDisplayAddCustomerForm } from '../../../../actions/display';
+import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
+import { addProductForSale, setProductsForSale, findProductById, getProductByCode } from '../../../../actions/products';
 import { deleteItemProdForSale, replaceItemProdForSale } from '../../../../helpers/sales/sales-utils';
-//import { ProductsForSale } from '../../../ui-component/product/for-sale/ProductsForSale';
-import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
-import { EditableTable } from '../../../ui-component/editable-table/EditableTable';
-import { CustomerCard } from '../../../ui-component/customer/card/CustomerCard';
-import { ProductCard } from '../../../ui-component/product/card/ProductCard';
 import { Invoice } from '../../../templates/invoice/Invoice';
+import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
+import { NotFoundContentMsg } from '../../../ui-component/async-data-select/NotFoundContentMsg';
+import { CustomerCard } from '../../../ui-component/customer/card/CustomerCard';
+import { EditableTable } from '../../../ui-component/editable-table/EditableTable';
+import { ProductCard } from '../../../ui-component/product/card/ProductCard';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
 import { ResultModal } from '../../../wrappers/ResultModal';
 import { getTransactionInfo, controlNumber, ivaTax } from './controllers/getTransactionInfo';
-import { getTotals } from './controllers/totals';
 import { msgWhenUnmounting } from './controllers/pdfRenderResult';
-import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
+import { getTotals } from './controllers/totals';
 import './sales.scss';
-import { displayPdfGenerated } from '../../../../actions/display';
+import { AddCustomerForm } from '../../../forms/AddCustomerForm';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -73,18 +74,6 @@ export const Sales = () => {
     dispatch(findProductById(id));
   };
 
-  const noDataFounded = (msg) => {
-    console.log(msg);
-  };
-
-  const missingCustomer = () => {
-    Modal.warning({
-      title: 'No ha seleccionado un comprador al cual facturar',
-      content: 'Por favor seleccione uno',
-      okText: 'Aceptar',
-    });
-  };
-
   const [showRepeatProductModal, setShowRepeatProductModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [status, setStatus] = useState('');
@@ -111,12 +100,7 @@ export const Sales = () => {
   };
 
   const handleCheckIn = () => {
-    console.log('vender');
-    if (activeCustomer) {
-      return dispatch(displayPdfGenerated(true));
-    } else {
-      missingCustomer();
-    }
+    dispatch(setDisplayPdfGenerated(true));
   };
 
   const selectedIndex = (id, trademark) =>
@@ -127,6 +111,21 @@ export const Sales = () => {
       product.totalItem = product.qty * product.salePrice;
     });
     dispatch(setProductsForSale(products));
+  };
+
+  const startAddNewCustomer = (resp) => {
+    if (resp === 'ok') {
+      dispatch(setDisplayAddCustomerForm(true));
+    }
+  };
+
+  const saveNewCustomer = (values) => {
+    console.log('Received values of form: ', values);
+    dispatch(setDisplayAddCustomerForm(false));
+  };
+
+  const cancelNewCustomer = () => {
+    dispatch(setDisplayAddCustomerForm(false));
   };
 
   return (
@@ -168,7 +167,13 @@ export const Sales = () => {
               placeholder={'Seleccione un Cliente'}
               dataSource={customers}
               result={customerResult}
-              notFoundAsyncData={noDataFounded}
+              notFoundContent={
+                <NotFoundContentMsg
+                  msg={'No existe el cliente, Desea agregarlo?'}
+                  noFoundResult={startAddNewCustomer}
+                />
+              }
+              //notFoundAsyncData={noDataFounded}
               //disabled={Boolean(activeCustomer)}
             />
 
@@ -177,7 +182,7 @@ export const Sales = () => {
               placeholder={'Encuentre un Producto'}
               dataSource={products}
               result={productResult}
-              //notFoundAsyncData={() => {}}
+              //notFoundContent={null}
               //disabled={Boolean(activeProduct)}
             />
           </div>
@@ -228,8 +233,7 @@ export const Sales = () => {
           </div>
         </Col>
       </Row>
-
-      {/* {displayAddCustomerForm && <AddCustomerForm />} */}
+      <AddCustomerForm onOk={saveNewCustomer} onCancel={cancelNewCustomer} />
     </div>
   );
 };

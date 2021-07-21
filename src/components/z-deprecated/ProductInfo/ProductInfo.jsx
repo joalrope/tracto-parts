@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
-import { jsonToTabular } from '../../../../../helpers/jsonTab/json-to-tabular';
+import { jsonToTabular } from '../../../helpers/jsonTab/json-to-tabular';
 // import { useWindowSize } from '../../../hooks/useWindowSize';
-import { LandscapeTable } from '../LandscapeTable/LandscapeTable';
-import { PortraitTable } from '../PortraitTable';
-import { columns } from '../../../../../assets/data/products.dataConfig';
+import { LandscapeTable } from '../../pages/private/sales/LandscapeTable/LandscapeTable';
+import { PortraitTable } from '../../pages/private/sales/PortraitTable';
+import { columns } from '../../../assets/data/products.dataConfig';
 import './product-info.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSelectedProduct } from '../../../../../helpers/sales/add-products-for-sale';
-import { replaceItemProdForSale } from '../../../../../helpers/sales/sales-utils';
-import { addProductForSale /* , clearActivePoduct */, setProductsForSale } from '../../../../../actions/products';
+import { getSelectedProduct } from '../../../helpers/sales/add-products-for-sale';
+import { replaceItemProdForSale } from '../../../helpers/sales/sales-utils';
+import { addProductForSale /* , clearActivePoduct */, setProductsForSale } from '../../../actions/products';
 
 export const ProductInfo = ({ product, mode }) => {
   const dispatch = useDispatch();
