@@ -1,20 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input, Checkbox } from 'antd';
+import { Form, Input, Checkbox, Select } from 'antd';
 import './customer-add.scss';
 import { ModalForm } from '../wrappers/ModalForm';
 import { useSelector } from 'react-redux';
 
+const { Option } = Select;
+
 const AddCustomer = ({ form }) => {
+  const selectBefore = (
+    <Select defaultValue='V' className='select-before'>
+      <Option value='V'>V</Option>
+      <Option value='J'>J</Option>
+      <Option value='G'>G</Option>
+    </Select>
+  );
+
   return (
     <Form
       name='customer-add'
       form={form}
+      layout={'horizontal'}
       labelCol={{
-        span: 8,
+        span: 4,
       }}
       wrapperCol={{
-        span: 16,
+        span: 24,
       }}
       initialValues={{
         remember: true,
@@ -30,7 +41,7 @@ const AddCustomer = ({ form }) => {
           },
         ]}
       >
-        <Input />
+        <Input addonBefore={selectBefore} />
       </Form.Item>
 
       <Form.Item

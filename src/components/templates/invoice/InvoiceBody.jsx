@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableAttrib } from '../../../classes/table-attrib-class';
-import { pdfColumns } from '../../../assets/data/products-for-sale.dataConfig';
+//import { TableAttrib } from '../../../classes/table-attrib-class';
+//import { pdfColumns } from '../../../assets/data/products-for-sale.dataConfig';
 import './invoice.scss';
+import { EditableTable } from '../../ui-component/editable-table/EditableTable';
+import { forSaleColumns } from '../../../assets/data/products.dataConfig';
 
 export const InvoiceBody = ({ products }) => {
-  const attrib = new TableAttrib(pdfColumns);
+  //const attrib = new TableAttrib(pdfColumns);
   console.log(products);
 
   return (
     <div className='invoice-body'>
-      <table className='invoiced-products-for-sale-table'>
+      <EditableTable dataSource={products} cols={forSaleColumns} tax={0} /* saveTableData={saveEditedProducts} */ />
+
+      {/* <table className='invoiced-products-for-sale-table'>
         <thead>
           {
             <tr>
@@ -34,7 +38,7 @@ export const InvoiceBody = ({ products }) => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 };

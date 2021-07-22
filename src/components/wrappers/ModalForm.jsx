@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { createRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Form } from 'antd';
+import { Image, Form, Modal } from 'antd';
 import Draggable from 'react-draggable';
+import logo from '../../assets/images/logo.png';
+import './modal-form.scss';
 
 export const ModalForm = ({ WrappedComponent, title, visible, onOk, okText, onCancel, cancelText, draggable }) => {
   const [form] = Form.useForm();
@@ -27,6 +29,7 @@ export const ModalForm = ({ WrappedComponent, title, visible, onOk, okText, onCa
   if (draggable) {
     modalTitle = (
       <div
+        className='--form-modal__title-container'
         style={{
           width: '100%',
           cursor: 'move',
@@ -45,7 +48,10 @@ export const ModalForm = ({ WrappedComponent, title, visible, onOk, okText, onCa
         onBlur={() => {}}
         // end
       >
-        {title}
+        <div className='--form-modal__title-logo'>
+          <Image src={logo} alt={'Logo Tractocenter'} />
+        </div>
+        <div className='--form-modal__title-value'>{title}</div>
       </div>
     );
   } else {
@@ -54,10 +60,11 @@ export const ModalForm = ({ WrappedComponent, title, visible, onOk, okText, onCa
     }
   }
 
-  const nodeRef = React.useRef(null);
+  const nodeRef = createRef();
 
   return (
     <Modal
+      className='--form-modal__container'
       visible={visible}
       title={modalTitle}
       okText={okText}
@@ -81,7 +88,9 @@ export const ModalForm = ({ WrappedComponent, title, visible, onOk, okText, onCa
           bounds={bounds}
           onStart={(event, uiData) => onStart(event, uiData)}
         >
-          <div ref={nodeRef}>{modal}</div>
+          <div className='--form-modal__draggable' ref={nodeRef}>
+            {modal}
+          </div>
         </Draggable>
       )}
     >

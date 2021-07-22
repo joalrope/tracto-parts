@@ -1,0 +1,44 @@
+@import '../../assets/css/partials/_variables.scss';
+
+.--form-modal__container {
+  .--form-modal__draggable {
+    .ant-modal-content {
+      background-color: transparent !important;
+      .ant-modal-close {
+        color: white !important;
+      }
+      .ant-modal-header {
+        background: $primary !important;
+        padding: 0 24px 0 0 !important;
+        height: 64px;
+        .ant-modal-title {
+          .--form-modal__title-container {
+            display: flex;
+            flex-direction: row;
+            .--form-modal__title-logo {
+              align-items: center;
+              background-color: $app-logo-background;
+              display: flex;
+              flex: 1 0 30%;
+              height: 64px;
+              padding: 12px;
+              vertical-align: middle;
+            }
+            .--form-modal__title-value {
+              display: flex;
+              flex: 1 0 70%;
+              align-items: center;
+              color: white;
+              padding-left: 12px;
+            }
+          }
+        }
+      }
+
+      .ant-modal-body,
+      .ant-modal-footer {
+        background-color: $white;
+      }
+    }
+  }
+}
