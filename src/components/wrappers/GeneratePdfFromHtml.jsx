@@ -50,7 +50,7 @@ export const GeneratePdfFromHtml = ({ WrappedComponent, data, msgWhenUnmounting 
 };
 
 GeneratePdfFromHtml.propTypes = {
-  WrappedComponent: PropTypes.node,
+  WrappedComponent: PropTypes.func,
   data: PropTypes.object,
   msgWhenUnmounting: PropTypes.func,
 };

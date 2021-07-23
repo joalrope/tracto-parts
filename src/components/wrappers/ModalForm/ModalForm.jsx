@@ -2,7 +2,7 @@ import React, { createRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Image, Form, Modal } from 'antd';
 import Draggable from 'react-draggable';
-import logo from '../../assets/images/logo.png';
+import logo from '../../../assets/images/logo.png';
 import './modal-form.scss';
 
 export const ModalForm = ({ WrappedComponent, title, visible, onOk, okText, onCancel, cancelText, draggable }) => {

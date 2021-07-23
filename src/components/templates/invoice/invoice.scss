@@ -214,18 +214,22 @@
 
 .invoiced-products-for-sale-table td:first-child {
   width: 15pt;
+  text-align: center;
 }
 .invoiced-products-for-sale-table td:nth-child(2) {
   width: 30pt;
 }
 .invoiced-products-for-sale-table td:nth-child(4) {
   width: 40pt;
+  text-align: right;
 }
 .invoiced-products-for-sale-table td:nth-child(5) {
   width: 60pt;
+  text-align: right;
 }
 .invoiced-products-for-sale-table td:last-child {
   width: 60pt;
+  text-align: right;
 }
 
 .invoiced-products-for-sale-table thead tr th,

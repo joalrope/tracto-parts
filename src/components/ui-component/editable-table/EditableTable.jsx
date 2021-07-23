@@ -7,7 +7,7 @@ import './editable-table.scss';
 
 export const EditableContext = React.createContext(null);
 
-export const EditableTable = ({ dataSource, cols, tax, saveTableData }) => {
+export const EditableTable = ({ dataSource, cols, summary, saveTableData }) => {
   const handleSave = (row) => {
     const newData = [...dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
@@ -40,6 +40,11 @@ export const EditableTable = ({ dataSource, cols, tax, saveTableData }) => {
     };
   });
 
+  let summaryRender = null;
+  if (summary) {
+    summaryRender = (pageData) => summary(pageData);
+  }
+
   return (
     <div className='--editable-info__container'>
       <Table
@@ -50,53 +55,7 @@ export const EditableTable = ({ dataSource, cols, tax, saveTableData }) => {
         columns={columns}
         pagination={false}
         scroll={{ x: 'max-content' }}
-        summary={(pageData) => {
-          let totalInvoice = 0;
-          let totalTax = 0;
-
-          pageData.forEach(({ totalItem }) => {
-            totalInvoice += totalItem;
-            totalTax += totalItem * (tax / 100);
-          });
-
-          return (
-            <>
-              <Table.Summary.Row>
-                <Table.Summary.Cell align='right' colSpan={6}>
-                  Total Venta:
-                </Table.Summary.Cell>
-                <Table.Summary.Cell align={'right'}>
-                  {Number(totalInvoice).toLocaleString('es-CO', {
-                    maximumFractionDigits: 2,
-                    minimumFractionDigits: 2,
-                  })}
-                </Table.Summary.Cell>
-              </Table.Summary.Row>
-              <Table.Summary.Row>
-                <Table.Summary.Cell align='right' colSpan={6}>
-                  {`I.V.A. (${tax}%):`}
-                </Table.Summary.Cell>
-                <Table.Summary.Cell align={'right'}>
-                  {Number(totalTax).toLocaleString('es-CO', {
-                    maximumFractionDigits: 2,
-                    minimumFractionDigits: 2,
-                  })}
-                </Table.Summary.Cell>
-              </Table.Summary.Row>
-              <Table.Summary.Row>
-                <Table.Summary.Cell align='right' colSpan={6}>
-                  Total Factura:
-                </Table.Summary.Cell>
-                <Table.Summary.Cell align={'right'}>
-                  {(Number(totalInvoice) + Number(totalTax)).toLocaleString('es-CO', {
-                    maximumFractionDigits: 2,
-                    minimumFractionDigits: 2,
-                  })}
-                </Table.Summary.Cell>
-              </Table.Summary.Row>
-            </>
-          );
-        }}
+        summary={summaryRender}
       />
     </div>
   );
@@ -105,6 +64,6 @@ export const EditableTable = ({ dataSource, cols, tax, saveTableData }) => {
 EditableTable.propTypes = {
   cols: PropTypes.array,
   dataSource: PropTypes.array,
-  tax: PropTypes.number,
+  summary: PropTypes.number,
   saveTableData: PropTypes.func,
 };

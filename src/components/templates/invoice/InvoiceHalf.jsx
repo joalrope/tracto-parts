@@ -9,7 +9,6 @@ import './invoice.scss';
 
 export const InvoiceHalf = ({ data }) => {
   const { transactionData, activeCustomer, productsForSale, totals } = data;
-  console.log(transactionData, activeCustomer, productsForSale, totals);
   let clonedProducts = JSON.parse(JSON.stringify(productsForSale));
   let clonedCustomer = JSON.parse(JSON.stringify(activeCustomer));
   let i = 0;

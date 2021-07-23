@@ -1,16 +1,22 @@
-@import '../../assets/css/partials/_variables.scss';
+@import '../../../assets/css/partials/_variables.scss';
 
 .--form-modal__container {
   .--form-modal__draggable {
     .ant-modal-content {
       background-color: transparent !important;
       .ant-modal-close {
+        .ant-modal-close-x {
+          line-height: 48px !important;
+        }
+      }
+
+      .ant-modal-close {
         color: white !important;
       }
       .ant-modal-header {
         background: $primary !important;
         padding: 0 24px 0 0 !important;
-        height: 64px;
+        height: 48px;
         .ant-modal-title {
           .--form-modal__title-container {
             display: flex;
@@ -20,7 +26,7 @@
               background-color: $app-logo-background;
               display: flex;
               flex: 1 0 30%;
-              height: 64px;
+              height: 48px;
               padding: 12px;
               vertical-align: middle;
             }
@@ -28,7 +34,7 @@
               display: flex;
               flex: 1 0 70%;
               align-items: center;
-              color: white;
+              color: $secondary;
               padding-left: 12px;
             }
           }

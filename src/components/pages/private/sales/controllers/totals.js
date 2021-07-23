@@ -15,7 +15,7 @@ export const getTotals = () => {
   });
 
   const purchase = () => {
-    return productsForSale.reduce((grandTotal, { total }) => Number(grandTotal) + Number(total), 0);
+    return productsForSale.reduce((grandTotal, { totalItem }) => Number(grandTotal) + Number(totalItem), 0);
   };
 
   const purchaseTotal = purchase();

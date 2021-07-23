@@ -19,19 +19,19 @@ export class TableAttrib {
     return this.colData(id).title;
   };
 
-  getCellValue = (id, data) => {
-    console.log(data);
+  value = (id, data) => {
     let value = data;
     if (data === 'undefined' && this.colData(id).type === 'number') value = 0;
     if (data === 'undefined' && this.colData(id).type === 'string') value = '';
     if (!this.colData(id)) return this.msg(id);
 
-    if (this.colData(id).type === 'number') {
+    if (typeof value === 'number' && this.colData(id).type === 'number') {
       return Number(value).toLocaleString('es-ES', {
         maximumFractionDigits: 2,
         minimumFractionDigits: 2,
       });
     }
+
     return value;
   };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Divider, Row, Col, Popconfirm, Button } from 'antd';
+import { Divider, Row, Col, Popconfirm, Button, Table } from 'antd';
 import { CloseSquareOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { findCustomerById, getCustomerByCode } from '../../../../actions/customers';
 import { setDisplayPdfGenerated, setDisplayAddCustomerForm } from '../../../../actions/display';
@@ -11,7 +11,7 @@ import { Invoice } from '../../../templates/invoice/Invoice';
 import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
 import { NotFoundContentMsg } from '../../../ui-component/async-data-select/NotFoundContentMsg';
 import { CustomerCard } from '../../../ui-component/customer/card/CustomerCard';
-import { EditableTable } from '../../../ui-component/editable-table/EditableTable';
+import { EditableTable } from '../../../ui-component/EditableTable/EditableTable';
 import { ProductCard } from '../../../ui-component/product/card/ProductCard';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
 import { ResultModal } from '../../../wrappers/ResultModal';
@@ -19,7 +19,7 @@ import { getTransactionInfo, controlNumber, ivaTax } from './controllers/getTran
 import { msgWhenUnmounting } from './controllers/pdfRenderResult';
 import { getTotals } from './controllers/totals';
 import './sales.scss';
-import { AddCustomerForm } from '../../../forms/AddCustomerForm';
+import { AddCustomerForm } from '../../../forms/AddCustomerForm/AddCustomerForm';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -128,6 +128,54 @@ export const Sales = () => {
     dispatch(setDisplayAddCustomerForm(false));
   };
 
+  const summary = (pageData) => {
+    let totalInvoice = 0;
+    let totalTax = 0;
+
+    pageData.forEach(({ totalItem }) => {
+      totalInvoice += totalItem;
+      totalTax += totalItem * (ivaTax / 100);
+    });
+
+    return (
+      <>
+        <Table.Summary.Row>
+          <Table.Summary.Cell align='right' colSpan={6}>
+            Total Venta:
+          </Table.Summary.Cell>
+          <Table.Summary.Cell align={'right'}>
+            {Number(totalInvoice).toLocaleString('es-CO', {
+              maximumFractionDigits: 2,
+              minimumFractionDigits: 2,
+            })}
+          </Table.Summary.Cell>
+        </Table.Summary.Row>
+        <Table.Summary.Row>
+          <Table.Summary.Cell align='right' colSpan={6}>
+            {`I.V.A. (${ivaTax}%):`}
+          </Table.Summary.Cell>
+          <Table.Summary.Cell align={'right'}>
+            {Number(totalTax).toLocaleString('es-CO', {
+              maximumFractionDigits: 2,
+              minimumFractionDigits: 2,
+            })}
+          </Table.Summary.Cell>
+        </Table.Summary.Row>
+        <Table.Summary.Row>
+          <Table.Summary.Cell align='right' colSpan={6}>
+            Total Factura:
+          </Table.Summary.Cell>
+          <Table.Summary.Cell align={'right'}>
+            {(Number(totalInvoice) + Number(totalTax)).toLocaleString('es-CO', {
+              maximumFractionDigits: 2,
+              minimumFractionDigits: 2,
+            })}
+          </Table.Summary.Cell>
+        </Table.Summary.Row>
+      </>
+    );
+  };
+
   return (
     <div className='--sale-page__container'>
       {showRepeatProductModal && (
@@ -213,10 +261,10 @@ export const Sales = () => {
                 </Divider>
                 {/* <ProductsForSale products={productsForSale} tax={ivaTax} /> */}
                 <EditableTable
-                  dataSource={productsForSale}
                   cols={forSaleColumns}
-                  tax={ivaTax}
+                  dataSource={productsForSale}
                   saveTableData={saveEditedProducts}
+                  summary={summary}
                 />
                 <div className='--products-for-sale__check-in-container'>
                   <Button
