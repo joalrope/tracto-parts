@@ -1,10 +1,12 @@
 import React from 'react';
-import { Form, Input } from 'antd';
+import { Divider, Form, Input } from 'antd';
+import './customer-add.scss';
 
 export const CustomerContact = () => {
   return (
-    <div>
-      <Form.Item label='Contacto:' name='contactName'>
+    <div className='-customer-contact__container'>
+      <Divider orientation='center'>Contacto: </Divider>
+      <Form.Item label='Nombre:' name='contactName'>
         <Input />
       </Form.Item>
       <Form.Item label='Teléfono:' name='contactPhone'>

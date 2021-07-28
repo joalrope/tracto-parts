@@ -43,10 +43,28 @@ export const findCustomerById = (id) => {
     try {
       const { ok, result } = await fetchWithToken(`/customers/${id}`);
 
-      const customer = jsonSort(result, template);
-
       if (ok) {
+        const customer = jsonSort(result, template);
         dispatch(customerSetActive(customer));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const createCustomer = (customer) => {
+  return async (dispatch) => {
+    try {
+      const resultCustomer = await fetchWithToken('/customers/', customer, 'POST');
+      //const resultCustomer = await resp.json();
+
+      const { ok, msg, result } = resultCustomer;
+      if (ok) {
+        const customer = jsonSort(result, template);
+        dispatch(customerSetActive(customer));
+      } else {
+        console.log(msg);
       }
     } catch (error) {
       console.log(error);

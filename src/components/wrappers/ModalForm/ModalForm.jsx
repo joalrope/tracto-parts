@@ -56,7 +56,14 @@ export const ModalForm = ({ WrappedComponent, title, visible, onOk, okText, onCa
     );
   } else {
     if (typeof title === 'string') {
-      modalTitle = title;
+      modalTitle = (
+        <div className='--form-modal__title-container'>
+          <div className='--form-modal__title-logo'>
+            <Image src={logo} alt={'Logo Tractocenter'} />
+          </div>
+          <div className='--form-modal__title-value'>{title}</div>
+        </div>
+      );
     }
   }
 

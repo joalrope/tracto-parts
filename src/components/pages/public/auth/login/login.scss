@@ -1,0 +1,28 @@
+@import '../../../../../assets/css/partials/variables.scss';
+
+.--login-form {
+  border: 1px solid red;
+  width: 100%;
+}
+.login-form-button {
+  width: 100%;
+  margin-right: 1em !important;
+}
+
+.--register-goto {
+  display: block;
+  text-align: center;
+}
+
+.--login-form__forgot,
+.--remember-check {
+  color: $primary !important;
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+.--login-form__row {
+  justify-content: center;
+  align-items: center;
+}

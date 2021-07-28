@@ -1,20 +1,26 @@
-import React, { createRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { Form, Input, Select } from 'antd';
+import { Checkbox, Form, Input, Select, Space } from 'antd';
 import { ModalForm } from '../../wrappers/ModalForm/ModalForm';
-import './customer-add.scss';
 import { CustomerContact } from './CustomerContact';
+import './customer-add.scss';
 
 const { TextArea } = Input;
-const select = createRef();
 
 const AddCustomer = ({ form }) => {
+  const [type, setType] = useState('V');
+  const [credit, setCredit] = useState(false);
+
+  const onChangeHasCredit = (e) => {
+    setCredit(e.target.checked);
+  };
+
   const selectBefore = (
     <Form.Item name={['type']} noStyle initialValue='V'>
       {
         <Select
-          ref={select}
+          onChange={(newValue) => setType(newValue)}
           options={[
             { value: 'V', label: 'V' },
             { value: 'J', label: 'J' },
@@ -52,11 +58,11 @@ const AddCustomer = ({ form }) => {
 
       <Form.Item
         label='Nombre'
-        name='username'
+        name='name'
         rules={[
           {
             required: true,
-            message: 'Por Favor indique un Nombre del Cliente!',
+            message: 'Debe indicar el Nombre del Cliente!',
           },
         ]}
       >
@@ -99,7 +105,18 @@ const AddCustomer = ({ form }) => {
         <Input />
       </Form.Item>
 
-      {select.value != 'V' && <CustomerContact />}
+      <Space align='baseline'>
+        <Form.Item name='hasCredit' valuePropName='checked' wrapperCol={{ offset: 18 }}>
+          <Checkbox onChange={onChangeHasCredit}>Crédito</Checkbox>
+        </Form.Item>
+        {credit && (
+          <Form.Item name='creditLimit' wrapperCol={{ offset: 8, span: 30 }}>
+            <Input placeholder='Límite de crédito' />
+          </Form.Item>
+        )}
+      </Space>
+
+      {type != 'V' && <CustomerContact />}
     </Form>
   );
 };
@@ -120,7 +137,6 @@ export const AddCustomerForm = ({ onOk, onCancel }) => {
       okText='Aceptar'
       onCancel={onCancel}
       cancelText={'Cancelar'}
-      draggable
     />
   );
 };

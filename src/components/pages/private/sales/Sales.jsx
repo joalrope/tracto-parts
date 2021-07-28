@@ -2,24 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Divider, Row, Col, Popconfirm, Button, Table } from 'antd';
 import { CloseSquareOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { findCustomerById, getCustomerByCode } from '../../../../actions/customers';
+import { createCustomer, findCustomerById, getCustomerByCode } from '../../../../actions/customers';
 import { setDisplayPdfGenerated, setDisplayAddCustomerForm } from '../../../../actions/display';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import { addProductForSale, setProductsForSale, findProductById, getProductByCode } from '../../../../actions/products';
 import { deleteItemProdForSale, replaceItemProdForSale } from '../../../../helpers/sales/sales-utils';
+import { AddCustomerForm } from '../../../forms/AddCustomerForm/AddCustomerForm';
 import { Invoice } from '../../../templates/invoice/Invoice';
 import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
 import { NotFoundContentMsg } from '../../../ui-component/async-data-select/NotFoundContentMsg';
 import { CustomerCard } from '../../../ui-component/customer/card/CustomerCard';
-import { EditableTable } from '../../../ui-component/EditableTable/EditableTable';
+import { EditableTable } from '../../../ui-component/editable-table/EditableTable';
 import { ProductCard } from '../../../ui-component/product/card/ProductCard';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
 import { ResultModal } from '../../../wrappers/ResultModal';
-import { getTransactionInfo, controlNumber, ivaTax } from './controllers/getTransactionInfo';
+import { getTransactionInfo, ivaTax } from './controllers/getTransactionInfo';
 import { msgWhenUnmounting } from './controllers/pdfRenderResult';
-import { getTotals } from './controllers/totals';
+import { saleInfo } from './controllers/saleInfo';
 import './sales.scss';
-import { AddCustomerForm } from '../../../forms/AddCustomerForm/AddCustomerForm';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ export const Sales = () => {
     await getTransactionInfo();
   }, []);
 
-  const data = getTotals(controlNumber, ivaTax);
+  const data = saleInfo();
 
   const handleDelete = (id, trademark) => {
     const newProducts = deleteItemProdForSale(id, trademark);
@@ -120,7 +120,34 @@ export const Sales = () => {
   };
 
   const saveNewCustomer = (values) => {
-    console.log('Received values of form: ', values);
+    let isCo;
+    let contact;
+    if (values.type !== 'V') {
+      isCo = true;
+      contact = [
+        {
+          contactName: values.contactName,
+          contactPhone: values.contactPhone,
+          contactEmail: values.contactEmail,
+        },
+      ];
+    } else {
+      isCo = false;
+      contact = [];
+    }
+
+    const newCustomer = {
+      code: `${values.type}-${values.code}`,
+      name: values.name,
+      address: values.address,
+      phone: values.phone,
+      email: values.email,
+      isCo,
+      contact,
+      hasCredit: values.hasCredit,
+      creditLimit: values.creditLimit,
+    };
+    dispatch(createCustomer(newCustomer));
     dispatch(setDisplayAddCustomerForm(false));
   };
 

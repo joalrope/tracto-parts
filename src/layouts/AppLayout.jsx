@@ -11,7 +11,7 @@ import './app-layout.css';
 import { SiderMenu } from './SiderMenu';
 
 const { Header, Footer, Sider, Content } = Layout;
-const style = { fontSize: '18px', color: 'red', verticalAlign: 'middle' };
+const style = { fontSize: '18px', color: '#000000bf', verticalAlign: 'middle' };
 
 export const AppLayout = () => {
   const dispatch = useDispatch();

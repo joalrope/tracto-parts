@@ -10,7 +10,7 @@ const initialState = {
   name: null || name,
   role: role || 'basic',
   isLoggedIn,
-  currentPath: null,
+  currentPath: '/app/home',
 };
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {

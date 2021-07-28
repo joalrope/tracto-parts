@@ -78,6 +78,16 @@ const fetchWithToken = (endpoint, data, method = 'GET', header) => {
       method,
       headers: postHeaders,
       body: JSON.stringify(data),
+    }).then((resp) => {
+      if (resp.ok) {
+        return resp.json();
+      } else {
+        return {
+          ok: false,
+          msg: 'No se pudo crear el recurso',
+          result: {},
+        };
+      }
     });
   }
 

@@ -1,8 +1,8 @@
 import moment from 'moment';
 import { store } from '../../../../../store/store';
-import { controlNumber, ivaTax } from '../controllers/getTransactionInfo';
+import { controlNumber, ivaTax } from './getTransactionInfo';
 
-export const getTotals = () => {
+export const saleInfo = () => {
   const state = store.getState();
   const { productsForSale } = state.product;
   const { activeCustomer } = state.customer;
