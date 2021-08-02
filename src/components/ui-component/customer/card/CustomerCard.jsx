@@ -28,7 +28,7 @@ export const CustomerCard = ({ customer }) => {
           title={
             <div className='--customer-card__header'>
               <Space align='center'>
-                <Avatar shape='square' style={{ backgroundColor: '#000000bf' }} size={58}>
+                <Avatar shape='square' style={{ backgroundColor: '#f2bd15', color: '#000000bf' }} size={58}>
                   <span className='--customer_card__avatar-letter'>
                     {((initials.shift() || '') + (initials.pop() || '')).toUpperCase()}
                   </span>

@@ -4,22 +4,23 @@ import { Link } from 'react-router-dom';
 import { Layout, Menu, Col, Row, Space } from 'antd';
 import { MailOutlined, AppstoreOutlined } from '@ant-design/icons'; //eslint-disable-line
 import { AntDesignOutlined, FacebookFilled, GithubOutlined } from '@ant-design/icons'; //eslint-disable-line
-import { serCurrentPath } from '../actions/auth';
+import { setCurrentPath } from '../actions/ui';
 import { routes } from '../router/routes';
 import { AppRouter } from '../router/AppRouter';
 import './app-layout.css';
 import { SiderMenu } from './SiderMenu';
 
 const { Header, Footer, Sider, Content } = Layout;
-const style = { fontSize: '18px', color: '#000000bf', verticalAlign: 'middle' };
+const style = { fontSize: '18px', color: '$primary', verticalAlign: 'middle' };
 
 export const AppLayout = () => {
   const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const { isLoggedIn, currentPath } = useSelector((state) => state.auth);
+  const { contentBackground } = useSelector((state) => state.ui);
 
   const handleClick = (route) => {
-    dispatch(serCurrentPath(route.key));
+    dispatch(setCurrentPath(route.key));
   };
 
   const onCollapse = () => {
@@ -53,7 +54,7 @@ export const AppLayout = () => {
               ))}
           </Menu>
         </Header>
-        <Content className='--layout-content__container'>
+        <Content className='--layout-content__container' style={{ backgroundImage: `url(${contentBackground})` }}>
           <AppRouter type={role} />
         </Content>
         <Row>

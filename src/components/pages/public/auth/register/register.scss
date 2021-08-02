@@ -1,6 +1,6 @@
 @import '../../../../../assets/css/partials/variables.scss';
 
-.--login-page__body {
+.--register-page__body {
   //background-image: url('https://cdn.pixabay.com/photo/2017/12/11/20/06/spanner-3013135_960_720.jpg');
   background-size: cover;
   background-repeat: no-repeat;
@@ -9,13 +9,13 @@
   position: static;
 }
 
-/* .--login-page__container {
+/* .--register-page__container {
   position: absolute;
   top: 15vh;
   width: 100%;
 } */
 
-.--login-form__container {
+.--register-form__container {
   background-color: $white;
   border: 1px solid $primary;
   border-radius: 5px;
@@ -24,28 +24,21 @@
   width: 90%;
 }
 
-.--login-form__title {
+.--register-form__title {
   text-align: center;
 }
 
-.login-form-button {
+.register-form__button {
   width: 100%;
   margin-right: 1em !important;
 }
 
-.--register-goto__text {
+.--login-goto__text {
+  display: block;
+  text-align: center;
   color: $primary;
-  display: block;
-  text-align: center;
 }
 
-.--register-goto__link {
+.--login-goto__link {
   margin-left: 12px !important;
-}
-
-.--login-form__forgot {
-  color: $secondary !important;
-  display: block;
-  text-align: center;
-  width: 100%;
 }

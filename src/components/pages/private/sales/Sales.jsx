@@ -299,6 +299,7 @@ export const Sales = () => {
                     disabled={!activeCustomer ? true : false}
                     icon={<ShoppingCartOutlined />}
                     onClick={handleCheckIn}
+                    type='primary'
                   >
                     Facturar
                   </Button>

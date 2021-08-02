@@ -13,7 +13,6 @@ export const NotFoundContentMsg = ({ msg, noFoundResult }) => {
           onClick={() => noFoundResult('cancel')}
           style={{ width: buttonWidth, marginRight: '10px' }}
           size='small'
-          type='danger'
         >
           Cancelar
         </Button>

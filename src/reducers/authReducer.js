@@ -10,7 +10,6 @@ const initialState = {
   name: null || name,
   role: role || 'basic',
   isLoggedIn,
-  currentPath: '/app/home',
 };
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -53,12 +52,6 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         PassForgotVisible: action.payload,
-      };
-
-    case types.authSetCurrentPath:
-      return {
-        ...state,
-        currentPath: action.payload,
       };
 
     default:

@@ -1,13 +1,10 @@
 import Swal from 'sweetalert2';
 import { types } from '../types/types';
 import { fetchWithoutToken, fetchWithToken } from '../helpers/fetch';
-import { productClearActive, setProductsForSale } from './products';
-import { customerClearActive } from './customers';
 
 export const startLogin = (email, password) => {
   return async (dispatch) => {
     const { ok, msg, token, uid, name, role } = await fetchWithoutToken('/auth', { email, password }, 'POST');
-
     if (ok) {
       dispatch(
         login({
@@ -21,7 +18,7 @@ export const startLogin = (email, password) => {
       sessionStorage.token = token;
       sessionStorage.isLogged = true;
     } else {
-      Swal.fire('Error', msg, 'error');
+      Swal.fire('Error en la autenticación', msg, 'error');
     }
   };
 };
@@ -116,24 +113,6 @@ export const startHidePassForgot = () => {
   };
 };
 
-export const serCurrentPath = (path) => {
-  return (dispatch) => {
-    if (path === '/logout') {
-      path = '/home';
-      clearStore(dispatch);
-    }
-    dispatch(currentPath(path));
-  };
-};
-
-const clearStore = (dispatch) => {
-  sessionStorage.clear();
-  dispatch(setProductsForSale([]));
-  dispatch(customerClearActive());
-  dispatch(productClearActive());
-  dispatch(startLogout());
-};
-
 const login = (user) => ({
   type: types.authlogin,
   payload: user,
@@ -155,9 +134,4 @@ const showRegisterForm = (valVisible) => ({
 const showPassForgotForm = (valVisible) => ({
   type: types.authShowPassForgot,
   payload: valVisible,
-});
-
-const currentPath = (path) => ({
-  type: types.authSetCurrentPath,
-  payload: path,
 });

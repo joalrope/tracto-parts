@@ -8,12 +8,13 @@ export const types = {
   authShowLogin: '[auth] Show Login form',
   authShowRegister: '[auth] Show Register form',
   authShowPassForgot: '[auth] Show Password Forgot form',
-  authSetCurrentPath: '[auth] Set Current Path',
 
-  uiOpenModal: '[UI] Open modal',
   uiCloseModal: '[UI] Close modal',
-  uiStartLoading: '[UI] Start loading',
   uiFinishLoading: '[UI] Finish loading',
+  uiOpenModal: '[UI] Open modal',
+  uiSetCurrentPath: '[ui] Set Current Path',
+  uiSetContentBackground: '[ui] Set Content Background',
+  uiStartLoading: '[UI] Start loading',
 
   productSetActive: '[product] Set active',
   productClearActive: '[product] Clear active',

@@ -1,138 +1,66 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import { useForm } from '../../../../../hooks/userForm';
-import { startRegister } from '../../../../../actions/auth';
-import { goBack } from '../controllers/goBack';
-import '../auth.scss';
+import { Button, Col, Form, Input, Row } from 'antd';
+import { UserOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
+import { setCurrentPath } from '../../../../../actions/ui';
+import { startLogin, startRegister } from '../../../../../actions/auth';
+import './register.scss';
 
 export const Register = () => {
   const dispatch = useDispatch();
 
-  const [formValues, handleInputChange] = useForm({
-    Name: 'Joalrope2',
-    Email: 'joalrope2@gmail.com',
-    Password: '123456',
-    Password2: '123456',
-  });
-
-  const { Name, Email, Password, Password2 } = formValues;
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(startRegister(Name, Email, Password));
-    goBack();
+  const onFinish = ({ name, email, password }) => {
+    dispatch(startRegister(name, email, password));
+    dispatch(startLogin(email, password));
+    dispatch(setCurrentPath('/home'));
   };
 
-  const handleValidatePassword = () => {
-    if (Password && Password2) {
-      if (Password !== Password2) {
-        Swal.fire('Las contraseñas NO son iguales', 'Por favor corrija', 'warning');
-      }
-    }
+  const handleShowLogin = () => {
+    dispatch(setCurrentPath('/login'));
   };
 
   return (
     <>
-      <div className='body register-img'></div>
-      <div className='container'>
-        <div className='d-flex justify-content-center'>
-          <div className='register'>
-            <button className='close' onClick={goBack}>
-              <i className='far fa-times-circle'></i>
-            </button>
-            <div className='card-header'>
-              <h3>Registro</h3>
-            </div>
-            <div className='card-body'>
-              <form onSubmit={handleSubmit} autoComplete='off'>
-                <div className='input-group form-group'>
-                  <div className='input-group-prepend'>
-                    <span className='input-group-text'>
-                      <i className='fas fa-user'></i>
-                    </span>
-                  </div>
-                  <input
-                    type='text'
-                    className='form-control'
-                    placeholder='Nombre de usuario'
-                    name='Name'
-                    value={Name}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input-group form-group'>
-                  <div className='input-group-prepend'>
-                    <span className='input-group-text'>
-                      <i className='fas fa-envelope-open-text'></i>
-                    </span>
-                  </div>
-                  <input
-                    type='text'
-                    className='form-control'
-                    placeholder='Correo'
-                    name='Email'
-                    value={Email}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input-group form-group'>
-                  <div className='input-group-prepend'>
-                    <span className='input-group-text'>
-                      <i className='fas fa-key'></i>
-                    </span>
-                  </div>
-                  <input
+      {/* <div className='--login-page__body'></div> */}
+      <div className='--register-page__container'>
+        <Row justify='center'>
+          <Col lg={4} sm={24}>
+            <div className='--register-form__container'>
+              <Form name='normal_register' className='--register-form' autoComplete={false} onFinish={onFinish}>
+                <h2 className='--register-form__title'>Registrarse</h2>
+                <Form.Item name='name' rules={[{ required: true, message: 'Por Favor ingrese el nombre de usuario!' }]}>
+                  <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Usuario' />
+                </Form.Item>
+                <Form.Item
+                  name='email'
+                  rules={[{ required: true, message: 'Por Favor ingrese la dirección de correo!' }]}
+                >
+                  <Input prefix={<MailOutlined className='site-form-item-icon' />} placeholder='Correo' />
+                </Form.Item>
+                <Form.Item name='password' rules={[{ required: true, message: 'Por Favor ingrese la contraseña!' }]}>
+                  <Input
+                    prefix={<LockOutlined className='site-form-item-icon' />}
                     type='password'
-                    className='form-control'
-                    placeholder='password'
-                    name='Password'
-                    value={Password}
-                    onChange={handleInputChange}
-                    onBlur={handleValidatePassword}
+                    placeholder='Contraseña'
                   />
-                </div>
-                <div className='input-group form-group'>
-                  <div className='input-group-prepend'>
-                    <span className='input-group-text'>
-                      <i className='fas fa-redo-alt'></i>
-                    </span>
-                  </div>
-                  <input
-                    type='password'
-                    className='form-control'
-                    placeholder='repita password'
-                    name='Password2'
-                    value={Password2}
-                    onChange={handleInputChange}
-                    onBlur={handleValidatePassword}
-                  />
-                </div>
+                </Form.Item>
 
-                <div className='form-group d-flex justify-content-end'>
-                  <input type='submit' value='Registrar' className='btn submit-btn' />
-                </div>
-                <div className='d-flex justify-content-end social_icon'>
-                  <span>
-                    <i className='fab fa-facebook-square'></i>
-                  </span>
-                  <span>
-                    <i className='fab fa-google-plus-square'></i>
-                  </span>
-                  <span>
-                    <i className='fab fa-twitter-square'></i>
-                  </span>
-                </div>
-              </form>
+                <Form.Item>
+                  <Button type='primary' htmlType='submit' className='register-form__button'>
+                    Registrame
+                  </Button>
+                  <div className='--login-goto__text' onClick={handleShowLogin}>
+                    Ya tienes cuenta?
+                    <Link className='--login-goto__link' to='/login'>
+                      Inicia sesión!
+                    </Link>
+                  </div>
+                </Form.Item>
+              </Form>
             </div>
-            <div className='card-footer'>
-              <div className='d-flex justify-content-end links'>
-                ¿Ya tiene una cuenta?<Link to='/login'>Ingrese</Link>
-              </div>
-            </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </div>
     </>
   );

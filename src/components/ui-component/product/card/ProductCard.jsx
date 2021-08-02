@@ -6,7 +6,7 @@ import { CloseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { productClearActive } from '../../../../actions/products';
 import { getUrlImage } from '../../../../helpers/getUrlImage';
 //import { urlImages } from '../../../../assets/data/urlImages';
-import noImage from '../../../../assets/images/no-image.jpeg';
+import noImage from '../../../../assets/images/no-imagen.png';
 import './product-card.scss';
 
 const { Meta } = Card;
@@ -62,7 +62,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
         //actions={actions}
         size='small'
         title={
-          <Tag color='#001529' style={{ fontWeight: 'bolder' }}>
+          <Tag color='#f2bd15' style={{ fontWeight: 'bolder', color: '#000000bf' }}>
             {product.code}
           </Tag>
         }

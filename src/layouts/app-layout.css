@@ -2,6 +2,7 @@
   padding: 0 !important;
 }
 .--public-menu__container {
+  /* // eslint-disable-next-line */
   float: left;
 }
 
@@ -33,9 +34,11 @@
 }
 
 .--layout-content__container {
-  height: calc(100vh - 115px);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: calc(100vh - 130px);
   padding: 10px 30px;
-  overflow: scroll;
+  overflow-x: auto;
 }
 
 .--header-content__container {
