@@ -1,17 +1,7 @@
 import React from 'react';
 // import { ActionRender } from '../../components/ui-component/product/for-sale/ActionRender';
 
-export const productInfoTemplate = [
-  'code',
-  'title',
-  'trademark',
-  'qty',
-  'location',
-  'salePrice',
-  'replacement',
-  'measurement',
-  'status',
-];
+export const productTemplate = ['id', 'code', 'title', 'category', 'details', 'replacement', 'measurement', 'status'];
 
 export const activeProductTemplate = [
   'id',

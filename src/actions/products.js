@@ -1,4 +1,4 @@
-import { activeProductTemplate } from '../assets/data/products.dataConfig';
+import { activeProductTemplate, productTemplate } from '../assets/data/products.dataConfig';
 import { fetchWithToken } from '../helpers/fetch';
 import { jsonSort } from '../helpers/json-sort';
 import { types } from '../types/types';
@@ -49,6 +49,27 @@ export const findProductById = (id) => {
 
       if (ok) {
         dispatch(productSetActive(product));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const createProduct = (product) => {
+  return async (dispatch) => {
+    try {
+      const resultProduct = await fetchWithToken('/products/', product, 'POST');
+      //const resultCustomer = await resp.json();
+      console.log(resultProduct);
+
+      const { ok, msg, result } = resultProduct;
+      if (ok) {
+        console.log(result);
+        const product = jsonSort(result, productTemplate);
+        dispatch(productSetActive(product));
+      } else {
+        console.log(msg);
       }
     } catch (error) {
       console.log(error);

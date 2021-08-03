@@ -68,7 +68,7 @@ export const Login = () => {
                   <div className='--register-goto__text' onClick={handleShowRegister}>
                     No tiene cuenta?
                     <Link className='--register-goto__link' to='/register'>
-                      Registrate!
+                      Registrese!
                     </Link>
                   </div>
                 </Form.Item>

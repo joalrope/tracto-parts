@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button, Col, Form, Input, Row } from 'antd';
 import { UserOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import { setCurrentPath } from '../../../../../actions/ui';
-import { startLogin, startRegister } from '../../../../../actions/auth';
+import { /* startLogin, */ startRegister } from '../../../../../actions/auth';
 import './register.scss';
 
 export const Register = () => {
@@ -12,7 +12,7 @@ export const Register = () => {
 
   const onFinish = ({ name, email, password }) => {
     dispatch(startRegister(name, email, password));
-    dispatch(startLogin(email, password));
+    //dispatch(startLogin(email, password));
     dispatch(setCurrentPath('/home'));
   };
 
@@ -30,7 +30,7 @@ export const Register = () => {
               <Form name='normal_register' className='--register-form' autoComplete={false} onFinish={onFinish}>
                 <h2 className='--register-form__title'>Registrarse</h2>
                 <Form.Item name='name' rules={[{ required: true, message: 'Por Favor ingrese el nombre de usuario!' }]}>
-                  <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Usuario' />
+                  <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Nombre' />
                 </Form.Item>
                 <Form.Item
                   name='email'

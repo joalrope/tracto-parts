@@ -34,9 +34,10 @@
 }
 
 .--login-goto__text {
-  display: block;
-  text-align: center;
   color: $primary;
+  display: block;
+  margin-top: 0.5em;
+  text-align: center;
 }
 
 .--login-goto__link {

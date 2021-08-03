@@ -1,4 +1,4 @@
-import { template } from '../assets/data/customer.dataConfig';
+import { customerTemplate } from '../assets/data/customer.dataConfig';
 import { fetchWithToken } from '../helpers/fetch';
 import { jsonSort } from '../helpers/json-sort';
 import { types } from '../types/types';
@@ -44,7 +44,7 @@ export const findCustomerById = (id) => {
       const { ok, result } = await fetchWithToken(`/customers/${id}`);
 
       if (ok) {
-        const customer = jsonSort(result, template);
+        const customer = jsonSort(result, customerTemplate);
         dispatch(customerSetActive(customer));
       }
     } catch (error) {
@@ -61,7 +61,7 @@ export const createCustomer = (customer) => {
 
       const { ok, msg, result } = resultCustomer;
       if (ok) {
-        const customer = jsonSort(result, template);
+        const customer = jsonSort(result, customerTemplate);
         dispatch(customerSetActive(customer));
       } else {
         console.log(msg);

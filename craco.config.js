@@ -12,7 +12,7 @@ module.exports = {
               '@primary-color': '#f2bd15',
               '@secondary-color': '#000000bf',
 
-              /*Background color for `<body>`*/
+              //Background color for `<body>`
               '@body-background': '#000',
 
               // Buttons
@@ -30,13 +30,14 @@ module.exports = {
               '@checkbox-border-width': '@border-width-base',
               '@checkbox-group-item-margin-right': '8px',
 
-              /* The background colors for active and hover states for things like */
-              /* list items or table cells. */
+              // The background colors for active and hover states for things like
+              // list items or table cells.
               '@item-active-bg': '@primary-color',
               '@item-hover-bg': '@primary-color',
 
               // Menu
               // ---
+
               '@menu-inline-toplevel-item-height': '40px',
               '@menu-item-height': '40px',
               '@menu-item-group-height': '@line-height-base',

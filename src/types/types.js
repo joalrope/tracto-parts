@@ -39,4 +39,5 @@ export const types = {
 
   displayGeneratePdf: '[display] Generate pdf',
   displayFormCustomerAdd: '[display] Add Customer Form',
+  displayFormProductAdd: '[display] Add Product Form',
 };

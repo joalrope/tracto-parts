@@ -3,6 +3,7 @@ import { types } from '../types/types';
 import { productClearActive, setProductsForSale } from './products';
 import { customerClearActive } from './customers';
 import { startLogout } from './auth';
+import { getUrlBgImage } from '../helpers/getUrlBgImage';
 
 const history = createBrowserHistory();
 
@@ -12,12 +13,8 @@ export const setCurrentPath = (path) => {
       path = '/home';
       clearStore(dispatch);
     }
-
-    if (path === '/login') {
-      dispatch(setContentBackground('https://cdn.pixabay.com/photo/2017/12/11/20/06/spanner-3013135_960_720.jpg'));
-    } else {
-      dispatch(setContentBackground(null));
-    }
+    console.log(getUrlBgImage(path));
+    dispatch(setContentBackground(getUrlBgImage(path)));
     history.push(path);
     dispatch(currentPath(path));
   };

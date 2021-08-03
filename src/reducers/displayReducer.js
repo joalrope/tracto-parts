@@ -3,6 +3,7 @@ import { types } from '../types/types';
 const initialState = {
   displayInvoicePdf: false,
   displayFormCustomerAdd: false,
+  displayFormProductAdd: false,
 };
 
 export const displayReducer = (state = initialState, action) => {
@@ -19,23 +20,11 @@ export const displayReducer = (state = initialState, action) => {
         displayFormCustomerAdd: action.payload,
       };
 
-    // case types.uiCloseModal:
-    //   return {
-    //     ...state,
-    //     modalOpen: false,
-    //   };
-
-    // case types.uiStartLoading:
-    //   return {
-    //     ...state,
-    //     loading: true,
-    //   };
-
-    // case types.uiFinishLoading:
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //   };
+    case types.displayFormProductAdd:
+      return {
+        ...state,
+        displayFormProductAdd: action.payload,
+      };
 
     default:
       return state;

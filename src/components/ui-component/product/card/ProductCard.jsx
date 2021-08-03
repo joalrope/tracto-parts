@@ -55,6 +55,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
           <Image
             alt={`${product.code}.jpg`}
             src={url}
+            style={{ backgroundColor: '#f2bd15' }}
             //src={`${urlImages[product.details[0].trademark.toLowerCase()]}${product.code}.jpg`}
             fallback={noImage}
           />

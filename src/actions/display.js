@@ -10,6 +10,11 @@ export const setDisplayAddCustomerForm = (show) => ({
   payload: show,
 });
 
+export const setDisplayAddProductForm = (show) => ({
+  type: types.displayFormProductAdd,
+  payload: show,
+});
+
 // export const uiCloseModal = () => ({
 //   type: types.uiCloseModal,
 // });

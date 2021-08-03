@@ -1,4 +1,4 @@
-export const template = ['code', 'name', 'address', 'email', 'phone', 'isRegularCustomer', 'contact'];
+export const customerTemplate = ['code', 'name', 'address', 'email', 'phone', 'isRegularCustomer', 'contact'];
 
 export const columns = [
   {

@@ -3,11 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Divider, Row, Col, Popconfirm, Button, Table } from 'antd';
 import { CloseSquareOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { createCustomer, findCustomerById, getCustomerByCode } from '../../../../actions/customers';
-import { setDisplayPdfGenerated, setDisplayAddCustomerForm } from '../../../../actions/display';
+import {
+  setDisplayPdfGenerated,
+  setDisplayAddCustomerForm,
+  setDisplayAddProductForm,
+} from '../../../../actions/display';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
-import { addProductForSale, setProductsForSale, findProductById, getProductByCode } from '../../../../actions/products';
+import {
+  addProductForSale,
+  setProductsForSale,
+  findProductById,
+  getProductByCode,
+  createProduct,
+} from '../../../../actions/products';
 import { deleteItemProdForSale, replaceItemProdForSale } from '../../../../helpers/sales/sales-utils';
 import { AddCustomerForm } from '../../../forms/AddCustomerForm/AddCustomerForm';
+import { AddProductForm } from '../../../forms/AddProductForm/AddProductForm';
 import { Invoice } from '../../../templates/invoice/Invoice';
 import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
 import { NotFoundContentMsg } from '../../../ui-component/async-data-select/NotFoundContentMsg';
@@ -155,6 +166,42 @@ export const Sales = () => {
     dispatch(setDisplayAddCustomerForm(false));
   };
 
+  const startAddNewProduct = (resp) => {
+    if (resp === 'ok') {
+      dispatch(setDisplayAddProductForm(true));
+    }
+  };
+
+  const saveNewProduct = (values) => {
+    const newProduct = {
+      code: values.code.toUpperCase(),
+      title: values.title.toUpperCase(),
+      category: values.category.toUpperCase(),
+      details: [
+        {
+          trademark: values.trademark.toUpperCase(),
+          stock: [
+            {
+              location: values.location.toUpperCase(),
+              qty: Number(values.qty),
+            },
+          ],
+          costPrice: Number(values.costPrice),
+          salePrice: Number(values.salePrice),
+        },
+      ],
+      replacement: values.replacement,
+      status: values.status,
+    };
+
+    dispatch(createProduct(newProduct));
+    dispatch(setDisplayAddProductForm(false));
+  };
+
+  const cancelNewProduct = () => {
+    dispatch(setDisplayAddProductForm(false));
+  };
+
   const summary = (pageData) => {
     let totalInvoice = 0;
     let totalTax = 0;
@@ -257,7 +304,12 @@ export const Sales = () => {
               placeholder={'Encuentre un Producto'}
               dataSource={products}
               result={productResult}
-              //notFoundContent={null}
+              notFoundContent={
+                <NotFoundContentMsg
+                  msg={'No existe el producto, Desea agregarlo?'}
+                  noFoundResult={startAddNewProduct}
+                />
+              }
               //disabled={Boolean(activeProduct)}
             />
           </div>
@@ -310,6 +362,7 @@ export const Sales = () => {
         </Col>
       </Row>
       <AddCustomerForm onOk={saveNewCustomer} onCancel={cancelNewCustomer} />
+      <AddProductForm onOk={saveNewProduct} onCancel={cancelNewProduct} />
     </div>
   );
 };
