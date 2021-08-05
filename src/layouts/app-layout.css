@@ -37,7 +37,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   height: calc(100vh - 130px);
-  padding: 10px 30px;
+  padding: 24px;
   overflow-x: auto;
 }
 
