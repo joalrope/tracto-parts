@@ -13,7 +13,6 @@ export const setCurrentPath = (path) => {
       path = '/home';
       clearStore(dispatch);
     }
-    console.log(getUrlBgImage(path));
     dispatch(setContentBackground(getUrlBgImage(path)));
     history.push(path);
     dispatch(currentPath(path));

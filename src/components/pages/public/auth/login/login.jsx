@@ -34,7 +34,7 @@ export const Login = () => {
                 name='normal_login'
                 className='--login-form'
                 initialValues={{ remember: true }}
-                autoComplete={false}
+                autoComplete='false'
                 onFinish={onFinish}
               >
                 <h2 className='--login-form__title'>Iniciar Sesión</h2>
