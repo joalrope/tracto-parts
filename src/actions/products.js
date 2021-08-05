@@ -95,6 +95,10 @@ export const addProductForSale = (product) => ({
   payload: product,
 });
 
+export const clearProductsForSale = () => ({
+  type: types.productClearProductsForSale,
+});
+
 export const setProductsForSale = (data) => ({
   type: types.productSetProductsForSale,
   payload: data,

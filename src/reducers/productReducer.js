@@ -46,6 +46,12 @@ export const productReducer = (state = initialState, action) => {
         productsForSale: action.payload,
       };
 
+    case types.productClearProductsForSale:
+      return {
+        ...state,
+        productsForSale: [],
+      };
+
     default:
       return state;
   }

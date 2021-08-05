@@ -27,6 +27,7 @@ export const types = {
   productclearProductsLoaded: '[product] clear Loaded products',
   productAddedForSale: '[product] added for sale',
   productSetProductsForSale: '[product] set products for sale',
+  productClearProductsForSale: '[product] clear products for sale',
 
   customersLoaded: '[customer] Loaded customers',
   customerSetActiveCustomer: '[customer] Set active customer',

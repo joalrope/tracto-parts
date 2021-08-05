@@ -51,7 +51,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
   return (
     <div className='product-card__container'>
       <Card
-        style={{ maxWidth: 250 }}
+        style={{ width: 250, border: '1px solid $border-color' }}
         cover={
           <Image
             alt={`${product.code}.jpg`}
