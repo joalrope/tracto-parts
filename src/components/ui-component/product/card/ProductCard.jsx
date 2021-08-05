@@ -10,6 +10,8 @@ import noImage from '../../../../assets/images/no-imagen.png';
 import './product-card.scss';
 
 const { Meta } = Card;
+const pathUp = '../../../..';
+/* <img src={`${process.env.PUBLIC_URL}/assets/icons/${item.trademark}.png`} alt={item.trademark} /> */
 
 export const ProductCard = ({ product, setProductForSale }) => {
   const dispatch = useDispatch();
@@ -84,9 +86,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
                 <Tooltip key={item.trademark} placement='topLeft' title='Clic para agregar a la venta'>
                   <Avatar
                     className='--product-card__brand-avatar'
-                    src={
-                      <img src={`${process.env.PUBLIC_URL}/assets/icons/${item.trademark}.png`} alt={item.trademark} />
-                    }
+                    src={<img src={`${pathUp}/assets/images/${item.trademark}.png`} alt={item.trademark} />}
                     //size={48}
                     onClick={() => handleTrademarkClick(item.trademark, item.salePrice)}
                   />
