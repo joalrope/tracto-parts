@@ -281,37 +281,37 @@ export const Sales = () => {
         <GeneratePdfFromHtml WrappedComponent={Invoice} data={data} msgWhenUnmounting={msgWhenUnmounting} />
       )}
       <Row>
-        <Col className='--sale-page__display'>
+        <Col className='--sale-page__container'>
           <div className='--search-data__container'>
-            <Divider orientation='center'>Busqueda</Divider>
-            <div className='--search-customer__title'>Cliente:</div>
-            <AsyncDataSelect
-              placeholder={'Seleccione un Cliente'}
-              dataSource={customers}
-              result={customerResult}
-              notFoundContent={
-                <NotFoundContentMsg
-                  msg={'No existe el cliente, Desea agregarlo?'}
-                  noFoundResult={startAddNewCustomer}
-                />
-              }
-              //notFoundAsyncData={noDataFounded}
-              //disabled={Boolean(activeCustomer)}
-            />
-
-            <div className='--search-product__title'>Producto:</div>
-            <AsyncDataSelect
-              placeholder={'Encuentre un Producto'}
-              dataSource={products}
-              result={productResult}
-              notFoundContent={
-                <NotFoundContentMsg
-                  msg={'No existe el producto, Desea agregarlo?'}
-                  noFoundResult={startAddNewProduct}
-                />
-              }
-              //disabled={Boolean(activeProduct)}
-            />
+            <Divider className='--search-data__divider' orientation='center'>
+              Busqueda
+            </Divider>
+            <div className='--search-inputs__container'>
+              <div className='--search-customer__title'>Cliente:</div>
+              <AsyncDataSelect
+                placeholder={'Seleccione un Cliente'}
+                dataSource={customers}
+                result={customerResult}
+                notFoundContent={
+                  <NotFoundContentMsg
+                    msg={'No existe el cliente, Desea agregarlo?'}
+                    noFoundResult={startAddNewCustomer}
+                  />
+                }
+              />
+              <div className='--search-product__title'>Producto:</div>
+              <AsyncDataSelect
+                placeholder={'Encuentre un Producto'}
+                dataSource={products}
+                result={productResult}
+                notFoundContent={
+                  <NotFoundContentMsg
+                    msg={'No existe el producto, Desea agregarlo?'}
+                    noFoundResult={startAddNewProduct}
+                  />
+                }
+              />
+            </div>
           </div>
 
           <div className='--info-data__container'>
@@ -333,34 +333,37 @@ export const Sales = () => {
                 </div>
               )}
             </div>
-            {productsForSale.length > 0 && (
-              <div className='--products-for-sale__container'>
-                <Divider className='--products-for-sale__divider' orientation='center'>
-                  Productos para la Venta
-                </Divider>
-                {/* <ProductsForSale products={productsForSale} tax={ivaTax} /> */}
-                <EditableTable
-                  cols={forSaleColumns}
-                  dataSource={productsForSale}
-                  saveTableData={saveEditedProducts}
-                  summary={summary}
-                />
-                <div className='--products-for-sale__check-in-container'>
-                  <Button
-                    className='--products-for-sale__check-in-button'
-                    disabled={!activeCustomer ? true : false}
-                    icon={<ShoppingCartOutlined />}
-                    onClick={handleCheckIn}
-                    type='primary'
-                  >
-                    Facturar
-                  </Button>
-                </div>
-              </div>
-            )}
           </div>
         </Col>
       </Row>
+      <Row>
+        {productsForSale.length > 0 && (
+          <div className='--products-for-sale__container'>
+            <Divider className='--products-for-sale__divider' orientation='center'>
+              Productos para la Venta
+            </Divider>
+            {/* <ProductsForSale products={productsForSale} tax={ivaTax} /> */}
+            <EditableTable
+              cols={forSaleColumns}
+              dataSource={productsForSale}
+              saveTableData={saveEditedProducts}
+              summary={summary}
+            />
+            <div className='--products-for-sale__check-in-container'>
+              <Button
+                className='--products-for-sale__check-in-button'
+                disabled={!activeCustomer ? true : false}
+                icon={<ShoppingCartOutlined />}
+                onClick={handleCheckIn}
+                type='primary'
+              >
+                Facturar
+              </Button>
+            </div>
+          </div>
+        )}
+      </Row>
+
       <AddCustomerForm onOk={saveNewCustomer} onCancel={cancelNewCustomer} />
       <AddProductForm onOk={saveNewProduct} onCancel={cancelNewProduct} />
     </div>

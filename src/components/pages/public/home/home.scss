@@ -1,0 +1,8 @@
+@import '../../../../assets/css/partials/variables.scss';
+
+.--home-page__container {
+  height: calc(100vh - 115px);
+  .--logo-image {
+    height: 64px;
+  }
+}

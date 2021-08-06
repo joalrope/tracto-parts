@@ -17,7 +17,8 @@ export const AppLayout = () => {
   const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const { isLoggedIn, currentPath } = useSelector((state) => state.auth);
-  const { contentBackground } = useSelector((state) => state.ui);
+  const { contentBackgroundImage } = useSelector((state) => state.ui);
+  //const { contentStyles } = useSelector((state) => state.ui);
 
   const handleClick = (route) => {
     dispatch(setCurrentPath(route.key));
@@ -54,7 +55,7 @@ export const AppLayout = () => {
               ))}
           </Menu>
         </Header>
-        <Content className='--layout-content__container' style={{ backgroundImage: `url(${contentBackground})` }}>
+        <Content className='--layout-content__container' style={{ backgroundImage: `url(${contentBackgroundImage})` }}>
           <AppRouter type={role} />
         </Content>
         <Row>

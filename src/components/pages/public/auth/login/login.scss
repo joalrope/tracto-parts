@@ -1,27 +1,13 @@
 @import '../../../../../assets/css/partials/variables.scss';
 
-.--login-page__body {
-  //background-image: url('https://cdn.pixabay.com/photo/2017/12/11/20/06/spanner-3013135_960_720.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100%;
-  filter: blur(2px);
-  position: static;
-}
-
-/* .--login-page__container {
-  position: absolute;
-  top: 15vh;
-  width: 100%;
-} */
-
 .--login-form__container {
   background-color: $white;
   border: 1px solid $primary;
   border-radius: 5px;
   margin-top: 5vh;
-  padding: 20px;
-  width: 90%;
+  padding: 24px;
+  min-width: 250px;
+  max-width: 250px;
 }
 
 .--login-form__title {

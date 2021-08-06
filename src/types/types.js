@@ -14,6 +14,7 @@ export const types = {
   uiOpenModal: '[UI] Open modal',
   uiSetCurrentPath: '[ui] Set Current Path',
   uiSetContentBackground: '[ui] Set Content Background',
+  uiSetContentStyles: '[ui] Set Content styles',
   uiStartLoading: '[UI] Start loading',
 
   productSetActive: '[product] Set active',

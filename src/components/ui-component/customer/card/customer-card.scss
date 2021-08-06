@@ -1,38 +1,18 @@
 @import '../../../../assets/css/partials/variables.scss';
 
-/* .--customer-info__table {
-  color: $white;
-  scroll-snap-type: x mandatory;
-  width: 100%;
-  font-size: smaller;
-  table-layout: fixed;
-
-  & thead th {
-    text-align: center !important;
-    padding: 0 8px !important;
-    background-color: $primary !important;
-    color: #fff !important;
-    font-size: 0.75rem;
-  }
-
-  & tbody tr td {
-    padding: 0 8px !important;
-    max-width: 300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 0.75rem;
-  }
-} */
-
 .--customer-card__container {
-  /*  padding: 5px; */
-  //border: 1px solid hsla(0, 0%, 0%, 0.1);
   & .ant-card {
     border: 1px solid $border-color !important;
     & .ant-card-body {
       padding: 18px !important;
     }
+  }
+
+  .--customer-card__itself {
+    border: 1px solid $border-color;
+    border-radius: 3px;
+    height: 400px;
+    width: 250px;
   }
 
   & .--customer-card__header {
@@ -101,7 +81,3 @@
     height: 103px;
   }
 }
-
-/* .--action-buttons {
-  text-align: center;
-} */

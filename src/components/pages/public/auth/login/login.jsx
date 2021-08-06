@@ -28,12 +28,12 @@ export const Login = () => {
       {/* <div className='--login-page__body'></div> */}
       <div className='--login-page__container'>
         <Row justify='center'>
-          <Col lg={4} sm={24}>
+          <Col>
             <div className='--login-form__container'>
               <Form
                 name='normal_login'
                 className='--login-form'
-                initialValues={{ remember: true }}
+                initialValues={{ remember: false }}
                 autoComplete='false'
                 onFinish={onFinish}
               >

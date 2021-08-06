@@ -11,7 +11,7 @@ export const InvoiceFooter = ({ totals }) => {
     <div className='invoice-footer'>
       <div className='left-invoice-signature'>
         <div className='row-sign'>
-          <div className='descrip-sign'>Recibido (Firma)</div>
+          <div className='descrip-sign'>Entregado (Firma)</div>
           <div className='to-fill-sign'></div>
         </div>
         <div className='row-sign'>

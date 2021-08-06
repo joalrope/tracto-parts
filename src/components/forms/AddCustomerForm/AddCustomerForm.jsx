@@ -35,6 +35,7 @@ const AddCustomer = ({ form }) => {
     <Form
       name='customer-add'
       form={form}
+      initialValues={{ type: 'V' }}
       layout={'horizontal'}
       labelCol={{
         span: 5,

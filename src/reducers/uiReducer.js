@@ -2,14 +2,21 @@ import { types } from '../types/types';
 
 const initialState = {
   currentPath: '/app/home',
-  contentBackground: null,
+  contentStyles: null,
+  contentBackgroundImage: null,
 };
 export const uiReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.uiSetContentBackground:
       return {
         ...state,
-        contentBackground: action.payload,
+        contentBackgroundImage: action.payload,
+      };
+
+    case types.uiSetContentStyles:
+      return {
+        ...state,
+        contentStyles: action.payload,
       };
 
     case types.uiSetCurrentPath:

@@ -51,7 +51,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
   return (
     <div className='product-card__container'>
       <Card
-        style={{ width: 250, border: '1px solid $border-color' }}
+        className='--product-card__itself'
         cover={
           <Image
             alt={`${product.code}.jpg`}
@@ -64,9 +64,12 @@ export const ProductCard = ({ product, setProductForSale }) => {
         //actions={actions}
         size='small'
         title={
-          <Tag color='#f2bd15' style={{ fontWeight: 'bolder', color: '#000000bf' }}>
-            {product.code}
-          </Tag>
+          <div className='--product-card__title-card'>
+            Código:{'  '}
+            <Tag color='#f2bd15' style={{ fontWeight: 'bolder', color: '#000000bf' }}>
+              {product.code}
+            </Tag>
+          </div>
         }
         extra={<CloseOutlined onClick={clearActiveProduc} />}
       >

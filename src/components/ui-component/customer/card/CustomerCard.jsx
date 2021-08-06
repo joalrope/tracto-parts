@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Card, Avatar, Space } from 'antd';
+import { Card, Avatar, Space, Tag } from 'antd';
 import PropTypes from 'prop-types';
 import { PhoneOutlined, CloseOutlined } from '@ant-design/icons';
 import { customerClearActive } from '../../../../actions/customers';
@@ -19,9 +19,16 @@ export const CustomerCard = ({ customer }) => {
   return (
     <div className='--customer-card__container'>
       <Card
-        style={{ width: 250, border: '1px solid $border-color' }}
-        //actions={[<SettingOutlined key='setting' />, <EditOutlined key='edit' />, <EllipsisOutlined key='ellipsis' />]}
-        title={<div className='--customer-card__code'>{`RIF: ${customer.code}`}</div>}
+        className='--customer-card__itself'
+        size='small'
+        title={
+          <div className='--customer-card__title-card'>
+            RIF:{'  '}
+            <Tag color='#f2bd15' style={{ fontWeight: 'bolder', color: '#000000bf' }}>
+              {customer.code}
+            </Tag>
+          </div>
+        }
         extra={<CloseOutlined onClick={clearActiveCustomer} />}
       >
         <Meta
