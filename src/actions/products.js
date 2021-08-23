@@ -38,6 +38,18 @@ export const getProductByCode = async (code) => {
   }
 };
 
+export const updateProductQty = async (id, product) => {
+  try {
+    const { ok, result } = await fetchWithToken(`/products/qty/${id}`, product, 'PUT');
+    if (ok) {
+      const json = await result;
+      console.log(json);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const findProductById = (id) => {
   return async (dispatch) => {
     try {

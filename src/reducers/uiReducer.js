@@ -1,7 +1,7 @@
 import { types } from '../types/types';
 
 const initialState = {
-  currentPath: '/app/home',
+  currentPath: '/home',
   contentStyles: null,
   contentBackgroundImage: null,
 };

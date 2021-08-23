@@ -15,7 +15,6 @@ import { addProductForSale /* , clearActivePoduct */, setProductsForSale } from 
 export const ProductInfo = ({ product, mode }) => {
   const dispatch = useDispatch();
   const { activeProduct, productsForSale } = useSelector((state) => state.product);
-  console.log(activeProduct);
   const data = jsonToTabular(product, mode);
   const selectedIndex = (code, trademark) =>
     productsForSale.findIndex((item) => item.code === code && item.trademark === trademark);

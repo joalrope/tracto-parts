@@ -1,3 +1,4 @@
+//import homeBg from '../assets/images/home-bg.jpg'
 export const getUrlBgImage = (path) => {
   return `${urlImages[path]}`;
 };
@@ -8,13 +9,13 @@ export const getContentStyles = (path) => {
 };
 
 const urlImages = {
-  '/home': null,
-  '/login': 'https://cdn.pixabay.com/photo/2017/12/11/20/06/spanner-3013135_960_720.jpg',
-  '/register': 'https://cdn.pixabay.com/photo/2016/10/06/19/57/engine-1719889_960_720.jpg',
+  '/home': 'https://cdn.pixabay.com/photo/2017/08/04/15/46/wheel-loader-2580439__340.jpg',
+  '/login': 'https://cdn.pixabay.com/photo/2020/01/13/14/44/checkout-4762569_960_720.jpg',
+  '/register': 'https://cdn.pixabay.com/photo/2020/12/03/13/00/laptop-5800452_960_720.jpg',
 };
 
 const contentStyles = {
-  '/home': { backgroundColor: '$secondary' },
+  '/home': { backgroundImage: getUrlBgImage('/home') },
   '/login': { backgroundImage: getUrlBgImage('/login') },
   '/register': { backgroundImage: getUrlBgImage('/login') },
 };

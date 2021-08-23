@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Layout, Menu, Col, Row, Space } from 'antd';
@@ -27,6 +27,10 @@ export const AppLayout = () => {
   const onCollapse = () => {
     setCollapsed(!collapsed);
   };
+
+  useEffect(() => {
+    dispatch(setCurrentPath(window.location.pathname));
+  }, []);
 
   const role = isLoggedIn ? 'private' : 'public';
   return (

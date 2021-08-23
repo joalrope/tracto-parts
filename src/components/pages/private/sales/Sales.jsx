@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Divider, Row, Col, Popconfirm, Button, Table } from 'antd';
+import { Divider, Row, Popconfirm, Button, Table } from 'antd';
 import { CloseSquareOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { createCustomer, findCustomerById, getCustomerByCode } from '../../../../actions/customers';
-import {
-  setDisplayPdfGenerated,
-  setDisplayAddCustomerForm,
-  setDisplayAddProductForm,
-} from '../../../../actions/display';
+import { setDisplayAddCustomerForm, setDisplayAddProductForm } from '../../../../actions/display';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import {
   addProductForSale,
@@ -15,6 +11,7 @@ import {
   findProductById,
   getProductByCode,
   createProduct,
+  updateProductQty,
 } from '../../../../actions/products';
 import { deleteItemProdForSale, replaceItemProdForSale } from '../../../../helpers/sales/sales-utils';
 import { AddCustomerForm } from '../../../forms/AddCustomerForm/AddCustomerForm';
@@ -31,6 +28,7 @@ import { getTransactionInfo, ivaTax } from './controllers/getTransactionInfo';
 import { msgWhenUnmounting } from './controllers/pdfRenderResult';
 import { saleInfo } from './controllers/saleInfo';
 import './sales.scss';
+import { createSale } from '../../../../actions/sales';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -108,10 +106,6 @@ export const Sales = () => {
       setSubTitle(`El Producto ${record.code} ya existe en la venta. ¿Desea aumentar la cantidad a vender?`);
       setShowRepeatProductModal(true);
     }
-  };
-
-  const handleCheckIn = () => {
-    dispatch(setDisplayPdfGenerated(true));
   };
 
   const selectedIndex = (id, trademark) =>
@@ -202,6 +196,8 @@ export const Sales = () => {
     dispatch(setDisplayAddProductForm(false));
   };
 
+  const [amountTax, setAmountTax] = useState(0);
+
   const summary = (pageData) => {
     let totalInvoice = 0;
     let totalTax = 0;
@@ -210,6 +206,8 @@ export const Sales = () => {
       totalInvoice += totalItem;
       totalTax += totalItem * (ivaTax / 100);
     });
+
+    setAmountTax(totalTax);
 
     return (
       <>
@@ -250,6 +248,42 @@ export const Sales = () => {
     );
   };
 
+  const handleCheckIn = () => {
+    const { transactionData, totals } = data;
+
+    const items = productsForSale.map((item) => {
+      const { id, code, title, qty, trademark, location, salePrice, totalItem } = item;
+      updateProductQty(id, { code, trademark, location, qty: -qty });
+      return {
+        code,
+        title,
+        qty,
+        trademark,
+        price: salePrice,
+        totalItem,
+        isTaxable: true,
+      };
+    });
+
+    const newSale = {
+      invoiceNumber: transactionData.controlNumber,
+      date: transactionData.date,
+      coin: 'USD$',
+      customer: { code: activeCustomer.code, name: activeCustomer.name },
+      items,
+      purchaseTotal: totals.purchaseTotal,
+      taxes: [{ title: 'ivaTax', rate: transactionData.ivaTax, amount: amountTax }],
+      invoiceTotal: totals.invoiceTotal,
+      payment: {
+        onCredit: false,
+        creditDays: 0,
+        isPaid: false,
+        paymentDate: '',
+      },
+    };
+    dispatch(createSale(newSale));
+  };
+
   return (
     <div className='--sale-page__container'>
       {showRepeatProductModal && (
@@ -280,63 +314,61 @@ export const Sales = () => {
       {displayInvoicePdf && (
         <GeneratePdfFromHtml WrappedComponent={Invoice} data={data} msgWhenUnmounting={msgWhenUnmounting} />
       )}
-      <Row>
-        <Col className='--sale-page__container'>
-          <div className='--search-data__container'>
-            <Divider className='--search-data__divider' orientation='center'>
-              Busqueda
-            </Divider>
-            <div className='--search-inputs__container'>
-              <div className='--search-customer__title'>Cliente:</div>
-              <AsyncDataSelect
-                placeholder={'Seleccione un Cliente'}
-                dataSource={customers}
-                result={customerResult}
-                notFoundContent={
-                  <NotFoundContentMsg
-                    msg={'No existe el cliente, Desea agregarlo?'}
-                    noFoundResult={startAddNewCustomer}
-                  />
-                }
-              />
-              <div className='--search-product__title'>Producto:</div>
-              <AsyncDataSelect
-                placeholder={'Encuentre un Producto'}
-                dataSource={products}
-                result={productResult}
-                notFoundContent={
-                  <NotFoundContentMsg
-                    msg={'No existe el producto, Desea agregarlo?'}
-                    noFoundResult={startAddNewProduct}
-                  />
-                }
-              />
-            </div>
+      <Row className='--sale-page__row'>
+        <div className='--search-data__container'>
+          <Divider className='--search-data__divider' orientation='center'>
+            Busqueda
+          </Divider>
+          <div className='--search-inputs__container'>
+            <div className='--search-customer__title'>Cliente:</div>
+            <AsyncDataSelect
+              placeholder={'Seleccione un Cliente'}
+              dataSource={customers}
+              result={customerResult}
+              notFoundContent={
+                <NotFoundContentMsg
+                  msg={'No existe el cliente, Desea agregarlo?'}
+                  noFoundResult={startAddNewCustomer}
+                />
+              }
+            />
+            <div className='--search-product__title'>Producto:</div>
+            <AsyncDataSelect
+              placeholder={'Encuentre un Producto'}
+              dataSource={products}
+              result={productResult}
+              notFoundContent={
+                <NotFoundContentMsg
+                  msg={'No existe el producto, Desea agregarlo?'}
+                  noFoundResult={startAddNewProduct}
+                />
+              }
+            />
           </div>
+        </div>
 
-          <div className='--info-data__container'>
-            <div className='--asset-selector__container'>
-              {activeCustomer && (
-                <div className='--customer-active__container'>
-                  <Divider className='--customer-active__divider' orientation='center'>
-                    Comprador
-                  </Divider>
-                  <CustomerCard customer={activeCustomer} />
-                </div>
-              )}
-              {activeProduct && (
-                <div className='--product-active__container'>
-                  <Divider className='--product-active__divider' orientation='center'>
-                    Productos
-                  </Divider>
-                  <ProductCard product={activeProduct} mode={'landscape'} setProductForSale={setProductForSale} />
-                </div>
-              )}
-            </div>
+        <div className='--info-data__container'>
+          <div className='--asset-selector__container'>
+            {activeCustomer && (
+              <div className='--customer-active__container'>
+                <Divider className='--customer-active__divider' orientation='center'>
+                  Comprador
+                </Divider>
+                <CustomerCard customer={activeCustomer} />
+              </div>
+            )}
+            {activeProduct && (
+              <div className='--product-active__container'>
+                <Divider className='--product-active__divider' orientation='center'>
+                  Productos
+                </Divider>
+                <ProductCard product={activeProduct} mode={'landscape'} setProductForSale={setProductForSale} />
+              </div>
+            )}
           </div>
-        </Col>
+        </div>
       </Row>
-      <Row>
+      <Row className='--sale-page__row'>
         {productsForSale.length > 0 && (
           <div className='--products-for-sale__container'>
             <Divider className='--products-for-sale__divider' orientation='center'>

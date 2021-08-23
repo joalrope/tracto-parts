@@ -1,7 +1,10 @@
 @import '../../../../assets/css/partials/variables.scss';
 
 .--sale-page__container {
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  //flex-wrap: wrap;
+  width: 100%;
 
   & .content-22 {
     position: absolute;
@@ -9,14 +12,10 @@
     display: flex;
     flex-direction: column;
   }
-}
 
-.--sale-page__container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1rem;
-  width: 100%;
+  .--sale-page__row {
+    gap: 1.5em;
+  }
 }
 
 .--search-inputs__container {
@@ -41,7 +40,7 @@
 }
 
 .--info-data__container {
-  flex: 1 0 70%;
+  //flex: 1 0 70%;
   justify-content: flex-start;
   overflow: auto;
   scroll-snap-type: x mandatory;

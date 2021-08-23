@@ -1,8 +1,187 @@
 @import '../../../../assets/css/partials/variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap');
 
 .--home-page__container {
-  height: calc(100vh - 115px);
-  .--logo-image {
-    height: 64px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 85vh;
+  font-family: 'Poppins', sans-serif;
+  //background: url('../../../../assets/images/home-bg.jpg') top center;
+  background-size: cover;
+  padding: 15vw 5vw;
+  position: relative;
+
+  &:before {
+    content: '';
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    padding-top: 74px;
+    text-align: center;
+
+    h1 {
+      margin: 0;
+      font-size: 5.25em;
+      font-weight: bold;
+      line-height: 64px;
+      color: #fff;
+      span {
+        color: $secondary;
+      }
+    }
+
+    h2 {
+      color: rgba(255, 255, 255, 0.9);
+      margin: 10px 0 0 0;
+      font-size: 24px;
+    }
+
+    .--query-frame__container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+      text-align: center;
+      display: flex;
+
+      .--home-page__query {
+        background-color: $secondary;
+        border: 1px solid $primary;
+        border-radius: 5px;
+        right: 4em;
+        padding: 1.5em;
+        position: fixed;
+        top: 8em;
+        width: 16em;
+
+        .--query-frame__title {
+          text-align: center;
+          background-color: $primary;
+          border-radius: 4px;
+          h3 {
+            color: $secondary;
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.33em;
+            font-weight: bolder;
+            padding: 0.33em;
+          }
+        }
+
+        .--query-frame__message {
+          margin-top: 1em;
+        }
+      }
+    }
+
+    h1 {
+      font-family: 'Chakra Petch', sans-serif;
+    }
+
+    h2 {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .icon-box {
+      padding: 30px 20px;
+      transition: ease-in-out 0.3s;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      height: 100%;
+      text-align: center;
+
+      &:hover {
+        border-color: $secondary;
+        background-color: $primary;
+        a {
+          color: $secondary;
+        }
+      }
+
+      i {
+        font-size: 32px;
+        line-height: 1;
+        color: $secondary;
+      }
+
+      h3 {
+        font-weight: 700;
+        margin: 10px 0 0 0;
+        padding: 0;
+        line-height: 1;
+        font-size: 20px;
+        line-height: 26px;
+
+        a {
+          color: $white;
+          transition: ease-in-out 0.3s;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .--home-page__container {
+    padding: 40vw 5vw;
+    h1 {
+      font-size: 20px;
+      line-height: 36px;
+    }
+
+    &:before {
+      content: '';
+      background: rgba(0, 0, 0, 0.6);
+      position: absolute;
+      bottom: 140px;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .container {
+      .--query-frame__container {
+        flex-direction: row;
+        .--home-page__query {
+          margin-top: 2em;
+          padding: 1.5em;
+          position: static;
+          width: 24em;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .--home-page__container {
+    background-attachment: fixed;
+    h1 {
+      font-size: 28px;
+      line-height: 36px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .--home-page__container {
+    height: auto;
+  }
+  .--home-page__container h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  .--home-page__container h2 {
+    font-size: 20px;
+    line-height: 24px;
   }
 }
