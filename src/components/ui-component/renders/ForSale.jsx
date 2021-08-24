@@ -1,16 +1,16 @@
 import React from 'react';
 import { Space, Tooltip } from 'antd';
 import { CloseSquareOutlined, EditOutlined } from '@ant-design/icons';
-import { useDispatch } from 'react-redux';
-import { deleteItemProdForSale /* , replaceItemProdForSale  */ } from '../../../../helpers/sales/sales-utils';
+//import { useDispatch } from 'react-redux';
+//import { deleteItemProdForSale /* , replaceItemProdForSale  */ } from '../../../../helpers/sales/sales-utils';
 
 export const ForSale = (record) => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   const handleDeleteBtnClick = (id) => {
     console.log(id);
-    const products = deleteItemProdForSale(id, productsForSale);
-    dispatch(setProductsForSale(products));
+    //const products = deleteItemProdForSale(id, productsForSale);
+    //dispatch(setProductsForSale(products));
   };
 
   const editProduct = (e) => {

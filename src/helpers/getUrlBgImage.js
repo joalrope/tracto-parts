@@ -4,7 +4,6 @@ export const getUrlBgImage = (path) => {
 };
 
 export const getContentStyles = (path) => {
-  console.log(contentStyles[path]);
   return `${contentStyles[path]}`;
 };
 

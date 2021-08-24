@@ -24,25 +24,34 @@ import { EditableTable } from '../../../ui-component/editable-table/EditableTabl
 import { ProductCard } from '../../../ui-component/product/card/ProductCard';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
 import { ResultModal } from '../../../wrappers/ResultModal';
-import { getTransactionInfo, ivaTax } from './controllers/getTransactionInfo';
+import { getTransactionInfo } from './controllers/getTransactionInfo';
 import { msgWhenUnmounting } from './controllers/pdfRenderResult';
 import { saleInfo } from './controllers/saleInfo';
 import './sales.scss';
 import { createSale } from '../../../../actions/sales';
+import { fetchWithToken } from '../../../../helpers/fetch';
+
+const urlNextTransaction = '/transaction/nextTransaction';
 
 export const Sales = () => {
   const dispatch = useDispatch();
+  const [activeSale, setActiveSale] = useState(false);
+  const [ivaTax, setIvaTax] = useState(0);
+  const [controlNumber, setControlNumber] = useState('');
+
+  useEffect(async () => {
+    const { controlNumber, ivaTax } = await getTransactionInfo();
+    setIvaTax(ivaTax);
+    setControlNumber(controlNumber);
+  }, [activeSale]);
+
+  console.log(ivaTax, controlNumber);
+
   const { activeProduct, productsForSale } = useSelector((state) => state.product);
   const { activeCustomer } = useSelector((state) => state.customer);
   const { displayInvoicePdf } = useSelector((state) => state.display);
   const customers = async (value) => await getCustomerByCode(value);
   const products = async (value) => await getProductByCode(value);
-
-  useEffect(async () => {
-    await getTransactionInfo();
-  }, []);
-
-  const data = saleInfo();
 
   const handleDelete = (id, trademark) => {
     const newProducts = deleteItemProdForSale(id, trademark);
@@ -100,6 +109,7 @@ export const Sales = () => {
       record.qty = 1;
       record.totalItem = record.qty * record.salePrice;
       dispatch(addProductForSale(record));
+      setActiveSale(true);
     } else {
       setStatus('info');
       setTitle('Producto repetido');
@@ -203,6 +213,7 @@ export const Sales = () => {
     let totalTax = 0;
 
     pageData.forEach(({ totalItem }) => {
+      console.log(ivaTax);
       totalInvoice += totalItem;
       totalTax += totalItem * (ivaTax / 100);
     });
@@ -248,7 +259,11 @@ export const Sales = () => {
     );
   };
 
-  const handleCheckIn = () => {
+  const data = saleInfo(controlNumber, ivaTax);
+
+  const handleCheckIn = async () => {
+    //await getTransactionInfo();
+
     const { transactionData, totals } = data;
 
     const items = productsForSale.map((item) => {
@@ -266,7 +281,7 @@ export const Sales = () => {
     });
 
     const newSale = {
-      invoiceNumber: transactionData.controlNumber,
+      invoiceNumber: controlNumber,
       date: transactionData.date,
       coin: 'USD$',
       customer: { code: activeCustomer.code, name: activeCustomer.name },
@@ -282,6 +297,8 @@ export const Sales = () => {
       },
     };
     dispatch(createSale(newSale));
+    await fetchWithToken(urlNextTransaction, {}, 'PATCH');
+    setActiveSale(false);
   };
 
   return (
@@ -312,7 +329,11 @@ export const Sales = () => {
         />
       )}
       {displayInvoicePdf && (
-        <GeneratePdfFromHtml WrappedComponent={Invoice} data={data} msgWhenUnmounting={msgWhenUnmounting} />
+        <GeneratePdfFromHtml
+          WrappedComponent={Invoice}
+          data={data}
+          msgWhenUnmounting={() => msgWhenUnmounting(controlNumber)}
+        />
       )}
       <Row className='--sale-page__row'>
         <div className='--search-data__container'>

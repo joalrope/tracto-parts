@@ -2,7 +2,6 @@ import { fetchWithToken } from '../helpers/fetch';
 import { setDisplayPdfGenerated } from './display';
 
 export const createSale = (sale) => {
-  console.log(sale);
   return async (dispatch) => {
     try {
       const resultSale = await fetchWithToken('/sales/', sale, 'POST');

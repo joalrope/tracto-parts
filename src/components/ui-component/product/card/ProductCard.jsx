@@ -27,7 +27,6 @@ export const ProductCard = ({ product, setProductForSale }) => {
     product.details.map((detail) => {
       if (detail.trademark === trademark) {
         detail.stock.map((stock) => {
-          console.log(stock.qty);
           qtyAvailable = qtyAvailable + stock.qty;
         });
       }
