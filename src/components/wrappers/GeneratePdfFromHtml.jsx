@@ -23,7 +23,7 @@ export const GeneratePdfFromHtml = ({ WrappedComponent, data, msgWhenUnmounting 
       callback: function (doc) {
         doc.viewerPreferences({ FitWindow: true }, true);
         //doc.autoPrint({ variant: 'non-conform' });
-        const blob = doc.output('blob');
+        const blob = doc.output('datauristring');
         urlBlob = URL.createObjectURL(blob);
         window.open(urlBlob);
 
