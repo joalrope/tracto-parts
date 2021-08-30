@@ -1,12 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { store } from '../src/store/store';
+import { store } from './store/store';
 import { AppLayout } from './layouts/AppLayout';
 import './App.less';
 
 function App() {
   return (
-    <div className='App'>
+    <div className='--app-container'>
       <Provider store={store}>
         <AppLayout />
       </Provider>

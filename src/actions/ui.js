@@ -1,11 +1,12 @@
-import { createBrowserHistory } from 'history';
+//import { createBrowserHistory } from 'history';
 import { types } from '../types/types';
 import { productClearActive, setProductsForSale } from './products';
 import { customerClearActive } from './customers';
 import { startLogout } from './auth';
 import { getContentStyles, getUrlBgImage } from '../helpers/getUrlBgImage';
+import history from '../helpers/history/history';
 
-const history = createBrowserHistory();
+//const history = createBrowserHistory();
 
 export const setCurrentPath = (path) => {
   return (dispatch) => {
@@ -15,6 +16,7 @@ export const setCurrentPath = (path) => {
     }
     dispatch(setContentBackgroundImage(getUrlBgImage(path)));
     dispatch(setContentStyles(getContentStyles(path)));
+    console.log('set path: ', path);
     history.push(path);
     dispatch(currentPath(path));
   };
