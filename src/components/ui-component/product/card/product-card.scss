@@ -1,9 +1,9 @@
 @import '../../../../assets/css/partials/variables.scss';
 
-$card-width: 250px;
+$card-width: 100%;
 $card-height: calc(#{$card-width} + 150px);
 $arrow-left-tm: calc(#{$card-width} - 50px);
-$arrow-left-lc: calc(#{$card-width} - 71px);
+$arrow-left-lc: calc(#{$card-width} - 0.5em);
 
 .product-card__container {
   .--product-card__itself {
@@ -11,6 +11,7 @@ $arrow-left-lc: calc(#{$card-width} - 71px);
     border-radius: 3px;
     width: $card-width;
     height: $card-height;
+    min-height: 400px;
 
     .ant-card-cover > * {
       border-left: 1px solid $border-color !important;

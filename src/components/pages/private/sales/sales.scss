@@ -5,6 +5,7 @@
   flex-direction: column;
   //flex-wrap: wrap;
   width: 100%;
+
   padding: 24px;
 
   & .content-22 {
@@ -23,11 +24,9 @@
   background-color: #000000d4;
   border: 1px solid $border-color;
   border-radius: 3px;
-  flex: 1 0 20%;
-  max-height: 400px;
   min-height: 400px;
-  min-width: 250px;
-  max-width: 250px;
+  width: 100%;
+  //flex: 1 0 20%;
   padding: 2em 1em;
 
   .--search-customer__title,
@@ -43,7 +42,7 @@
 .--info-data__container {
   //flex: 1 0 70%;
   justify-content: flex-start;
-  overflow: auto;
+  //overflow: auto;
   scroll-snap-type: x mandatory;
 
   & .--asset-selector__container {
@@ -66,6 +65,11 @@
 .--products-for-sale__divider,
 .--product-active__divider {
   margin: 9px 0 5px 0 !important;
+}
+
+.--product-active__container {
+  width: 100%;
+  max-width: 250px;
 }
 
 .--products-for-sale__container {

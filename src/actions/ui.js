@@ -16,7 +16,6 @@ export const setCurrentPath = (path) => {
     }
     dispatch(setContentBackgroundImage(getUrlBgImage(path)));
     dispatch(setContentStyles(getContentStyles(path)));
-    console.log('set path: ', path);
     history.push(path);
     dispatch(currentPath(path));
   };

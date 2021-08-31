@@ -83,6 +83,7 @@ export const startChecking = () => {
 
 export const startLogout = () => {
   return (dispatch) => {
+    console.log('start Logout');
     dispatch(logout());
   };
 };

@@ -7,14 +7,18 @@
 }
 
 .--layout-sider__container {
-  min-height: 100vh;
+  overflow: auto !important;
+  height: 100vh !important;
+  position: 'sticky' !important;
+  top: 0 !important;
+  left: 0 !important;
 }
 
 .--layout-footer__container {
   text-align: center;
   background-color: rgb(235, 235, 235) !important;
   border-top: 1px solid #001529;
-  padding: 14px 50px !important;
+  padding: 24px 50px !important;
 }
 
 .--layout-header__logo {
@@ -37,6 +41,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   height: calc(100vh - 130px);
+  overflow-y: scroll;
 }
 
 .--header-content__container {
@@ -47,4 +52,10 @@
 
 .--auth-menu__container {
   margin-right: 30px !important;
+}
+
+@media (max-width: 575px) {
+  .--layout-content__container {
+    height: calc(100vh - 64px);
+  }
 }

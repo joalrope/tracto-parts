@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from 'react-router';
-import history from './helpers/history/history';
-
 //import { createBrowserHistory } from 'history';
+import history from './helpers/history/history';
 import App from './App';
 import './index.scss';
 

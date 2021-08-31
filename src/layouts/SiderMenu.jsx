@@ -1,24 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu } from 'antd';
 import { UserOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentPath } from '../actions/ui';
 
 export const SiderMenu = () => {
-  const dispatch = useDispatch();
-  const { currentPath } = useSelector((state) => state.auth);
-  const handleClick = (route) => {
-    dispatch(setCurrentPath(route.key));
-  };
+  const location = useLocation();
+
   return (
-    <Menu
-      theme='dark'
-      mode='inline'
-      selectedKeys={[currentPath]}
-      defaultSelectedKeys={['/app/quote']}
-      onClick={handleClick}
-    >
+    <Menu theme='dark' mode='inline' selectedKeys={[location.pathname]} defaultSelectedKeys={['/app/quote']}>
       <Menu.Item key='/app/quote' icon={<UserOutlined />}>
         Cotizador
         <Link to='/app/quote' />

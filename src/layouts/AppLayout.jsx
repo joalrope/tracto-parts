@@ -1,27 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Layout, Menu, Col, Row, Space } from 'antd';
+import { Link, useLocation } from 'react-router-dom';
+import { Grid, Layout, Menu, Col, Row, Space } from 'antd';
 import { MailOutlined, AppstoreOutlined } from '@ant-design/icons'; //eslint-disable-line
 import { AntDesignOutlined, FacebookFilled, GithubOutlined } from '@ant-design/icons'; //eslint-disable-line
-import { setCurrentPath } from '../actions/ui';
+//import { setCurrentPath } from '../actions/ui';
 import { routes } from '../router/routes';
 import { AppRouter } from '../router/AppRouter';
 import './app-layout.css';
 import { SiderMenu } from './SiderMenu';
+import history from '../helpers/history/history';
+import { startLogout } from '../actions/auth';
 
 const { Header, Footer, Sider, Content } = Layout;
+const { useBreakpoint } = Grid;
 const style = { fontSize: '18px', color: '$primary', verticalAlign: 'middle' };
 
 export const AppLayout = () => {
   const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
-  const { isLoggedIn, currentPath } = useSelector((state) => state.auth);
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const { contentBackgroundImage } = useSelector((state) => state.ui);
   //const { contentStyles } = useSelector((state) => state.ui);
+  const localtion = useLocation();
+  const screens = useBreakpoint();
 
   const handleClick = (route) => {
-    dispatch(setCurrentPath(route.key));
+    if (route.key === '/logout') {
+      dispatch(startLogout());
+      history.push('/home');
+    }
+
+    //dispatch(setCurrentPath(route.key));
   };
 
   const onCollapse = () => {
@@ -29,8 +39,13 @@ export const AppLayout = () => {
   };
 
   useEffect(() => {
+    console.log('collapse: true');
+    setCollapsed(screens.xs);
+  });
+
+  /*  useEffect(() => {
     dispatch(setCurrentPath(window.location.pathname));
-  }, []);
+  }, []); */
 
   const role = isLoggedIn ? 'private' : 'public';
   return (
@@ -48,7 +63,7 @@ export const AppLayout = () => {
               <div className='--app__logo' />
             </div>
           )}
-          <Menu theme='dark' mode='horizontal' selectedKeys={[currentPath]} onClick={handleClick}>
+          <Menu theme='dark' mode='horizontal' selectedKeys={[localtion.pathname]} onClick={handleClick}>
             {routes
               .filter((route) => route.type === 'public' || (route.type === 'auth' && route.role === role))
               .map((route) => (

@@ -25,7 +25,7 @@ export const Home = () => {
 
   return (
     <section className='--home-page__container'>
-      <div className='container'>
+      <div className='container' data-aos='fade-up'>
         <div className='mt-5 row justify-content-center'>
           <div className='col-xl-6 col-lg-8'>
             <h1>
@@ -33,7 +33,7 @@ export const Home = () => {
             </h1>
             <h2>
               tenemos el mayor stock de repuestos y el personal técnico con la mayor experiencia del sector, para
-              apoyarte en el mantenimiento de tú equipo
+              apoyarte en mantenimiento de tú equipo
             </h2>
           </div>
         </div>

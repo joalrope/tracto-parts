@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import { setCurrentPath } from '../../../../../actions/ui';
+//import { setCurrentPath } from '../../../../../actions/ui';
 import { startLogin } from '../../../../../actions/auth';
+import history from '../../../../../helpers/history/history';
 import './login.scss';
 
 export const Login = () => {
@@ -12,15 +13,15 @@ export const Login = () => {
 
   const onFinish = ({ email, password }) => {
     dispatch(startLogin(email, password));
-    dispatch(setCurrentPath('/home'));
+    history.push('/home');
   };
 
   const handleShowRegister = () => {
-    dispatch(setCurrentPath('/register'));
+    history.push('/register');
   };
 
   const handleShowPasswordForgot = () => {
-    dispatch(setCurrentPath('/forgot'));
+    history.push('/forgot');
   };
 
   return (

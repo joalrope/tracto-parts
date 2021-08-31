@@ -12,59 +12,59 @@ import {
   RegisterPage,
   ReportPage,
   SalesPage,
-} from '../../components/pages';
+} from "../../components/pages";
 
-const arAll = 'all'; // Todos
+const arAll = "all"; // Todos
 
-const arInve = ['storer', 'storer-chief', 'admin', 'developer']; // Inventario
+const arInve = ["storer", "storer-chief", "admin", "developer"]; // Inventario
 //const arProd = ['storer', 'storer-chief', 'admin', 'developer']; // Productos
 //const arQuot = ['freelance', 'storer', 'storer-chief', 'seller', 'admin', 'owner', 'developer']; // Cotizacion
-const arSell = ['basic', 'storer-chief', 'seller', 'admin', 'developer']; // Ventas
-const arRepo = ['admin', 'owner', 'developer']; // Reportes
-const arDash = ['owner', 'developer']; // Panel
+const arSell = ["storer-chief", "seller", "admin", "developer"]; // Ventas
+const arRepo = ["admin", "owner", "developer"]; // Reportes
+const arDash = ["owner", "developer"]; // Panel
 
 export const items = [
-  { id: 10, title: 'Inicio', to: '/', roles: arAll, component: HomePage },
+  { id: 10, title: "Inicio", to: "/", roles: arAll, component: HomePage },
   {
     id: 20,
-    title: 'Equipos',
-    to: '/equipments',
+    title: "Equipos",
+    to: "/equipments",
     roles: arAll,
     component: EquipmentPage,
   },
   {
     id: 30,
-    title: 'Contacto',
-    to: '/contact',
+    title: "Contacto",
+    to: "/contact",
     roles: arAll,
     component: ContactPage,
   },
   {
     id: 40,
-    title: 'Nosotros',
-    to: '/about',
+    title: "Nosotros",
+    to: "/about",
     roles: arAll,
     component: AboutPage,
   },
-  { id: 50, title: '', to: '/login', roles: arAll, component: LoginPage },
+  { id: 50, title: "", to: "/login", roles: arAll, component: LoginPage },
   {
     id: 60,
-    title: '',
-    to: '/register',
+    title: "",
+    to: "/register",
     roles: arAll,
     component: RegisterPage,
   },
   {
     id: 70,
-    title: '',
-    to: '/forgot',
+    title: "",
+    to: "/forgot",
     roles: arAll,
     component: ForgotPage,
   },
   {
     id: 80,
-    title: 'Inventario',
-    to: '/app/inventory',
+    title: "Inventario",
+    to: "/app/inventory",
     roles: arInve,
     component: InventoryPage,
   },
@@ -84,8 +84,8 @@ export const items = [
   // },
   {
     id: 110,
-    title: 'Ventas',
-    to: '/app/sales',
+    title: "Ventas",
+    to: "/app/sales",
     roles: arSell,
     component: SalesPage,
   },
@@ -98,15 +98,15 @@ export const items = [
   // },
   {
     id: 130,
-    title: 'Reportes',
-    to: '/app/reports',
+    title: "Reportes",
+    to: "/app/reports",
     roles: arRepo,
     component: ReportPage,
   },
   {
     id: 140,
-    title: 'Panel',
-    to: '/app/dashboard',
+    title: "Panel",
+    to: "/app/dashboard",
     roles: arDash,
     component: DashboardPage,
   },

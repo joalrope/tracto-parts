@@ -13,7 +13,7 @@ module.exports = {
               '@secondary-color': '#000000bf',
 
               //Background color for `<body>`
-              '@body-background': '#000',
+              '@body-background': '#fff',
 
               // Buttons
               '@btn-default-color': '@secondary-color',

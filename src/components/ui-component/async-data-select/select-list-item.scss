@@ -1,6 +1,7 @@
 .--select-list-item__container {
   display: flex;
   font-size: 12px;
+  width: 100%;
 }
 .--select-list-item__container:nth-child(even) {
   background: rgb(180, 180, 180);

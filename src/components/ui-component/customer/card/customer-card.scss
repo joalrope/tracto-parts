@@ -11,8 +11,9 @@
   .--customer-card__itself {
     border: 1px solid $border-color;
     border-radius: 3px;
-    height: 400px;
-    width: 250px;
+    height: 100%;
+    width: 100%;
+    min-height: 400px;
   }
 
   & .--customer-card__header {
