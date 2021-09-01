@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Divider, Row, Popconfirm, Button, Table, Col } from 'antd';
+import { Divider, Row, Popconfirm, Button, Table } from 'antd';
 import { CloseSquareOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { createCustomer, findCustomerById, getCustomerByCode } from '../../../../actions/customers';
 import { setDisplayAddCustomerForm, setDisplayAddProductForm } from '../../../../actions/display';
@@ -336,62 +336,58 @@ export const Sales = () => {
         />
       )}
       <Row className='--sale-page__row'>
-        <Col sm={12} md={9} lg={4}>
-          <div className='--search-data__container'>
-            <Divider className='--search-data__divider' orientation='center'>
-              Busqueda
-            </Divider>
-            <div className='--search-inputs__container'>
-              <div className='--search-customer__title'>Cliente:</div>
-              <AsyncDataSelect
-                placeholder={'Seleccione un Cliente'}
-                dataSource={customers}
-                result={customerResult}
-                notFoundContent={
-                  <NotFoundContentMsg
-                    msg={'No existe el cliente, Desea agregarlo?'}
-                    noFoundResult={startAddNewCustomer}
-                  />
-                }
-              />
+        <div className='--search-data__container'>
+          <Divider className='--search-data__divider' orientation='center'>
+            Busqueda
+          </Divider>
+          <div className='--search-inputs__container'>
+            <div className='--search-customer__title'>Cliente:</div>
+            <AsyncDataSelect
+              placeholder={'Seleccione un Cliente'}
+              dataSource={customers}
+              result={customerResult}
+              notFoundContent={
+                <NotFoundContentMsg
+                  msg={'No existe el cliente, Desea agregarlo?'}
+                  noFoundResult={startAddNewCustomer}
+                />
+              }
+            />
 
-              <div className='--search-product__title'>Producto:</div>
-              <AsyncDataSelect
-                placeholder={'Encuentre un Producto'}
-                dataSource={products}
-                result={productResult}
-                notFoundContent={
-                  <NotFoundContentMsg
-                    msg={'No existe el producto, Desea agregarlo?'}
-                    noFoundResult={startAddNewProduct}
-                  />
-                }
-              />
-            </div>
+            <div className='--search-product__title'>Producto:</div>
+            <AsyncDataSelect
+              placeholder={'Encuentre un Producto'}
+              dataSource={products}
+              result={productResult}
+              notFoundContent={
+                <NotFoundContentMsg
+                  msg={'No existe el producto, Desea agregarlo?'}
+                  noFoundResult={startAddNewProduct}
+                />
+              }
+            />
           </div>
-        </Col>
-        <Col sm={24} md={16} lg={18}>
-          <div className='--info-data__container'>
-            <div className='--asset-selector__container'>
-              {activeCustomer && (
-                <div className='--customer-active__container'>
-                  <Divider className='--customer-active__divider' orientation='center'>
-                    Comprador
-                  </Divider>
-                  <CustomerCard customer={activeCustomer} />
-                </div>
-              )}
-              {activeProduct && (
-                <div className='--product-active__container'>
-                  <Divider className='--product-active__divider' orientation='center'>
-                    Productos
-                  </Divider>
-                  <ProductCard product={activeProduct} mode={'landscape'} setProductForSale={setProductForSale} />
-                </div>
-              )}
-            </div>
+        </div>
+        <div className='--info-data__container'>
+          <div className='--asset-selector__container'>
+            {activeCustomer && (
+              <div className='--customer-active__container'>
+                <Divider className='--customer-active__divider' orientation='center'>
+                  Comprador
+                </Divider>
+                <CustomerCard customer={activeCustomer} />
+              </div>
+            )}
+            {activeProduct && (
+              <div className='--product-active__container'>
+                <Divider className='--product-active__divider' orientation='center'>
+                  Productos
+                </Divider>
+                <ProductCard product={activeProduct} mode={'landscape'} setProductForSale={setProductForSale} />
+              </div>
+            )}
           </div>
-        </Col>
+        </div>
       </Row>
       <Row className='--sale-page__row'>
         {productsForSale.length > 0 && (

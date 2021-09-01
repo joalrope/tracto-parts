@@ -3,7 +3,7 @@
 $card-width: 100%;
 $card-height: calc(#{$card-width} + 150px);
 $arrow-left-tm: calc(#{$card-width} - 50px);
-$arrow-left-lc: calc(#{$card-width} - 0.5em);
+$arrow-left-lc: calc(#{$card-width} - 5px);
 
 .product-card__container {
   .--product-card__itself {

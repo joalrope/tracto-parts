@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { Grid, Layout, Menu, Col, Row, Space } from 'antd';
+import { Layout, Menu, Col, Row, Space } from 'antd';
 import { MailOutlined, AppstoreOutlined } from '@ant-design/icons'; //eslint-disable-line
 import { AntDesignOutlined, FacebookFilled, GithubOutlined } from '@ant-design/icons'; //eslint-disable-line
 //import { setCurrentPath } from '../actions/ui';
@@ -13,7 +13,7 @@ import history from '../helpers/history/history';
 import { startLogout } from '../actions/auth';
 
 const { Header, Footer, Sider, Content } = Layout;
-const { useBreakpoint } = Grid;
+//const { useBreakpoint } = Grid;
 const style = { fontSize: '18px', color: '$primary', verticalAlign: 'middle' };
 
 export const AppLayout = () => {
@@ -23,7 +23,7 @@ export const AppLayout = () => {
   const { contentBackgroundImage } = useSelector((state) => state.ui);
   //const { contentStyles } = useSelector((state) => state.ui);
   const localtion = useLocation();
-  const screens = useBreakpoint();
+  //const screens = useBreakpoint();
 
   const handleClick = (route) => {
     if (route.key === '/logout') {
@@ -38,10 +38,10 @@ export const AppLayout = () => {
     setCollapsed(!collapsed);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log('collapse: true');
     setCollapsed(screens.xs);
-  });
+  });*/
 
   /*  useEffect(() => {
     dispatch(setCurrentPath(window.location.pathname));

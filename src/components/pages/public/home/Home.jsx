@@ -66,54 +66,42 @@ export const Home = () => {
           </div>
         </div>
 
-        <div className='mt-5 row gy-4 justify-content-center'>
-          <div className='col-xl-2 col-md-4'>
-            <div className='icon-box'>
-              <i className='ri-store-line'></i>
-              <h3>
-                <a>Marcas</a>
-              </h3>
-            </div>
+        <div className='--icon-box__container '>
+          <div className='--icon-box'>
+            <i className='ri-store-line'></i>
+            <h3>
+              <a>Marcas</a>
+            </h3>
           </div>
-          <div className='col-xl-2 col-md-4'>
-            <div className='icon-box'>
-              <i className='ri-bar-chart-box-line'></i>
-              <h3>
-                <a>Productos</a>
-              </h3>
-            </div>
+          <div className='--icon-box'>
+            <i className='ri-bar-chart-box-line'></i>
+            <h3>
+              <a>Productos</a>
+            </h3>
           </div>
-          <div className='col-xl-2 col-md-4'>
-            <div className='icon-box'>
-              <i className='ri-bar-chart-box-line'></i>
-              <h3>
-                <a>Overhault</a>
-              </h3>
-            </div>
+          <div className='--icon-box'>
+            <i className='ri-bar-chart-box-line'></i>
+            <h3>
+              <a>Overhault</a>
+            </h3>
           </div>
-          <div className='col-xl-2 col-md-4'>
-            <div className='icon-box'>
-              <i className='ri-calendar-todo-line'></i>
-              <h3>
-                <a>Mantenimiento Preventivo</a>
-              </h3>
-            </div>
+          <div className='--icon-box'>
+            <i className='ri-calendar-todo-line'></i>
+            <h3>
+              <a>Mantenimiento Preventivo</a>
+            </h3>
           </div>
-          <div className='col-xl-2 col-md-4'>
-            <div className='icon-box'>
-              <i className='ri-calendar-todo-line'></i>
-              <h3>
-                <a>Mantenimiento Correctivo</a>
-              </h3>
-            </div>
+          <div className='--icon-box'>
+            <i className='ri-calendar-todo-line'></i>
+            <h3>
+              <a>Mantenimiento Correctivo</a>
+            </h3>
           </div>
-          <div className='col-xl-2 col-md-4'>
-            <div className='icon-box'>
-              <i className='ri-calendar-todo-line'></i>
-              <h3>
-                <a>Servicio Técnico</a>
-              </h3>
-            </div>
+          <div className='--icon-box'>
+            <i className='ri-calendar-todo-line'></i>
+            <h3>
+              <a>Servicio Técnico</a>
+            </h3>
           </div>
         </div>
       </div>

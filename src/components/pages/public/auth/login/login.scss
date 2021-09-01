@@ -1,12 +1,18 @@
 @import '../../../../../assets/css/partials/variables.scss';
 
+.--login-page__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .--login-form__container {
   background-color: $white;
   border: 1px solid $primary;
   border-radius: 5px;
-  margin-top: 5vh;
+  margin-top: 10em;
   padding: 24px;
-  min-width: 250px;
+  width: 100%;
   max-width: 250px;
 }
 

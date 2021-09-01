@@ -26,7 +26,7 @@ export const Register = () => {
       {/* <div className='--login-page__body'></div> */}
       <div className='--register-page__container'>
         <Row justify='center'>
-          <Col lg={4} sm={24}>
+          <Col>
             <div className='--register-form__container'>
               <Form name='normal_register' className='--register-form' autoComplete={false} onFinish={onFinish}>
                 <h2 className='--register-form__title'>Registrarse</h2>
