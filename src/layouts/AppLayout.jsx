@@ -11,6 +11,7 @@ import './app-layout.css';
 import { SiderMenu } from './SiderMenu';
 import history from '../helpers/history/history';
 import { startLogout } from '../actions/auth';
+import { clearStore } from '../actions/ui';
 
 const { Header, Footer, Sider, Content } = Layout;
 //const { useBreakpoint } = Grid;
@@ -28,6 +29,7 @@ export const AppLayout = () => {
   const handleClick = (route) => {
     if (route.key === '/logout') {
       dispatch(startLogout());
+      clearStore(dispatch);
       history.push('/home');
     }
 

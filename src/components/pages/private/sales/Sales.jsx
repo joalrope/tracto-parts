@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Divider, Row, Popconfirm, Button, Table } from 'antd';
 import { CloseSquareOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { createCustomer, findCustomerById, getCustomerByCode } from '../../../../actions/customers';
-import { setDisplayAddCustomerForm, setDisplayAddProductForm } from '../../../../actions/display';
+import {
+  setDisplayAddCustomerForm,
+  setDisplayAddProductForm,
+  /*setDisplayPdfGenerated,*/
+} from '../../../../actions/display';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import {
   addProductForSale,
@@ -29,9 +33,6 @@ import { msgWhenUnmounting } from './controllers/pdfRenderResult';
 import { saleInfo } from './controllers/saleInfo';
 import './sales.scss';
 import { createSale } from '../../../../actions/sales';
-import { fetchWithToken } from '../../../../helpers/fetch';
-
-const urlNextTransaction = '/transaction/nextTransaction';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -43,9 +44,8 @@ export const Sales = () => {
     const { controlNumber, ivaTax } = await getTransactionInfo();
     setIvaTax(ivaTax);
     setControlNumber(controlNumber);
+    console.log('useEffect', ivaTax, controlNumber);
   }, [activeSale]);
-
-  console.log(ivaTax, controlNumber);
 
   const { activeProduct, productsForSale } = useSelector((state) => state.product);
   const { activeCustomer } = useSelector((state) => state.customer);
@@ -213,7 +213,6 @@ export const Sales = () => {
     let totalTax = 0;
 
     pageData.forEach(({ totalItem }) => {
-      console.log(ivaTax);
       totalInvoice += totalItem;
       totalTax += totalItem * (ivaTax / 100);
     });
@@ -262,7 +261,9 @@ export const Sales = () => {
   const data = saleInfo(controlNumber, ivaTax);
 
   const handleCheckIn = async () => {
-    //await getTransactionInfo();
+    //dispatch(setDisplayPdfGenerated(true));
+
+    console.log('check-in', ivaTax, controlNumber);
 
     const { transactionData, totals } = data;
 
@@ -296,10 +297,12 @@ export const Sales = () => {
         paymentDate: '',
       },
     };
+
     dispatch(createSale(newSale));
-    await fetchWithToken(urlNextTransaction, {}, 'PATCH');
     setActiveSale(false);
   };
+
+  console.log('activeSale:', activeSale);
 
   return (
     <div className='--sale-page__container'>
@@ -332,7 +335,7 @@ export const Sales = () => {
         <GeneratePdfFromHtml
           WrappedComponent={Invoice}
           data={data}
-          msgWhenUnmounting={() => msgWhenUnmounting(controlNumber)}
+          msgWhenUnmounting={() => msgWhenUnmounting(controlNumber, setActiveSale)}
         />
       )}
       <Row className='--sale-page__row'>

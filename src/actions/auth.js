@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2';
 import { types } from '../types/types';
 import { fetchWithoutToken, fetchWithToken } from '../helpers/fetch';
+import history from '../helpers/history/history';
 
 export const startLogin = (email, password) => {
   return async (dispatch) => {
@@ -17,6 +18,7 @@ export const startLogin = (email, password) => {
 
       sessionStorage.token = token;
       sessionStorage.isLogged = true;
+      history.push('/home');
     } else {
       Swal.fire('Error en la autenticación', msg, 'error');
     }
@@ -83,7 +85,6 @@ export const startChecking = () => {
 
 export const startLogout = () => {
   return (dispatch) => {
-    console.log('start Logout');
     dispatch(logout());
   };
 };

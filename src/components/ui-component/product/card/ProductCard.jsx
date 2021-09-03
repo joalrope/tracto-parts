@@ -55,8 +55,8 @@ export const ProductCard = ({ product, setProductForSale }) => {
   };
 
   const settings = {
-    nextArrow: <LeftOutlined onClick={handleClickPrev} />,
-    prevArrow: <RightOutlined onClick={handleClickNext} />,
+    nextArrow: <LeftOutlined onClick={handleClickNext} />,
+    prevArrow: <RightOutlined onClick={handleClickPrev} />,
   };
 
   const url = getUrlImage(product.code, product.details[0].trademark);

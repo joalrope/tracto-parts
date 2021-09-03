@@ -33,7 +33,7 @@ export const setContentStyles = (path) => {
   };
 };
 
-const clearStore = (dispatch) => {
+export const clearStore = (dispatch) => {
   sessionStorage.clear();
   dispatch(setProductsForSale([]));
   dispatch(customerClearActive());

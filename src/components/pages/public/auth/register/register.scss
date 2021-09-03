@@ -13,6 +13,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  height: -moz-available; /* WebKit-based browsers will ignore this. */
+  height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  height: stretch;
 }
 
 .--register-form__container {
@@ -22,7 +26,7 @@
   margin-top: 5vh;
   padding: 20px;
   width: 100%;
-  max-width: 250px;
+  max-width: 275px;
 }
 
 .--register-form__title {

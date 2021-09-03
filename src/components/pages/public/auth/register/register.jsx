@@ -28,7 +28,7 @@ export const Register = () => {
         <Row justify='center'>
           <Col>
             <div className='--register-form__container'>
-              <Form name='normal_register' className='--register-form' autoComplete={false} onFinish={onFinish}>
+              <Form name='normal_register' className='--register-form' onFinish={onFinish}>
                 <h2 className='--register-form__title'>Registrarse</h2>
                 <Form.Item name='name' rules={[{ required: true, message: 'Por Favor ingrese el nombre de usuario!' }]}>
                   <Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Nombre' />

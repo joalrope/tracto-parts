@@ -13,7 +13,6 @@ export const Login = () => {
 
   const onFinish = ({ email, password }) => {
     dispatch(startLogin(email, password));
-    history.push('/home');
   };
 
   const handleShowRegister = () => {

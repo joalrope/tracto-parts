@@ -32,10 +32,16 @@ export const CustomerCard = ({ customer }) => {
         extra={<CloseOutlined onClick={clearActiveCustomer} />}
       >
         <Meta
+          className='--customer-card__meta'
           title={
             <div className='--customer-card__header'>
-              <Space align='center'>
-                <Avatar shape='square' style={{ backgroundColor: '#f2bd15', color: '#000000bf' }} size={58}>
+              <Space className='--customer-card__header-space' align='center'>
+                <Avatar
+                  className='--customer-card__header-avatar'
+                  shape='square'
+                  style={{ backgroundColor: '#f2bd15', color: '#000000bf' }}
+                  size={58}
+                >
                   <span className='--customer_card__avatar-letter'>
                     {((initials.shift() || '') + (initials.pop() || '')).toUpperCase()}
                   </span>
@@ -45,15 +51,17 @@ export const CustomerCard = ({ customer }) => {
             </div>
           }
         />
-        <div className='--customer-card__address-container'>
-          <div className='--customer-card__address-label'>Dirección:</div>
-          <div className='--customer-card__address-value'>{customer.address}</div>
+        <div className='--customer-card__body'>
+          <div className='--customer-card__address-container'>
+            <div className='--customer-card__address-label'>Dirección:</div>
+            <div className='--customer-card__address-value'>{customer.address}</div>
+          </div>
+          <div className='--customer-card__phone-container'>
+            <PhoneOutlined style={{ fontSize: '24px' }} />
+            <div className='--customer-card__phone-number'>{customer.phone}</div>
+          </div>
+          <div className={'--customer-card__contact-container'}></div>
         </div>
-        <div className='--customer-card__phone-container'>
-          <PhoneOutlined style={{ fontSize: '24px' }} />
-          <div className='--customer-card__phone-number'>{customer.phone}</div>
-        </div>
-        <div className={'--customer-card__contact-container'}></div>
       </Card>
     </div>
   );

@@ -10,20 +10,20 @@ export const GeneratePdfFromHtml = ({ WrappedComponent, data, msgWhenUnmounting 
 
   useEffect(() => {
     window.html2canvas = html2canvas;
-    var doc = new jsPDF({
+    const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'pt',
       format: 'letter',
     });
 
-    let content = document.getElementById('content-22');
+    let content = document.getElementById('--pdf-content__container');
     let urlBlob;
 
-    doc.html(content, {
-      callback: function (doc) {
-        doc.viewerPreferences({ FitWindow: true }, true);
+    pdf.html(content, {
+      callback: function (pdf) {
+        pdf.viewerPreferences({ FitWindow: true }, true);
         //doc.autoPrint({ variant: 'non-conform' });
-        const blob = doc.output('datauristring');
+        const blob = pdf.output('blob');
         urlBlob = URL.createObjectURL(blob);
         window.open(urlBlob);
 
@@ -43,7 +43,7 @@ export const GeneratePdfFromHtml = ({ WrappedComponent, data, msgWhenUnmounting 
   });
 
   return (
-    <div className='content-22' id='content-22'>
+    <div className='--pdf-content__container' id='--pdf-content__container'>
       <WrappedComponent data={data} />
     </div>
   );

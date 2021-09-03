@@ -1,12 +1,10 @@
 import Swal from 'sweetalert2';
-import { createBrowserHistory } from 'history';
+import history from '../../../../../helpers/history/history';
 import { store } from '../../../../../store/store';
 import { customerClearActive } from '../../../../../actions/customers';
 import { clearProductsForSale, productClearActive } from '../../../../../actions/products';
 
-const history = createBrowserHistory();
-
-export const msgWhenUnmounting = (controlNumber) => {
+export const msgWhenUnmounting = (controlNumber, saleActive) => {
   Swal.fire({
     title: `¿Se generó correctamente la nota de entrega ${controlNumber}?`,
     icon: 'question',
@@ -18,9 +16,11 @@ export const msgWhenUnmounting = (controlNumber) => {
       store.dispatch(customerClearActive());
       store.dispatch(productClearActive());
       store.dispatch(clearProductsForSale());
+      saleActive(false);
       history.push('/app/sales');
     } else {
       result.isConfirmed = false;
+      saleActive(true);
     }
   });
 };

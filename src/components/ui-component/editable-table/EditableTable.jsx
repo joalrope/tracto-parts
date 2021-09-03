@@ -64,6 +64,6 @@ export const EditableTable = ({ dataSource, cols, summary, saveTableData }) => {
 EditableTable.propTypes = {
   cols: PropTypes.array,
   dataSource: PropTypes.array,
-  summary: PropTypes.number,
+  summary: PropTypes.func,
   saveTableData: PropTypes.func,
 };

@@ -4,16 +4,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  height: -moz-available; /* WebKit-based browsers will ignore this. */
+  height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  height: stretch;
 }
 
 .--login-form__container {
   background-color: $white;
   border: 1px solid $primary;
   border-radius: 5px;
-  margin-top: 10em;
   padding: 24px;
   width: 100%;
-  max-width: 250px;
+  max-width: 275px;
 }
 
 .--login-form__title {

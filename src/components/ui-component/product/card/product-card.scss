@@ -2,8 +2,8 @@
 
 $card-width: 100%;
 $card-height: calc(#{$card-width} + 150px);
-$arrow-left-tm: calc(#{$card-width} - 50px);
-$arrow-left-lc: calc(#{$card-width} - 5px);
+$right-tm-next-arrow: calc(#{$card-width} - 5px);
+$left-lc-next-arrow: calc(#{$card-width} - 10px);
 
 .product-card__container {
   .--product-card__itself {
@@ -34,11 +34,11 @@ $arrow-left-lc: calc(#{$card-width} - 5px);
           }
 
           & > .anticon-left {
-            left: -15px !important;
+            left: -10px !important;
           }
 
           & > .anticon-right {
-            left: $arrow-left-tm !important;
+            left: $right-tm-next-arrow !important;
           }
 
           .slick-list {
@@ -72,7 +72,7 @@ $arrow-left-lc: calc(#{$card-width} - 5px);
 
                           & > .slick-prev,
                           .slick-prev:hover {
-                            left: $arrow-left-lc !important;
+                            left: $left-lc-next-arrow /*$arrow-left-lc*/ !important;
                           }
 
                           & > .slick-next,
