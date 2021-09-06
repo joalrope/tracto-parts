@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Divider, Row, Popconfirm, Button, Table } from 'antd';
 import { CloseSquareOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { createCustomer, findCustomerById, getCustomerByCode } from '../../../../actions/customers';
+import { findCustomerById, getCustomerByCode } from '../../../../actions/customers';
 import {
   setDisplayAddCustomerForm,
   setDisplayAddProductForm,
-  /*setDisplayPdfGenerated,*/
+  setDisplayPdfGenerated,
 } from '../../../../actions/display';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import {
@@ -14,12 +14,9 @@ import {
   setProductsForSale,
   findProductById,
   getProductByCode,
-  createProduct,
   updateProductQty,
 } from '../../../../actions/products';
 import { deleteItemProdForSale, replaceItemProdForSale } from '../../../../helpers/sales/sales-utils';
-import { AddCustomerForm } from '../../../forms/AddCustomerForm/AddCustomerForm';
-import { AddProductForm } from '../../../forms/AddProductForm/AddProductForm';
 import { Invoice } from '../../../templates/invoice/Invoice';
 import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
 import { NotFoundContentMsg } from '../../../ui-component/async-data-select/NotFoundContentMsg';
@@ -128,83 +125,18 @@ export const Sales = () => {
     dispatch(setProductsForSale(products));
   };
 
-  const startAddNewCustomer = (resp) => {
+  /* const startAddNewCustomer = (resp) => {
     if (resp === 'ok') {
       dispatch(setDisplayAddCustomerForm(true));
-    }
-  };
-
-  const saveNewCustomer = (values) => {
-    let isCo;
-    let contact;
-    if (values.type !== 'V') {
-      isCo = true;
-      contact = [
-        {
-          contactName: values.contactName,
-          contactPhone: values.contactPhone,
-          contactEmail: values.contactEmail,
-        },
-      ];
     } else {
-      isCo = false;
-      contact = [];
+      console.log(resp);
     }
-
-    const newCustomer = {
-      code: `${values.type}-${values.code}`,
-      name: values.name,
-      address: values.address,
-      phone: values.phone,
-      email: values.email,
-      isCo,
-      contact,
-      hasCredit: values.hasCredit,
-      creditLimit: values.creditLimit,
-    };
-    dispatch(createCustomer(newCustomer));
-    dispatch(setDisplayAddCustomerForm(false));
-  };
-
-  const cancelNewCustomer = () => {
-    dispatch(setDisplayAddCustomerForm(false));
-  };
-
-  const startAddNewProduct = (resp) => {
+  }; */
+  /*  const startAddNewProduct = (resp) => {
     if (resp === 'ok') {
       dispatch(setDisplayAddProductForm(true));
     }
-  };
-
-  const saveNewProduct = (values) => {
-    const newProduct = {
-      code: values.code.toUpperCase(),
-      title: values.title.toUpperCase(),
-      category: values.category.toUpperCase(),
-      details: [
-        {
-          trademark: values.trademark.toUpperCase(),
-          stock: [
-            {
-              location: values.location.toUpperCase(),
-              qty: Number(values.qty),
-            },
-          ],
-          costPrice: Number(values.costPrice),
-          salePrice: Number(values.salePrice),
-        },
-      ],
-      replacement: values.replacement,
-      status: values.status,
-    };
-
-    dispatch(createProduct(newProduct));
-    dispatch(setDisplayAddProductForm(false));
-  };
-
-  const cancelNewProduct = () => {
-    dispatch(setDisplayAddProductForm(false));
-  };
+  }; */
 
   const [amountTax, setAmountTax] = useState(0);
 
@@ -261,9 +193,7 @@ export const Sales = () => {
   const data = saleInfo(controlNumber, ivaTax);
 
   const handleCheckIn = async () => {
-    //dispatch(setDisplayPdfGenerated(true));
-
-    console.log('check-in', ivaTax, controlNumber);
+    dispatch(setDisplayPdfGenerated(true));
 
     const { transactionData, totals } = data;
 
@@ -301,8 +231,6 @@ export const Sales = () => {
     dispatch(createSale(newSale));
     setActiveSale(false);
   };
-
-  console.log('activeSale:', activeSale);
 
   return (
     <div className='--sale-page__container'>
@@ -352,7 +280,9 @@ export const Sales = () => {
               notFoundContent={
                 <NotFoundContentMsg
                   msg={'No existe el cliente, Desea agregarlo?'}
-                  noFoundResult={startAddNewCustomer}
+                  noFoundResult={() => {
+                    dispatch(setDisplayAddCustomerForm(true));
+                  }}
                 />
               }
             />
@@ -365,7 +295,9 @@ export const Sales = () => {
               notFoundContent={
                 <NotFoundContentMsg
                   msg={'No existe el producto, Desea agregarlo?'}
-                  noFoundResult={startAddNewProduct}
+                  noFoundResult={() => {
+                    dispatch(setDisplayAddProductForm(true));
+                  }}
                 />
               }
             />
@@ -419,9 +351,6 @@ export const Sales = () => {
           </div>
         )}
       </Row>
-
-      <AddCustomerForm onOk={saveNewCustomer} onCancel={cancelNewCustomer} />
-      <AddProductForm onOk={saveNewProduct} onCancel={cancelNewProduct} />
     </div>
   );
 };

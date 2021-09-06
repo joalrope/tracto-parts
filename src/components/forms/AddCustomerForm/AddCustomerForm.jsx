@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Checkbox, Form, Input, Select, Space } from 'antd';
 import { ModalForm } from '../../wrappers/ModalForm/ModalForm';
+import { cancelNewCustomer, saveNewCustomer } from './controller';
 import { CustomerContact } from './CustomerContact';
 import './customer-add.scss';
 
@@ -17,7 +18,7 @@ const AddCustomer = ({ form }) => {
   };
 
   const selectBefore = (
-    <Form.Item name={['type']} noStyle initialValue='V'>
+    <Form.Item name={['type']} noStyle>
       {
         <Select
           onChange={(newValue) => setType(newValue)}
@@ -126,8 +127,16 @@ AddCustomer.propTypes = {
   form: PropTypes.object,
 };
 
-export const AddCustomerForm = ({ onOk, onCancel }) => {
+export const AddCustomerForm = () => {
+  const dispatch = useDispatch();
   const { displayFormCustomerAdd } = useSelector((state) => state.display);
+  const onOk = (values) => {
+    dispatch(saveNewCustomer(values));
+  };
+
+  const onCancel = () => {
+    dispatch(cancelNewCustomer());
+  };
 
   return (
     <ModalForm

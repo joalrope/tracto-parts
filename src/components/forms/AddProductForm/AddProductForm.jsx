@@ -1,17 +1,15 @@
-import React /* , { useState } */ from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input, Select } from 'antd';
-import { ModalForm } from '../../wrappers/ModalForm/ModalForm';
-import './product-add.scss';
 import TextArea from 'antd/lib/input/TextArea';
+import { ModalForm } from '../../wrappers/ModalForm/ModalForm';
+import { cancelNewProduct, saveNewProduct } from './controller';
+import './product-add.scss';
 
-//const { TextArea } = Input;
 const { Option } = Select;
 
 const AddProduct = ({ form }) => {
-  //const [brands, setBrands] = useState();
-
   const onHandleTrademarkChange = () => {
     //setCredit(e.target.checked);
   };
@@ -168,8 +166,17 @@ AddProduct.propTypes = {
   form: PropTypes.object,
 };
 
-export const AddProductForm = ({ onOk, onCancel }) => {
+export const AddProductForm = () => {
+  const dispatch = useDispatch();
   const { displayFormProductAdd } = useSelector((state) => state.display);
+
+  const onOk = (values) => {
+    dispatch(saveNewProduct(values));
+  };
+
+  const onCancel = () => {
+    dispatch(cancelNewProduct());
+  };
 
   return (
     <ModalForm

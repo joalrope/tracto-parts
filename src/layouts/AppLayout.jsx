@@ -2,19 +2,17 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { Layout, Menu, Col, Row, Space } from 'antd';
-import { MailOutlined, AppstoreOutlined } from '@ant-design/icons'; //eslint-disable-line
 import { AntDesignOutlined, FacebookFilled, GithubOutlined } from '@ant-design/icons'; //eslint-disable-line
-//import { setCurrentPath } from '../actions/ui';
-import { routes } from '../router/routes';
-import { AppRouter } from '../router/AppRouter';
-import './app-layout.css';
-import { SiderMenu } from './SiderMenu';
-import history from '../helpers/history/history';
 import { startLogout } from '../actions/auth';
 import { clearStore } from '../actions/ui';
+import { AllForms } from '../components/forms/AllForms';
+import history from '../helpers/history/history';
+import { AppRouter } from '../router/AppRouter';
+import { routes } from '../router/routes';
+import { SiderMenu } from './SiderMenu';
+import './app-layout.css';
 
 const { Header, Footer, Sider, Content } = Layout;
-//const { useBreakpoint } = Grid;
 const style = { fontSize: '18px', color: '$primary', verticalAlign: 'middle' };
 
 export const AppLayout = () => {
@@ -22,9 +20,7 @@ export const AppLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { contentBackgroundImage } = useSelector((state) => state.ui);
-  //const { contentStyles } = useSelector((state) => state.ui);
   const localtion = useLocation();
-  //const screens = useBreakpoint();
 
   const handleClick = (route) => {
     if (route.key === '/logout') {
@@ -32,22 +28,11 @@ export const AppLayout = () => {
       clearStore(dispatch);
       history.push('/home');
     }
-
-    //dispatch(setCurrentPath(route.key));
   };
 
   const onCollapse = () => {
     setCollapsed(!collapsed);
   };
-
-  /*useEffect(() => {
-    console.log('collapse: true');
-    setCollapsed(screens.xs);
-  });*/
-
-  /*  useEffect(() => {
-    dispatch(setCurrentPath(window.location.pathname));
-  }, []); */
 
   const role = isLoggedIn ? 'private' : 'public';
   return (
@@ -78,6 +63,7 @@ export const AppLayout = () => {
         </Header>
         <Content className='--layout-content__container' style={{ backgroundImage: `url(${contentBackgroundImage})` }}>
           <AppRouter type={role} />
+          <AllForms />
         </Content>
         <Row>
           <Col xs={0} sm={24}>

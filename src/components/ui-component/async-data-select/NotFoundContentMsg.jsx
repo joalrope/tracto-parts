@@ -9,13 +9,13 @@ export const NotFoundContentMsg = ({ msg, noFoundResult }) => {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <p> {msg}</p>
       <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-        <Button
+        {/* <Button
           onClick={() => noFoundResult('cancel')}
           style={{ width: buttonWidth, marginRight: '10px' }}
           size='small'
         >
           Cancelar
-        </Button>
+        </Button> */}
         <Button onClick={() => noFoundResult('ok')} style={{ width: buttonWidth }} size='small' type='primary'>
           Aceptar
         </Button>

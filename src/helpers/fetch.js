@@ -1,10 +1,9 @@
-import { createBrowserHistory } from 'history';
 import { store } from '../store/store';
 import { startLogout } from '../actions/auth';
+import history from './history/history';
 import { parseJwt } from './parse-jwt';
 
 const baseUrl = process.env.REACT_APP_API_URL;
-const history = createBrowserHistory();
 let response;
 
 const fetchWithoutToken = (endpoint, data, method = 'GET') => {
