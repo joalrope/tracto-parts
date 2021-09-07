@@ -8,7 +8,7 @@ export const createSale = (sale) => {
     try {
       const resultSale = await fetchWithToken('/sales/', sale, 'POST');
       //const resultCustomer = await resp.json();
-      console.log(resultSale);
+      //console.log(resultSale);
 
       const { ok, msg } = resultSale;
       if (ok) {

@@ -41,7 +41,7 @@ export const Sales = () => {
     const { controlNumber, ivaTax } = await getTransactionInfo();
     setIvaTax(ivaTax);
     setControlNumber(controlNumber);
-    console.log('useEffect', ivaTax, controlNumber);
+    //console.log('useEffect', ivaTax, controlNumber);
   }, [activeSale]);
 
   const { activeProduct, productsForSale } = useSelector((state) => state.product);
@@ -242,7 +242,7 @@ export const Sales = () => {
           visible={showRepeatProductModal}
           okText={'Si'}
           handleOk={() => {
-            console.log('clic Ok producto repetido');
+            //console.log('clic Ok producto repetido');
             const index = selectedIndex(selectedProduct.id, selectedProduct.trademark);
             const prodForSaleSel = productsForSale[index];
 
