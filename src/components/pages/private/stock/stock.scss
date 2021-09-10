@@ -1,0 +1,14 @@
+@import '../../../../assets/css/partials/variables.scss';
+
+.--stock-page__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  height: -moz-available; /* WebKit-based browsers will ignore this. */
+  height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  height: stretch;
+  .--product-form__container {
+    width: 50vw;
+  }
+}

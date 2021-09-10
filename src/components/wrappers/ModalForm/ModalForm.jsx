@@ -5,7 +5,17 @@ import Draggable from 'react-draggable';
 import logo from '../../../assets/images/logo.png';
 import './modal-form.scss';
 
-export const ModalForm = ({ WrappedComponent, title, visible, onOk, okText, onCancel, cancelText, draggable }) => {
+export const ModalForm = ({
+  WrappedComponent,
+  title,
+  visible,
+  onOk,
+  okText,
+  onCancel,
+  cancelText,
+  draggable,
+  width,
+}) => {
   const [form] = Form.useForm();
   const [disable, setDisable] = useState(true);
   const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
@@ -72,11 +82,12 @@ export const ModalForm = ({ WrappedComponent, title, visible, onOk, okText, onCa
   return (
     <Modal
       className='--form-modal__container'
+      width={width}
       visible={visible}
       title={modalTitle}
       okText={okText}
       cancelText={cancelText}
-      onCancel={onCancel}
+      onCancel={() => onCancel(form)}
       onOk={() => {
         form
           .validateFields()
@@ -115,4 +126,5 @@ ModalForm.propTypes = {
   onCancel: PropTypes.func,
   cancelText: PropTypes.string,
   draggable: PropTypes.bool,
+  width: PropTypes.nunber || PropTypes.string,
 };

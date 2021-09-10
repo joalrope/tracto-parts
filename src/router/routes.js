@@ -5,7 +5,7 @@ import {
   Equipment,
   Forgot,
   Home,
-  Inventory,
+  Stock,
   Login,
   Products,
   Quote,
@@ -108,12 +108,12 @@ export const routes = [
   },
   {
     key: 10,
-    path: '/app/inventory',
+    path: '/app/stock',
     type: 'private',
     menu: 'sider',
     name: 'Inventario',
     icon: AppstoreAddOutlined,
-    component: Inventory,
+    component: Stock,
   },
   {
     key: 10.5,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu } from 'antd';
-import { UserOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons';
+import { UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 
 export const SiderMenu = () => {
   const location = useLocation();
@@ -16,9 +16,9 @@ export const SiderMenu = () => {
         Ventas
         <Link to='/app/sales' />
       </Menu.Item>
-      <Menu.Item key='/app/inventory' icon={<UploadOutlined />}>
-        Depositos
-        <Link to='/app/inventory' />
+      <Menu.Item key='/app/stock'>
+        Actualizar Productos
+        <Link to='/app/stock' />
       </Menu.Item>
     </Menu>
   );

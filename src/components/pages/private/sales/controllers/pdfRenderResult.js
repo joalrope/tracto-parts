@@ -3,6 +3,7 @@ import history from '../../../../../helpers/history/history';
 import { store } from '../../../../../store/store';
 import { customerClearActive } from '../../../../../actions/customers';
 import { clearProductsForSale, productClearActive } from '../../../../../actions/products';
+import { setDisplayPdfGenerated } from '../../../../../actions/display';
 
 export const msgWhenUnmounting = (controlNumber, saleActive) => {
   Swal.fire({
@@ -20,7 +21,7 @@ export const msgWhenUnmounting = (controlNumber, saleActive) => {
       history.push('/app/sales');
     } else {
       result.isConfirmed = false;
-      saleActive(true);
+      store.dispatch(setDisplayPdfGenerated(true));
     }
   });
 };

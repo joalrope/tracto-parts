@@ -147,6 +147,7 @@ export const AddCustomerForm = () => {
       okText='Aceptar'
       onCancel={onCancel}
       cancelText={'Cancelar'}
+      width={'30vw'}
     />
   );
 };

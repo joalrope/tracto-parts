@@ -6,7 +6,7 @@ import { findCustomerById, getCustomerByCode } from '../../../../actions/custome
 import {
   setDisplayAddCustomerForm,
   setDisplayAddProductForm,
-  setDisplayPdfGenerated,
+  //setDisplayPdfGenerated,
 } from '../../../../actions/display';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import {
@@ -193,7 +193,7 @@ export const Sales = () => {
   const data = saleInfo(controlNumber, ivaTax);
 
   const handleCheckIn = async () => {
-    dispatch(setDisplayPdfGenerated(true));
+    //dispatch(setDisplayPdfGenerated(true));
 
     const { transactionData, totals } = data;
 
