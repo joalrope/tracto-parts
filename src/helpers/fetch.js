@@ -57,9 +57,7 @@ const fetchWithToken = (endpoint, data, method = 'GET', header) => {
       method,
       headers: getHeaders,
     }).then((resp) => {
-      if (resp.ok) {
-        return resp.json();
-      } else {
+      if (!resp.ok && resp.msg === 'Token no válido') {
         sessionStorage.clear();
         store.dispatch(startLogout());
         const previousUrl = window.location.pathname;
@@ -71,6 +69,7 @@ const fetchWithToken = (endpoint, data, method = 'GET', header) => {
           result: {},
         };
       }
+      return resp.json();
     });
   } else {
     response = fetch(url, {

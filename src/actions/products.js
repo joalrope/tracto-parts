@@ -7,7 +7,7 @@ export const findProductByCode = (code) => {
   return async (dispatch) => {
     try {
       if (code.length > 1) {
-        const { ok, result } = await fetchWithToken(`/products/code/${code}`);
+        const { ok, result } = await fetchWithToken(`/products/regex/${code}`);
         if (ok) {
           dispatch(setProductsLoaded(result));
         }
@@ -22,8 +22,18 @@ export const findProductByCode = (code) => {
 
 export const getProductByCode = async (code) => {
   try {
+    const prod = await fetchWithToken(`/products/code/${code}`);
+    const product = await prod;
+    return product;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getProductsByCodeRegex = async (code) => {
+  try {
     if (code.length > 1) {
-      const { ok, result } = await fetchWithToken(`/products/code/${code}`);
+      const { ok, result } = await fetchWithToken(`/products/regex/${code}`);
       if (ok) {
         const json = await result;
         return JSON.parse(
@@ -69,7 +79,7 @@ export const createProduct = (product) => {
     try {
       const resultProduct = await fetchWithToken('/products/', product, 'POST');
       //const resultCustomer = await resp.json();
-      console.log(resultProduct);
+      console.log('createProduct 88:', resultProduct);
 
       const { ok, msg, result } = resultProduct;
       if (ok) {

@@ -13,7 +13,7 @@ import {
   addProductForSale,
   setProductsForSale,
   findProductById,
-  getProductByCode,
+  getProductsByCodeRegex,
   updateProductQty,
 } from '../../../../actions/products';
 import { deleteItemProdForSale, replaceItemProdForSale } from '../../../../helpers/sales/sales-utils';
@@ -48,7 +48,7 @@ export const Sales = () => {
   const { activeCustomer } = useSelector((state) => state.customer);
   const { displayInvoicePdf } = useSelector((state) => state.display);
   const customers = async (value) => await getCustomerByCode(value);
-  const products = async (value) => await getProductByCode(value);
+  const products = async (value) => await getProductsByCodeRegex(value);
 
   const handleDelete = (id, trademark) => {
     const newProducts = deleteItemProdForSale(id, trademark);

@@ -39,10 +39,10 @@ const AddCustomer = ({ form }) => {
       initialValues={{ type: 'V' }}
       layout={'horizontal'}
       labelCol={{
-        span: 5,
+        span: 24,
       }}
       wrapperCol={{
-        span: 30,
+        span: 24,
       }}
     >
       <Form.Item

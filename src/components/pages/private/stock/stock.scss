@@ -3,12 +3,14 @@
 .--stock-page__container {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100%;
-  height: -moz-available; /* WebKit-based browsers will ignore this. */
-  height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
-  height: stretch;
+  h4 {
+    margin: 3em;
+    border-bottom: 2px solid $secondary;
+    text-align: center;
+  }
   .--product-form__container {
-    width: 50vw;
+    width: 55vw;
   }
 }
