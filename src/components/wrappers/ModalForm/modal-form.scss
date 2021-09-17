@@ -25,14 +25,14 @@
               align-items: center;
               background-color: $app-logo-background;
               display: flex;
-              flex: 1 0 30%;
+              flex: 0 0 125px !important;
               height: 48px;
-              padding: 12px;
+              padding: 6px;
               vertical-align: middle;
             }
             .--form-modal__title-value {
               display: flex;
-              flex: 1 0 70%;
+              flex: 1 0 auto;
               align-items: center;
               color: $secondary;
               padding-left: 12px;

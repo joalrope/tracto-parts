@@ -7,7 +7,7 @@ import {
   setDisplayAddCustomerForm,
   setDisplayAddProductForm,
   //setDisplayPdfGenerated,
-} from '../../../../actions/display';
+} from '../../../../actions/modals';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import {
   addProductForSale,
@@ -46,7 +46,7 @@ export const Sales = () => {
 
   const { activeProduct, productsForSale } = useSelector((state) => state.product);
   const { activeCustomer } = useSelector((state) => state.customer);
-  const { displayInvoicePdf } = useSelector((state) => state.display);
+  const { displayInvoicePdf } = useSelector((state) => state.modals);
   const customers = async (value) => await getCustomerByCode(value);
   const products = async (value) => await getProductsByCodeRegex(value);
 
@@ -296,7 +296,7 @@ export const Sales = () => {
                 <NotFoundContentMsg
                   msg={'No existe el producto, Desea agregarlo?'}
                   noFoundResult={() => {
-                    dispatch(setDisplayAddProductForm(true));
+                    dispatch(setDisplayAddProductForm({ show: true, mode: 'add' }));
                   }}
                 />
               }

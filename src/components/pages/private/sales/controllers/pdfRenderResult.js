@@ -3,7 +3,7 @@ import history from '../../../../../helpers/history/history';
 import { store } from '../../../../../store/store';
 import { customerClearActive } from '../../../../../actions/customers';
 import { clearProductsForSale, productClearActive } from '../../../../../actions/products';
-import { setDisplayPdfGenerated } from '../../../../../actions/display';
+import { setDisplayPdfGenerated } from '../../../../../actions/modals';
 
 export const msgWhenUnmounting = (controlNumber, saleActive) => {
   Swal.fire({

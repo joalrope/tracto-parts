@@ -1,5 +1,5 @@
 import { fetchWithToken } from '../helpers/fetch';
-import { setDisplayPdfGenerated } from './display';
+import { setDisplayPdfGenerated } from './modals';
 
 const urlNextTransaction = '/transaction/nextTransaction';
 

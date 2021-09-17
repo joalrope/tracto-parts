@@ -3,10 +3,10 @@ import { types } from '../types/types';
 const initialState = {
   displayInvoicePdf: false,
   displayFormCustomerAdd: false,
-  displayFormProductAdd: false,
+  productForm: { show: false, mode: '' },
 };
 
-export const displayReducer = (state = initialState, action) => {
+export const modalsReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.displayGeneratePdf:
       return {
@@ -20,10 +20,10 @@ export const displayReducer = (state = initialState, action) => {
         displayFormCustomerAdd: action.payload,
       };
 
-    case types.displayFormProductAdd:
+    case types.modalsProductForm:
       return {
         ...state,
-        displayFormProductAdd: action.payload,
+        productForm: { ...action.payload },
       };
 
     default:

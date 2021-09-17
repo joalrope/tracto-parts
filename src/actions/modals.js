@@ -11,7 +11,7 @@ export const setDisplayAddCustomerForm = (show) => ({
 });
 
 export const setDisplayAddProductForm = (show) => ({
-  type: types.displayFormProductAdd,
+  type: types.modalsProductForm,
   payload: show,
 });
 

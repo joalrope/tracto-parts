@@ -1,5 +1,5 @@
 import { createCustomer } from '../../../actions/customers';
-import { setDisplayAddCustomerForm } from '../../../actions/display';
+import { setDisplayAddCustomerForm } from '../../../actions/modals';
 
 export const saveNewCustomer = (values) => {
   return (dispatch) => {

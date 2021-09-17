@@ -1,4 +1,4 @@
-import { setDisplayAddProductForm } from '../../../actions/display';
+import { setDisplayAddProductForm } from '../../../actions/modals';
 import { createProduct } from '../../../actions/products';
 
 export const saveNewProduct = (values) => {
@@ -25,12 +25,12 @@ export const saveNewProduct = (values) => {
     };
 
     dispatch(createProduct(newProduct));
-    dispatch(setDisplayAddProductForm(false));
+    dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
   };
 };
 
 export const cancelNewProduct = () => {
   return (dispatch) => {
-    dispatch(setDisplayAddProductForm(false));
+    dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
   };
 };

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { setDisplayPdfGenerated } from '../../actions/display';
+import { setDisplayPdfGenerated } from '../../actions/modals';
 
 export const GeneratePdfFromHtml = ({ WrappedComponent, data, msgWhenUnmounting }) => {
   const dispatch = useDispatch();
