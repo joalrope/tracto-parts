@@ -1,6 +1,7 @@
 import { types } from '../types/types';
 
 const initialState = {
+  loading: false,
   currentPath: '/home',
   contentStyles: null,
   contentBackgroundImage: null,
@@ -23,6 +24,18 @@ export const uiReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPath: action.payload,
+      };
+
+    case types.uiStartLoading:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case types.uiFinishLoading:
+      return {
+        ...state,
+        loading: false,
       };
 
     default:

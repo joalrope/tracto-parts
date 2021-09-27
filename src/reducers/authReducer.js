@@ -5,7 +5,7 @@ const { uid, name, role } = parseJwt();
 const isLoggedIn = uid && name && role ? true : false;
 
 const initialState = {
-  checking: true,
+  checking: false,
   uid: null || uid,
   name: null || name,
   role: role || 'basic',
@@ -17,7 +17,12 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
-        checking: false,
+      };
+
+    case types.authcheckingStart:
+      return {
+        ...state,
+        checking: true,
       };
 
     case types.authcheckingFinish:
@@ -29,7 +34,7 @@ export const authReducer = (state = initialState, action) => {
     case types.authlogout:
       return {
         ...state,
-        checking: true,
+        checking: false,
         uid: null,
         name: null,
         role: 'basic',

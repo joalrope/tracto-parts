@@ -20,10 +20,10 @@ export const GeneratePdfFromHtml = ({ WrappedComponent, data, msgWhenUnmounting 
     let urlBlob;
 
     pdf.html(content, {
-      callback: function (pdf) {
-        pdf.viewerPreferences({ FitWindow: true }, true);
+      callback: function (doc) {
+        doc.viewerPreferences({ FitWindow: true }, true);
         //doc.autoPrint({ variant: 'non-conform' });
-        const blob = pdf.output('blob');
+        const blob = doc.output('blob');
         urlBlob = URL.createObjectURL(blob);
         window.open(urlBlob);
 
@@ -31,7 +31,7 @@ export const GeneratePdfFromHtml = ({ WrappedComponent, data, msgWhenUnmounting 
       },
       margin: [40, 40, 40, 40],
     });
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     return (urlBlob) => {

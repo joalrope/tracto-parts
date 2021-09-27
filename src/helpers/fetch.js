@@ -8,6 +8,7 @@ let response;
 
 const fetchWithoutToken = (endpoint, data, method = 'GET') => {
   const url = `${baseUrl}${endpoint}`;
+  //const fetching = useSelector(state => state.state)
 
   if (method === 'GET') {
     response = fetch(url).then((resp) => {

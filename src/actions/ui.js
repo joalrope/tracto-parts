@@ -41,6 +41,14 @@ export const clearStore = (dispatch) => {
   dispatch(startLogout());
 };
 
+export const loadingStart = () => ({
+  type: types.authcheckingStart,
+});
+
+export const loadingFinish = () => ({
+  type: types.authcheckingFinish,
+});
+
 const currentPath = (path) => ({
   type: types.uiSetCurrentPath,
   payload: path,

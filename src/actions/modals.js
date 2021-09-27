@@ -19,10 +19,10 @@ export const setDisplayAddProductForm = (show) => ({
 //   type: types.uiCloseModal,
 // });
 
-// export const uiStartLoading = () => ({
-//   type: types.uiStartLoading,
-// });
+export const uiStartLoading = () => ({
+  type: types.uiStartLoading,
+});
 
-// export const uiFinishLoading = () => ({
-//   type: types.uiFinishLoading,
-// });
+export const uiFinishLoading = () => ({
+  type: types.uiFinishLoading,
+});

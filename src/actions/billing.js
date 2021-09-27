@@ -1,19 +1,19 @@
 import { fetchWithToken } from '../helpers/fetch';
 import { types } from '../types/types';
 
-export const getNextNumberTransaction = () => {
+export const getNextNumberBilling = () => {
   return async () => {
     await fetchWithToken('/invoices/lastInvoice');
   };
 };
 
-export const SetTransaction = (data) => ({
-  type: types.invoiceSetTransactionData,
+export const SetBilling = (data) => ({
+  type: types.invoiceSetBillingData,
   payload: data,
 });
 
-export const ClearTransaction = () => ({
-  type: types.invoiceClearTransactionData,
+export const ClearBilling = () => ({
+  type: types.invoiceClearBillingData,
 });
 
 export const UpdatePaymentConditions = (paymentConditions) => ({

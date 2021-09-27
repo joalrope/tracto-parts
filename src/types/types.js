@@ -1,4 +1,5 @@
 export const types = {
+  authcheckingStart: '[auth] Start checking login state',
   authcheckingFinish: '[auth] Finish checking login state',
   authStartLogin: '[auth] Start login',
   authlogin: '[auth] Login',
@@ -9,13 +10,11 @@ export const types = {
   authShowRegister: '[auth] Show Register form',
   authShowPassForgot: '[auth] Show Password Forgot form',
 
-  uiCloseModal: '[UI] Close modal',
-  uiFinishLoading: '[UI] Finish loading',
-  uiOpenModal: '[UI] Open modal',
+  uiStartLoading: '[ui] Start loading',
+  uiFinishLoading: '[ui] Finish loading',
   uiSetCurrentPath: '[ui] Set Current Path',
   uiSetContentBackground: '[ui] Set Content Background',
   uiSetContentStyles: '[ui] Set Content styles',
-  uiStartLoading: '[UI] Start loading',
 
   productSetActive: '[product] Set active',
   productClearActive: '[product] Clear active',
@@ -35,9 +34,9 @@ export const types = {
   customerClearActiveCustomer: '[customer] clear active customer',
   clearCustomersLoaded: '[customer] Clear customers loaded',
 
-  transactionSetTransactionData: '[invoice] set transaction data',
-  transactionClearTransactionData: '[invoice] clear transaction data',
-  transactionUpdatePaymentConditions: '[invoice] update payment conditions',
+  billingSetBillingData: '[billing] set billing data',
+  billingClearBillingData: '[billing] clear billing data',
+  billingUpdatePaymentConditions: '[billing] update payment conditions',
 
   displayGeneratePdf: '[display] Generate pdf',
   displayFormCustomerAdd: '[display] Add Customer Form',

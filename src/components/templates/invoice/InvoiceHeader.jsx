@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import logo from '../../../assets/images/logo.png';
 import './invoice.scss';
 
-export const InvoiceHeader = ({ customer, transaction }) => {
+export const InvoiceHeader = ({ customer, billing }) => {
   //TODO: Obtener ownerAddress1 y ownerAddress2 de la base de datos del Propietario
   const ownerAddress1 = 'Zona industrial Los Pinos Manzana 24 Parcela 07 – Estado Bolívar Cod. Postal 8050';
   const ownerAddress2 = 'Telefonos: 0286-9948874/-0414-8664310/0414-8672189 Email- Tractocenter71@gmail.com';
@@ -19,7 +19,7 @@ export const InvoiceHeader = ({ customer, transaction }) => {
         <div className='customer-data'>
           <div className='row-customer'>
             <div className='descrip'>Razón Social:</div>
-            <div className='to-fill  customer-name'>{customer.name}</div>
+            <div className='to-fill customer-name'>{customer.name}</div>
           </div>
           <div className='row-customer'>
             <div className='descrip'>Domicilio Fiscal:</div>
@@ -34,7 +34,7 @@ export const InvoiceHeader = ({ customer, transaction }) => {
       <div className='right-header'>
         <div className='row-info'>
           <div className='descrip-order'>N° O/de compra:</div>
-          <div className='to-fill-order'>{transaction.purchaseOrder}</div>
+          <div className='to-fill-order'>{billing.purchaseOrder}</div>
         </div>
         <div className='row-info'>
           <div className='descrip-phones'>Teléfono:</div>
@@ -50,21 +50,21 @@ export const InvoiceHeader = ({ customer, transaction }) => {
         </div>
         <div className='row-info'>
           <div className='descrip-date'>Fecha:</div>
-          <div className='to-fill-date'>{transaction.date}</div>
+          <div className='to-fill-date'>{billing.date}</div>
         </div>
         <div className='control-number-frame'>
           <div className='delivery-note'>
-            <div className={`delivery-sqr ${transaction.deliveryMode && 'isSelected'}`}></div>
+            <div className={`delivery-sqr ${billing.deliveryMode && 'isSelected'}`}></div>
             <div className='delivery-descrip'>Nota de entrega</div>
           </div>
           <div className='quote'>
-            <div className={`quote-sqr ${!transaction.deliveryMode && 'isSelected'}`}></div>
+            <div className={`quote-sqr ${!billing.deliveryMode && 'isSelected'}`}></div>
             <div className='quote-descrip'>Cotización</div>
           </div>
           <div className='control-number-counter'>
             <div className='centered'>
               <div className='control-number-descrip'>N° DE CONTROL:</div>
-              <div className='control-number-code'>{transaction.controlNumber}</div>
+              <div className='control-number-code'>{billing.controlNumber}</div>
             </div>
           </div>
         </div>
@@ -75,5 +75,5 @@ export const InvoiceHeader = ({ customer, transaction }) => {
 
 InvoiceHeader.propTypes = {
   customer: PropTypes.object,
-  transaction: PropTypes.object,
+  billing: PropTypes.object,
 };

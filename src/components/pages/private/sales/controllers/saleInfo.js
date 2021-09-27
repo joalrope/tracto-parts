@@ -1,17 +1,18 @@
 import moment from 'moment';
 import { store } from '../../../../../store/store';
-//import { controlNumber, ivaTax } from './getTransactionInfo';
+//import { controlNumber, ivaTax } from './getBillingInfo';
 
 export const saleInfo = (controlNumber, ivaTax) => {
   const state = store.getState();
   const { productsForSale } = state.product;
   const { activeCustomer } = state.customer;
 
-  const getTransactionData = () => ({
+  const getBillingData = () => ({
     date: moment().format('DD/MM/YYYY'),
     controlNumber,
     ivaTax,
     deliveryMode: true,
+    purchaseOrder: '',
   });
 
   const purchase = () => {
@@ -28,5 +29,5 @@ export const saleInfo = (controlNumber, ivaTax) => {
     invoiceTotal,
   });
 
-  return { transactionData: getTransactionData(), activeCustomer, productsForSale, totals: totals() };
+  return { billingData: getBillingData(), activeCustomer, productsForSale, totals: totals() };
 };

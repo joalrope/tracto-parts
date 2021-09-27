@@ -71,6 +71,7 @@ export const Product = ({ form }) => {
           <Form.Item
             name={'code'}
             label={'Código:'}
+            initialValue={product.code}
             rules={[
               {
                 required: true,
@@ -85,6 +86,7 @@ export const Product = ({ form }) => {
           <Form.Item
             label='Descripción:'
             name='title'
+            initialValue={product.title}
             rules={[
               {
                 required: true,
@@ -96,7 +98,13 @@ export const Product = ({ form }) => {
           </Form.Item>
         </Col>
         <Col xs={24} md={24} lg={5}>
-          <Form.Item className='--form-item__container' name='category' label='Categoría:' rules={[{ required: true }]}>
+          <Form.Item
+            className='--form-item__container'
+            name='category'
+            label='Categoría:'
+            initialValue={product.category}
+            rules={[{ required: true }]}
+          >
             <Input placeholder='Indique una categoría' initialvalues={product.category} />
           </Form.Item>
         </Col>
@@ -113,6 +121,7 @@ export const Product = ({ form }) => {
               className='--form-item__container'
               name='measurement'
               label='Medidas:'
+              initialValue={product.measurement}
               rules={[{ required: false }]}
             >
               <Input placeholder='Medidas' />
@@ -120,7 +129,13 @@ export const Product = ({ form }) => {
           </Col>
 
           <Col xs={24} lg={12}>
-            <Form.Item className='--form-item__container' name='status' label='Estado' rules={[{ required: false }]}>
+            <Form.Item
+              className='--form-item__container'
+              name='status'
+              label='Estado'
+              initialValue={product.status}
+              rules={[{ required: false }]}
+            >
               <Input placeholder='Estado del producto' />
             </Form.Item>
           </Col>
@@ -129,6 +144,7 @@ export const Product = ({ form }) => {
       <Form.Item
         label='Equivalencias:'
         name='replacement'
+        initialValue={product.replacement}
         rules={[
           {
             required: false,

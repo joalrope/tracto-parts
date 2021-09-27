@@ -5,6 +5,7 @@ import history from '../helpers/history/history';
 
 export const startLogin = (email, password) => {
   return async (dispatch) => {
+    dispatch(checkingStart());
     const { ok, msg, token, uid, name, role } = await fetchWithoutToken('/auth', { email, password }, 'POST');
     if (ok) {
       dispatch(
@@ -19,7 +20,9 @@ export const startLogin = (email, password) => {
       sessionStorage.token = token;
       sessionStorage.isLogged = true;
       history.push('/home');
+      dispatch(checkingFinish());
     } else {
+      dispatch(checkingFinish());
       Swal.fire('Error en la autenticación', msg, 'error');
     }
   };
@@ -118,6 +121,10 @@ export const startHidePassForgot = () => {
 const login = (user) => ({
   type: types.authlogin,
   payload: user,
+});
+
+const checkingStart = () => ({
+  type: types.authcheckingStart,
 });
 
 const checkingFinish = () => ({

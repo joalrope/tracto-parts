@@ -10,9 +10,11 @@ import './login.scss';
 
 export const Login = () => {
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
 
   const onFinish = ({ email, password }) => {
     dispatch(startLogin(email, password));
+    form.resetFields();
   };
 
   const handleShowRegister = () => {
@@ -32,6 +34,7 @@ export const Login = () => {
             <div className='--login-form__container'>
               <Form
                 name='normal_login'
+                form={form}
                 className='--login-form'
                 initialValues={{ remember: false }}
                 autoComplete='false'

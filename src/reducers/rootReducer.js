@@ -3,7 +3,7 @@ import { authReducer } from './authReducer';
 import { customerReducer } from './customerReducer';
 import { productReducer } from './productReducer';
 import { modalsReducer } from './modalsReducer';
-import { transactionReducer } from './transactionReducer';
+import { billingReducer } from './billingReducer';
 import { uiReducer } from './uiReducer';
 
 export const rootReducer = combineReducers({
@@ -11,6 +11,6 @@ export const rootReducer = combineReducers({
   customer: customerReducer,
   modals: modalsReducer,
   product: productReducer,
-  transaction: transactionReducer,
+  billing: billingReducer,
   ui: uiReducer,
 });

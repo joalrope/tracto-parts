@@ -116,7 +116,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
                   >
                     {Object.values(item.stock).map((stock) => {
                       return (
-                        <div key={stock.location} className='--product-card__stock' noStyle>
+                        <div key={stock.location} className='--product-card__stock'>
                           <div className='--product-card__stock-items'>
                             <p>Precio:</p>
                             <p>Cantidad:</p>

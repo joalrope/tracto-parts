@@ -1,26 +1,26 @@
 import { types } from '../types/types';
 
 const initialState = {
-  transaction: {},
+  billing: {},
 };
 
-export const transactionReducer = (state = initialState, action) => {
+export const billingReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.transactionSetTransactionData:
+    case types.billingSetBillingData:
       return {
         ...state,
-        transaction: {
+        billing: {
           ...action.payload,
         },
       };
 
-    case types.transactionClearTransactionData:
+    case types.billingClearBillingData:
       return {
         ...state,
-        transaction: {},
+        billing: {},
       };
 
-    case types.transactionUpdatePaymentConditions:
+    case types.billingUpdatePaymentConditions:
       return {
         ...state,
         paymentConditions: action.payload,

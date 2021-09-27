@@ -2,14 +2,36 @@ import React from 'react';
 import { Form, Input, Modal } from 'antd';
 
 import './home.scss';
+import { getProductByCode } from '../../../../actions/products';
+import { getQtyAvailable } from '../../../../helpers/products/get-qty-available';
+import { useDispatch } from 'react-redux';
+import { loadingFinish, loadingStart } from '../../../../actions/ui';
 
 const defaultMessage =
   'Para facilitarte el mantenimiento de tú equipo, ofrecemos la opción de consultar nuestra disponibilidad de repuestos.';
 
 export const Home = () => {
-  const onFinish = ({ code }) => {
-    const line1 = `El repuesto código ${code} no está disponible en nuestros almacnes.`;
-    const line2 = 'Ofrecemos la opción de traerlo directamente del fabricante vía aerea o marítima';
+  const dispatch = useDispatch();
+  const onFinish = async ({ code }) => {
+    dispatch(loadingStart());
+    const { ok, result } = await getProductByCode(code);
+    let line1;
+    let line2;
+    const line5 = `está disponible en nuestros almacenes.`;
+    const line6 = 'Puede pasar a la brevedad por nuestra oficina, para su adquisicion';
+    const line7 = 'Ofrecemos la opción de traerlo directamente del fabricante vía aerea o marítima';
+
+    if (ok) {
+      const qty = getQtyAvailable(result);
+      const line3 = `El repuesto ${result.title} número de parte ${result.code}`;
+      line2 = qty > 0 ? line6 : line7;
+      const line4 = qty > 0 ? '' : 'NO';
+      line1 = `${line3} ${line4} ${line5}`;
+    } else {
+      line1 = `El número de parte ${code} NO ${line5}`;
+      line2 = `${line7}`;
+    }
+    dispatch(loadingFinish());
     Modal.info({
       title: 'Disponibilidad',
       content: (

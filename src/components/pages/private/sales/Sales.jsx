@@ -6,7 +6,7 @@ import { findCustomerById, getCustomerByCode } from '../../../../actions/custome
 import {
   setDisplayAddCustomerForm,
   setDisplayAddProductForm,
-  //setDisplayPdfGenerated,
+  // setDisplayPdfGenerated,
 } from '../../../../actions/modals';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import {
@@ -25,7 +25,7 @@ import { EditableTable } from '../../../ui-component/editable-table/EditableTabl
 import { ProductCard } from '../../../ui-component/product/card/ProductCard';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
 import { ResultModal } from '../../../wrappers/ResultModal';
-import { getTransactionInfo } from './controllers/getTransactionInfo';
+import { getBillingInfo } from './controllers/getBillingInfo';
 import { msgWhenUnmounting } from './controllers/pdfRenderResult';
 import { saleInfo } from './controllers/saleInfo';
 import './sales.scss';
@@ -38,7 +38,8 @@ export const Sales = () => {
   const [controlNumber, setControlNumber] = useState('');
 
   useEffect(async () => {
-    const { controlNumber, ivaTax } = await getTransactionInfo();
+    const { controlNumber, ivaTax } = await getBillingInfo();
+    console.log(controlNumber, ivaTax);
     setIvaTax(ivaTax);
     setControlNumber(controlNumber);
     //console.log('useEffect', ivaTax, controlNumber);
@@ -120,6 +121,7 @@ export const Sales = () => {
 
   const saveEditedProducts = (products) => {
     Object.values(products).map((product) => {
+      //TODO: set max qty available
       product.totalItem = product.qty * product.salePrice;
     });
     dispatch(setProductsForSale(products));
@@ -195,7 +197,7 @@ export const Sales = () => {
   const handleCheckIn = async () => {
     //dispatch(setDisplayPdfGenerated(true));
 
-    const { transactionData, totals } = data;
+    const { billingData, totals } = data;
 
     const items = productsForSale.map((item) => {
       const { id, code, title, qty, trademark, location, salePrice, totalItem } = item;
@@ -213,12 +215,12 @@ export const Sales = () => {
 
     const newSale = {
       invoiceNumber: controlNumber,
-      date: transactionData.date,
+      date: billingData.date,
       coin: 'USD$',
       customer: { code: activeCustomer.code, name: activeCustomer.name },
       items,
       purchaseTotal: totals.purchaseTotal,
-      taxes: [{ title: 'ivaTax', rate: transactionData.ivaTax, amount: amountTax }],
+      taxes: [{ title: 'ivaTax', rate: billingData.ivaTax, amount: amountTax }],
       invoiceTotal: totals.invoiceTotal,
       payment: {
         onCredit: false,

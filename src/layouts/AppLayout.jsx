@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { Layout, Menu, Col, Row, Space } from 'antd';
-import { AntDesignOutlined, FacebookFilled, GithubOutlined } from '@ant-design/icons'; //eslint-disable-line
+import { Layout, Menu, Col, Row, Space, Spin } from 'antd';
+import { AntDesignOutlined, FacebookFilled, GithubOutlined /* , LoadingOutlined */ } from '@ant-design/icons'; //eslint-disable-line
 import { startLogout } from '../actions/auth';
 import { clearStore } from '../actions/ui';
 import { AllForms } from '../components/forms/AllForms';
@@ -14,12 +14,13 @@ import './app-layout.css';
 
 const { Header, Footer, Sider, Content } = Layout;
 const style = { fontSize: '18px', color: '$primary', verticalAlign: 'middle' };
+//const loadingIcon = <LoadingOutlined style={{ fontSize: 64 }} spin />;
 
 export const AppLayout = () => {
   const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
-  const { isLoggedIn } = useSelector((state) => state.auth);
-  const { contentBackgroundImage } = useSelector((state) => state.ui);
+  const { isLoggedIn, checking } = useSelector((state) => state.auth);
+  const { contentBackgroundImage, loading } = useSelector((state) => state.ui);
   const localtion = useLocation();
 
   const handleClick = (route) => {
@@ -62,6 +63,11 @@ export const AppLayout = () => {
           </Menu>
         </Header>
         <Content className='--layout-content__container' style={{ backgroundImage: `url(${contentBackgroundImage})` }}>
+          {(checking || loading) && (
+            <div className='--layout-content__spinner'>
+              <Spin /* indicator={loadingIcon}  */ size='large' />
+            </div>
+          )}
           <AppRouter type={role} />
           <AllForms />
         </Content>

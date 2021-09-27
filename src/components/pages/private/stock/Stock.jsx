@@ -4,8 +4,8 @@ import { Button, Col, Form, Row } from 'antd';
 import { Product } from '../../../forms/ProductForm/ProductForm';
 import { SearchProductForm } from '../../../forms/SearchProductForm/SearchProductForm';
 import { productClearActive } from '../../../../actions/products';
-import './stock.scss';
 import { setDisplayAddProductForm } from '../../../../actions/modals';
+import './stock.scss';
 
 export const Stock = () => {
   const [form] = Form.useForm();
@@ -18,7 +18,19 @@ export const Stock = () => {
     dispatch(setDisplayAddProductForm({ show: false, mode: 'edit' }));
   };
 
-  const clearActive = () => {
+  const onOk = () => {
+    form
+      .validateFields()
+      .then((values) => {
+        onOk(values);
+        form.resetFields();
+      })
+      .catch((info) => {
+        console.log('Validate Failed:', info);
+      });
+  };
+
+  const onCancel = () => {
     dispatch(productClearActive());
     dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
     setShowAddProductForm(false);
@@ -26,15 +38,32 @@ export const Stock = () => {
   return (
     <div className='--stock-page__container'>
       <Row>
-        <Col xs={24} md={24}>
+        <Col xs={24} md={24} className='--stock-page__container'>
           <h4>Crear Producto</h4>
         </Col>
       </Row>
-      <div className='--product-form__container'>
-        {!showAddProductForm && <SearchProductForm searchResult={searchResult} />}
-        {showAddProductForm && <Product form={form} />}
-      </div>
-      {showAddProductForm && <Button onClick={clearActive}> Clear </Button>}
+      <Row>
+        <Col className='--product-form__container'>
+          {!showAddProductForm && <SearchProductForm searchResult={searchResult} />}
+          {showAddProductForm && <Product form={form} />}
+        </Col>
+      </Row>
+      <Row gutter={20}>
+        <Col xs={24} md={8}>
+          {showAddProductForm && (
+            <Button ghost onClick={onCancel}>
+              Cancelar
+            </Button>
+          )}
+        </Col>
+        <Col xs={24} md={8}>
+          {showAddProductForm && (
+            <Button ghost type='primary' onClick={onOk}>
+              Aceptar
+            </Button>
+          )}
+        </Col>
+      </Row>
     </div>
   );
 };
