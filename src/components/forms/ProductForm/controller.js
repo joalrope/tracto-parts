@@ -2,26 +2,28 @@ import { setDisplayAddProductForm } from '../../../actions/modals';
 import { createProduct } from '../../../actions/products';
 
 export const saveNewProduct = (values) => {
+  const { code, title, category, details, replacement, status } = values;
+
   return (dispatch) => {
     const newProduct = {
-      code: values.code.toUpperCase(),
-      title: values.title.toUpperCase(),
-      category: values.category.toUpperCase(),
+      code: code.toUpperCase(),
+      title: title.toUpperCase(),
+      category: category.toUpperCase(),
       details: [
         {
-          trademark: values.trademark.toUpperCase(),
+          trademark: details.trademark.toUpperCase(),
           stock: [
             {
-              location: values.location.toUpperCase(),
-              qty: Number(values.qty),
+              location: details.stock.location.toUpperCase(),
+              qty: Number(details.stock.qty),
             },
           ],
-          costPrice: Number(values.costPrice),
-          salePrice: Number(values.salePrice),
+          costPrice: Number(details.trademark.costPrice),
+          salePrice: Number(details.trademark.salePrice),
         },
       ],
-      replacement: values.replacement,
-      status: values.status,
+      replacement,
+      status,
     };
 
     dispatch(createProduct(newProduct));
@@ -33,4 +35,26 @@ export const cancelNewProduct = () => {
   return (dispatch) => {
     dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
   };
+};
+
+export const emptyProduct = {
+  code: '',
+  title: '',
+  details: [
+    {
+      trademark: '',
+      costPrice: '',
+      salePrice: '',
+      stock: [
+        {
+          location: '',
+          qty: '',
+        },
+      ],
+    },
+  ],
+  category: '',
+  measurement: '',
+  status: '',
+  replacement: '',
 };

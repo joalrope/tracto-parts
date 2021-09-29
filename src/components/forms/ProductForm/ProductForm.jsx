@@ -1,48 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Col, Form, Input, Row, Select } from 'antd';
+import { Col, Form, Input, Row } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { ModalForm } from '../../wrappers/ModalForm/ModalForm';
-import { cancelNewProduct /* , saveNewProduct */ } from './controller';
+import { emptyProduct, cancelNewProduct /* , saveNewProduct */ } from './controller';
+import { ProductDetails } from './ProductDetails';
+
 import './product-add.scss';
-
-const { Option } = Select;
-
-const emptyProduct = {
-  code: '',
-  title: '',
-  details: [
-    {
-      trademark: '',
-      costPrice: '',
-      salePrice: '',
-      stock: [
-        {
-          location: '',
-          qty: '',
-        },
-      ],
-    },
-  ],
-  category: '',
-  measurement: '',
-  status: '',
-  replacement: '',
-};
 
 export const Product = ({ form }) => {
   const [product, setProduct] = useState(emptyProduct);
   const { activeProduct } = useSelector((state) => state.product);
-  let code, title, category, measurement, status, replacement;
+  let code, title, category, details, measurement, status, replacement;
 
   useEffect(() => {
-    if (activeProduct) {
-      setProduct(activeProduct);
-      ({ code, title, category, measurement, status, replacement } = product);
-      form.setFieldsValue({ code, title, category, measurement, status, replacement });
-    }
-  }, [product]);
+    setProduct(activeProduct);
+    ({ code, title, category, details, measurement, status, replacement } = product);
+    form.setFieldsValue({ code, title, category, details, measurement, status, replacement });
+  }, [activeProduct, product]);
 
   return (
     <Form
@@ -50,15 +26,6 @@ export const Product = ({ form }) => {
       name='product-add'
       form={form}
       layout={'vertical'}
-      initialvalues={{
-        code: product.code,
-        title: product.title,
-        details: product.details,
-        category: product.category,
-        measurement: product.measurement,
-        status: product.status,
-        replacement: product.replacement,
-      }}
       labelCol={{
         span: 24,
       }}
@@ -67,7 +34,7 @@ export const Product = ({ form }) => {
       }}
     >
       <Row gutter={24}>
-        <Col xs={24} md={24} lg={5}>
+        <Col xs={24} md={24} lg={4}>
           <Form.Item
             name={'code'}
             label={'Código:'}
@@ -82,7 +49,7 @@ export const Product = ({ form }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col xs={24} md={24} lg={14}>
+        <Col xs={24} md={24} lg={15}>
           <Form.Item
             label='Descripción:'
             name='title'
@@ -109,11 +76,9 @@ export const Product = ({ form }) => {
           </Form.Item>
         </Col>
       </Row>
-
-      {Object.values(product.details).map((detail, index) => (
-        <ProductDetails key={detail.trademark + index} detail={detail} index={index} />
-      ))}
-
+      <Row>
+        <ProductDetails det={product.details} />
+      </Row>
       <Form.Item>
         <Row gutter={24}>
           <Col xs={24} lg={12}>
@@ -161,99 +126,6 @@ export const Product = ({ form }) => {
 
 Product.propTypes = {
   form: PropTypes.object,
-};
-
-export const ProductDetails = ({ detail, index }) => {
-  useEffect(() => {
-    inputRef.current.focus({
-      cursor: 'all',
-    });
-  }, []);
-
-  const onHandleTrademarkChange = () => {
-    //setCredit(e.target.checked);
-  };
-
-  const inputRef = React.useRef(null);
-
-  return (
-    <Form.Item key={detail.trademark}>
-      <Row gutter={24}>
-        <Col xs={24} lg={5}>
-          <Form.Item
-            className={`--form-item__container ${`trademark:${detail.trademark}`}`}
-            label='Marca:'
-            name={`trademark${detail.trademark + index}`}
-            initialValue={detail.trademark}
-            rules={[
-              {
-                required: true,
-                message: 'Seleccione la marca del producto!',
-              },
-            ]}
-          >
-            <Select onChange={onHandleTrademarkChange}>
-              <Option value='CAT'>CAT</Option>
-              <Option value='CTP'>CTP</Option>
-              <Option value='DONALDSON'>DONALDSON</Option>
-              <Option value='MAC BEE'>MAC BEE</Option>
-              <Option value='WIX'>WIX</Option>
-              <Option value=''>{''}</Option>
-            </Select>
-          </Form.Item>
-        </Col>
-        <Col xs={24} lg={5}>
-          <Form.Item
-            className='--form-item__container'
-            name={`costPrice${detail.trademark + index}`}
-            label='Precio de Costo:'
-            initialValue={detail.costPrice}
-            rules={[{ required: true }]}
-          >
-            <Input placeholder='Ingrese precio' style={{ textAlign: 'right' }} ref={inputRef} />
-          </Form.Item>
-        </Col>
-        <Col xs={24} lg={5}>
-          <Form.Item
-            className='--form-item__container'
-            name={`salePrice${detail.trademark + index}`}
-            label='Precio de Venta:'
-            initialValue={detail.salePrice}
-            rules={[{ required: true }]}
-          >
-            <Input placeholder='Ingrese precio' style={{ textAlign: 'right' }} ref={inputRef} />
-          </Form.Item>
-        </Col>
-        <Col xs={24} lg={4}>
-          <Form.Item
-            className='--form-item__container'
-            name={`location${detail.trademark + index}`}
-            label='Locación'
-            initialValue={detail.stock[0].location}
-            rules={[{ required: true }]}
-          >
-            <Input placeholder='Ingrese la locación del producto' style={{ textAlign: 'right' }} ref={inputRef} />
-          </Form.Item>
-        </Col>
-        <Col xs={24} lg={5}>
-          <Form.Item
-            className='--form-item__container'
-            name={`qty${detail.trademark + index}`}
-            label='Cantidad'
-            initialValue={detail.stock[0].qty}
-            rules={[{ required: true }]}
-          >
-            <Input placeholder='Ingrese la cantidad del producto' ref={inputRef} style={{ textAlign: 'right' }} />
-          </Form.Item>
-        </Col>
-      </Row>
-    </Form.Item>
-  );
-};
-
-ProductDetails.propTypes = {
-  detail: PropTypes.object || PropTypes.string,
-  index: PropTypes.number,
 };
 
 export const ProductForm = () => {
