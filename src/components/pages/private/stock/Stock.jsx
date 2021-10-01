@@ -19,12 +19,15 @@ export const Stock = () => {
   };
 
   const onOk = () => {
-    console.log('onOk');
     form
       .validateFields()
       .then((values) => {
         console.log(values);
         form.resetFields();
+
+        dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
+        setShowAddProductForm(false);
+        dispatch(productClearActive());
       })
       .catch((info) => {
         console.log('Validate Failed:', info);
@@ -32,6 +35,7 @@ export const Stock = () => {
   };
 
   const onCancel = () => {
+    console.log('cancel on page Stock');
     dispatch(productClearActive());
     dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
     setShowAddProductForm(false);
@@ -40,7 +44,7 @@ export const Stock = () => {
     <div className='--stock-page__container'>
       <Row>
         <Col xs={24} md={24} className='--stock-page__container'>
-          <h4>Crear Producto</h4>
+          <h4>Actualizar Producto</h4>
         </Col>
       </Row>
       <Row>

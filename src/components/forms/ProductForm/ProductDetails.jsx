@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Form, Input, Row, Select } from 'antd';
 import { CloseSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import { ProductStock } from './ProductStock';
+import { alignItemsRight } from '../AllForms';
 
 const Option = Select.Option;
 
@@ -35,7 +36,6 @@ export const ProductDetails = () => {
                           </div>
                         }
                         name={[index, 'trademark']}
-                        /* style={{ marginBottom: '0px' }} */
                         rules={[{ required: true }]}
                       >
                         <Select>
@@ -51,7 +51,7 @@ export const ProductDetails = () => {
                     <div
                       style={{
                         display: 'flex',
-                        alignItems: 'flex-end',
+                        alignItems: 'center',
                       }}
                     >
                       {details.length > 1 ? (
@@ -70,12 +70,12 @@ export const ProductDetails = () => {
                 </Col>
                 <Col xs={24} lg={5}>
                   <Form.Item name={[index, 'costPrice']} label='Precio de Costo' rules={[{ required: true }]}>
-                    <Input placeholder='indique precio de costo' />
+                    <Input placeholder='indique precio de costo' style={alignItemsRight} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} lg={5}>
                   <Form.Item name={[index, 'salePrice']} label='Precio de Venta' rules={[{ required: true }]}>
-                    <Input placeholder='indique precio de venta' />
+                    <Input placeholder='indique precio de venta' style={alignItemsRight} />
                   </Form.Item>
                 </Col>
                 <Col xs={24} lg={10}>

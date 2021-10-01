@@ -11,3 +11,6 @@ export const AllForms = () => {
     </div>
   );
 };
+
+export const alignItemsRight = { textAlign: 'right' };
+export const alignItemsCenter = { textAlign: 'center' };

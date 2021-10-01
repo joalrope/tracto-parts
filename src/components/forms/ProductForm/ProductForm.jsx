@@ -15,16 +15,21 @@ export const Product = ({ form }) => {
   let code, title, category, details, measurement, status, replacement;
 
   useEffect(() => {
-    setProduct(activeProduct);
+    setProduct(activeProduct ? activeProduct : emptyProduct);
     ({ code, title, category, details, measurement, status, replacement } = product);
     form.setFieldsValue({ code, title, category, details, measurement, status, replacement });
   }, [activeProduct, product]);
+
+  const onBlur = (value) => {
+    console.log(value);
+  };
 
   return (
     <Form
       className='--add-product__form'
       name='product-add'
       form={form}
+      initialvalue={emptyProduct}
       layout={'vertical'}
       labelCol={{
         span: 24,
@@ -38,7 +43,6 @@ export const Product = ({ form }) => {
           <Form.Item
             name={'code'}
             label={'Código:'}
-            initialValue={product.code}
             rules={[
               {
                 required: true,
@@ -53,7 +57,6 @@ export const Product = ({ form }) => {
           <Form.Item
             label='Descripción:'
             name='title'
-            initialValue={product.title}
             rules={[
               {
                 required: true,
@@ -61,7 +64,7 @@ export const Product = ({ form }) => {
               },
             ]}
           >
-            <Input />
+            <Input onBlur={onBlur} />
           </Form.Item>
         </Col>
         <Col xs={24} md={24} lg={5}>
@@ -69,15 +72,15 @@ export const Product = ({ form }) => {
             className='--form-item__container'
             name='category'
             label='Categoría:'
-            initialValue={product.category}
+            /* initialValue={product.category}*/
             rules={[{ required: true }]}
           >
-            <Input placeholder='Indique una categoría' initialvalues={product.category} />
+            <Input placeholder='Indique una categoría' />
           </Form.Item>
         </Col>
       </Row>
       <Row>
-        <ProductDetails det={product.details} />
+        <ProductDetails />
       </Row>
       <Form.Item>
         <Row gutter={24}>
@@ -86,7 +89,7 @@ export const Product = ({ form }) => {
               className='--form-item__container'
               name='measurement'
               label='Medidas:'
-              initialValue={product.measurement}
+              // initialValue={product.measurement}
               rules={[{ required: false }]}
             >
               <Input placeholder='Medidas' />
@@ -98,7 +101,7 @@ export const Product = ({ form }) => {
               className='--form-item__container'
               name='status'
               label='Estado'
-              initialValue={product.status}
+              /*  initialValue={product.status} */
               rules={[{ required: false }]}
             >
               <Input placeholder='Estado del producto' />
@@ -109,7 +112,7 @@ export const Product = ({ form }) => {
       <Form.Item
         label='Equivalencias:'
         name='replacement'
-        initialValue={product.replacement}
+        /* initialValue={product.replacement} */
         rules={[
           {
             required: false,
@@ -130,13 +133,21 @@ Product.propTypes = {
 
 export const ProductForm = () => {
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
 
   const { productForm } = useSelector((state) => state.modals);
   const { show, mode } = productForm;
 
-  const onOk = (values) => {
-    console.log(values);
-    //dispatch(saveNewProduct(values));
+  const onOk = () => {
+    form
+      .validateFields()
+      .then((values) => {
+        console.log(values);
+        form.resetFields();
+      })
+      .catch((info) => {
+        console.log('Validate Failed:', info);
+      });
   };
 
   const onCancel = (form) => {
