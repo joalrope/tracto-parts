@@ -16,7 +16,13 @@
     "titleBar.inactiveForeground": "#15202b99",
     "editorError.foreground": "#ff0000",
     "editorWarning.foreground": "#ffff00",
-    "editorInfo.foreground": "#2b00ff"
+    "editorInfo.foreground": "#2b00ff",
+    "editorGroup.border": "#93e6fc",
+    "panel.border": "#93e6fc",
+    "sash.hoverBorder": "#93e6fc",
+    "sideBar.border": "#93e6fc",
+    "statusBarItem.remoteBackground": "#61dafb",
+    "statusBarItem.remoteForeground": "#15202b"
   },
   "peacock.color": "#61dafb",
   "editor.formatOnSave": true,

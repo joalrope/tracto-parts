@@ -56,6 +56,14 @@ export const updateProductQty = async (id, product) => {
   }
 };
 
+export const updateProduct = async (id, product) => {
+  try {
+    await fetchWithToken(`/products/${id}`, product, 'PUT');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const findProductById = (id) => {
   return async (dispatch) => {
     try {
@@ -79,11 +87,9 @@ export const createProduct = (product) => {
     try {
       const resultProduct = await fetchWithToken('/products/', product, 'POST');
       //const resultCustomer = await resp.json();
-      console.log('createProduct 88:', resultProduct);
 
       const { ok, msg, result } = resultProduct;
       if (ok) {
-        console.log(result);
         const product = jsonSort(result, productTemplate);
         dispatch(productSetActive(product));
       } else {

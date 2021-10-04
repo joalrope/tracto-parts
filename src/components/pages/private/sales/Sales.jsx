@@ -39,10 +39,8 @@ export const Sales = () => {
 
   useEffect(async () => {
     const { controlNumber, ivaTax } = await getBillingInfo();
-    console.log(controlNumber, ivaTax);
     setIvaTax(ivaTax);
     setControlNumber(controlNumber);
-    //console.log('useEffect', ivaTax, controlNumber);
   }, [activeSale]);
 
   const { activeProduct, productsForSale } = useSelector((state) => state.product);

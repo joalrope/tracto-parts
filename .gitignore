@@ -11,6 +11,13 @@
 # production
 /build
 
+# IDE
+/.vscode
+settings.json
+
+# git
+.gitignore
+
 # misc
 .DS_Store
 .env.local
@@ -21,3 +28,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+

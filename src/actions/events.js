@@ -61,7 +61,7 @@ const eventUpdated = (event) => ({
   payload: event,
 });
 
-export const eventStartDelete = (event) => {
+export const eventStartDelete = () => {
   return async (dispatch, getState) => {
     const { id } = getState().calendar.activeEvent;
 
@@ -73,7 +73,6 @@ export const eventStartDelete = (event) => {
         dispatch(eventDeleted());
       } else {
         Swal.fire('Advertencia', body.msg, 'warning');
-        console.log(body.msg);
       }
     } catch (error) {
       console.log(error);
@@ -86,7 +85,7 @@ export const eventDeleted = () => ({
 });
 
 export const eventStartLoading = () => {
-  return async (dispatch) => {
+  return async (/* dispatch */) => {
     try {
       // const resp = await fetchWithToken('/events');
       // const body = await resp.json();

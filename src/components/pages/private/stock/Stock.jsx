@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Col, Form, Row } from 'antd';
 import { Product } from '../../../forms/ProductForm/ProductForm';
 import { SearchProductForm } from '../../../forms/SearchProductForm/SearchProductForm';
-import { productClearActive } from '../../../../actions/products';
+import { productClearActive, updateProduct } from '../../../../actions/products';
 import { setDisplayAddProductForm } from '../../../../actions/modals';
 import './stock.scss';
 
 export const Stock = () => {
   const [form] = Form.useForm();
   const [showAddProductForm, setShowAddProductForm] = useState(false);
+  const { activeProduct } = useSelector((state) => state.product);
+  const [id, setId] = useState(null);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (activeProduct) {
+      const { id: activeId } = activeProduct;
+      setId(activeId);
+    }
+  }, [activeProduct]);
 
   const searchResult = () => {
     setShowAddProductForm(true);
@@ -22,9 +31,8 @@ export const Stock = () => {
     form
       .validateFields()
       .then((values) => {
-        console.log(values);
+        updateProduct(id, values);
         form.resetFields();
-
         dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
         setShowAddProductForm(false);
         dispatch(productClearActive());
@@ -35,7 +43,6 @@ export const Stock = () => {
   };
 
   const onCancel = () => {
-    console.log('cancel on page Stock');
     dispatch(productClearActive());
     dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
     setShowAddProductForm(false);
