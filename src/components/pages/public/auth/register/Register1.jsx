@@ -3,8 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Col, Form, Input, Row } from 'antd';
 import { UserOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
-//import { setCurrentPath } from '../../../../../actions/ui';
-import { /* startLogin, */ startRegister } from '../../../../../actions/auth';
+import { startRegister } from '../../../../../actions/auth';
 import history from '../../../../../helpers/history/history';
 import './register.scss';
 
@@ -13,7 +12,6 @@ export const Register = () => {
 
   const onFinish = ({ name, email, password }) => {
     dispatch(startRegister(name, email, password));
-    //dispatch(startLogin(email, password));
     history.push('/home');
   };
 
