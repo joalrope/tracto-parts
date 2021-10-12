@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Col, Form, Row } from 'antd';
+import { Button, Col, Form, Modal, Row } from 'antd';
 import { Product } from '../../../forms/ProductForm/ProductForm';
 import { SearchProductForm } from '../../../forms/SearchProductForm/SearchProductForm';
 import { productClearActive, updateProduct } from '../../../../actions/products';
@@ -27,15 +27,38 @@ export const Stock = () => {
     dispatch(setDisplayAddProductForm({ show: false, mode: 'edit' }));
   };
 
+  const changesAccepted = (id, values) => {
+    updateProduct(id, values);
+    form.resetFields();
+    dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
+    setShowAddProductForm(false);
+    dispatch(productClearActive());
+  };
+
+  const changesRejected = () => {
+    form.resetFields();
+    dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
+    setShowAddProductForm(false);
+    dispatch(productClearActive());
+  };
+
   const onOk = () => {
     form
       .validateFields()
       .then((values) => {
-        updateProduct(id, values);
-        form.resetFields();
-        dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
-        setShowAddProductForm(false);
-        dispatch(productClearActive());
+        Modal.confirm({
+          title: `Actualizar ${values.code}`,
+          content: '¿Desea guardar los cambios?',
+          okText: 'Aceptar',
+          okType: 'primary',
+          cancelText: 'Cancelar',
+          onCancel() {
+            changesRejected();
+          },
+          onOk() {
+            changesAccepted(id, values);
+          },
+        });
       })
       .catch((info) => {
         console.log('Validate Failed:', info);
