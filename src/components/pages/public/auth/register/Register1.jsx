@@ -21,7 +21,7 @@ export const Register = () => {
 
   return (
     <>
-      {/* <div className='--login-page__body'></div> */}
+      {<div className='--login-page__body'></div>}
       <div className='--register-page__container'>
         <Row justify='center'>
           <Col>
