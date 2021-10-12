@@ -27,7 +27,7 @@ export const Login = () => {
 
   return (
     <>
-      {<div className='--login-page__body'></div>}
+      <div className='--login-page__body'></div>
       <div className='--login-page__container'>
         <Row justify='center'>
           <Col>
