@@ -1,7 +1,7 @@
 import { fetchWithToken } from '../helpers/fetch';
 import { setDisplayPdfGenerated } from './modals';
 
-const urlNextbilling = '/billing/nextBilling';
+const urlNextbilling = '/billings/nextBilling';
 
 export const createSale = (sale) => {
   return async (dispatch) => {

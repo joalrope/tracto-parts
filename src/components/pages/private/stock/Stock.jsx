@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Col, Form, Modal, Row } from 'antd';
+import { Button, Col, Form, Row } from 'antd';
 import { Product } from '../../../forms/ProductForm/ProductForm';
 import { SearchProductForm } from '../../../forms/SearchProductForm/SearchProductForm';
-import { productClearActive, updateProduct } from '../../../../actions/products';
-import { setDisplayAddProductForm } from '../../../../actions/modals';
+import { productClearActive } from '../../../../actions/products';
+//import { setDisplayAddProductForm } from '../../../../actions/modals';
+import { onAccepted } from './controllers';
 import './stock.scss';
 
 export const Stock = () => {
   const [form] = Form.useForm();
   const [showAddProductForm, setShowAddProductForm] = useState(false);
+  const [modeProductForm, setModeProductForm] = useState('add');
   const { activeProduct } = useSelector((state) => state.product);
   const [id, setId] = useState(null);
 
@@ -22,43 +24,17 @@ export const Stock = () => {
     }
   }, [activeProduct]);
 
-  const searchResult = () => {
+  const searchResult = (mode) => {
     setShowAddProductForm(true);
-    dispatch(setDisplayAddProductForm({ show: false, mode: 'edit' }));
-  };
-
-  const changesAccepted = (id, values) => {
-    updateProduct(id, values);
-    form.resetFields();
-    dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
-    setShowAddProductForm(false);
-    dispatch(productClearActive());
-  };
-
-  const changesRejected = () => {
-    form.resetFields();
-    dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
-    setShowAddProductForm(false);
-    dispatch(productClearActive());
+    setModeProductForm(mode);
+    //dispatch(setDisplayAddProductForm({ show: true, mode: 'edit' }));
   };
 
   const onOk = () => {
     form
       .validateFields()
       .then((values) => {
-        Modal.confirm({
-          title: `Actualizar ${values.code}`,
-          content: '¿Desea guardar los cambios?',
-          okText: 'Aceptar',
-          okType: 'primary',
-          cancelText: 'Cancelar',
-          onCancel() {
-            changesRejected();
-          },
-          onOk() {
-            changesAccepted(id, values);
-          },
-        });
+        dispatch(onAccepted(form, id, values, setShowAddProductForm, modeProductForm));
       })
       .catch((info) => {
         console.log('Validate Failed:', info);
@@ -67,7 +43,7 @@ export const Stock = () => {
 
   const onCancel = () => {
     dispatch(productClearActive());
-    dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
+    //dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
     setShowAddProductForm(false);
   };
   return (

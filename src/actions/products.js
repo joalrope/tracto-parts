@@ -23,6 +23,7 @@ export const findProductByCode = (code) => {
 export const getProductByCode = async (code) => {
   try {
     const prod = await fetchWithToken(`/products/code/${code}`);
+
     const product = await prod;
     return product;
   } catch (error) {
@@ -85,7 +86,8 @@ export const findProductById = (id) => {
 export const createProduct = (product) => {
   return async (dispatch) => {
     try {
-      const resultProduct = await fetchWithToken('/products/', product, 'POST');
+      const resultProduct = await fetchWithToken('/products', product, 'POST');
+
       //const resultCustomer = await resp.json();
 
       const { ok, msg, result } = resultProduct;

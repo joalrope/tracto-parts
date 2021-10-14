@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { Col, Form, Input, message, Row } from 'antd';
+import { Col, Form, Input, Modal, Row } from 'antd';
 import { getProductByCode, productSetActive } from '../../../actions/products';
+import { emptyProduct } from '../ProductForm/controller';
 
 export const SearchProductForm = ({ searchResult }) => {
   const [form] = Form.useForm();
@@ -13,16 +14,25 @@ export const SearchProductForm = ({ searchResult }) => {
 
     const { ok, result } = await getProductByCode(code);
     if (!ok) {
-      message.warning({
-        content: `No existe un producto con el código: ${code}`,
-        style: {
-          marginTop: '25vh',
+      Modal.confirm({
+        title: `El producto de código: ${code} no existe`,
+        content: '¿Desea crear este Producto?',
+        okText: 'Si',
+        okType: 'primary',
+        cancelText: 'No',
+        confirmLoading: true,
+        autoFocusButton: null,
+        onCancel() {},
+        onOk() {
+          emptyProduct['code'] = code;
+          dispatch(productSetActive(emptyProduct));
+          searchResult('add');
         },
       });
-      return;
+    } else {
+      dispatch(productSetActive(result));
+      searchResult('edit');
     }
-    dispatch(productSetActive(result));
-    searchResult();
   };
 
   return (
@@ -48,6 +58,7 @@ export const SearchProductForm = ({ searchResult }) => {
                 message: 'El código es necesario!',
               },
             ]}
+            normalize={(value) => (value ? value.toUpperCase() : value)}
           >
             <Input onPressEnter={searchProduct} />
           </Form.Item>

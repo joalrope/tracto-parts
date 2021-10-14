@@ -1,12 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Col, Form, Input, Row, Select } from 'antd';
 import { CloseSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import { ProductStock } from './ProductStock';
 import { alignItemsRight } from '../AllForms';
+import { findTrademarkFactoraByCode } from '../../../actions/trademarks';
 
 const Option = Select.Option;
 
-export const ProductDetails = () => {
+export const ProductDetails = ({ form }) => {
+  const setSalePrice = async (index) => {
+    const trademark = form.getFieldsValue().details[index].trademark;
+    const factor = Number(await findTrademarkFactoraByCode(trademark));
+    const totalValue = Number(form.getFieldsValue().details[index].costPrice) * factor;
+
+    form.setFields([
+      {
+        name: ['details', index, 'salePrice'],
+        value: totalValue,
+      },
+    ]);
+  };
+
   return (
     <Form.List name='details'>
       {(details, { add, remove }) => {
@@ -70,7 +85,13 @@ export const ProductDetails = () => {
                 </Col>
                 <Col xs={24} lg={5}>
                   <Form.Item name={[index, 'costPrice']} label='Precio de Costo' rules={[{ required: true }]}>
-                    <Input placeholder='indique precio de costo' style={alignItemsRight} />
+                    <Input
+                      placeholder='indique precio de costo'
+                      style={alignItemsRight}
+                      onPressEnter={() => {
+                        setSalePrice(index);
+                      }}
+                    />
                   </Form.Item>
                 </Col>
                 <Col xs={24} lg={5}>
@@ -88,4 +109,9 @@ export const ProductDetails = () => {
       }}
     </Form.List>
   );
+};
+
+ProductDetails.propTypes = {
+  form: PropTypes.object,
+  /* trademarks: PropTypes.array, */
 };

@@ -14,15 +14,11 @@ export const Product = ({ form }) => {
   const { activeProduct } = useSelector((state) => state.product);
   let code, title, category, details, measurement, status, replacement;
 
-  useEffect(() => {
-    setProduct(activeProduct ? activeProduct : emptyProduct);
+  useEffect(async () => {
+    setProduct(activeProduct /* ? activeProduct : emptyProduct */);
     ({ code, title, category, details, measurement, status, replacement } = product);
     form.setFieldsValue({ code, title, category, details, measurement, status, replacement });
   }, [activeProduct, product]);
-
-  const onBlur = (value) => {
-    console.log(value);
-  };
 
   return (
     <Form
@@ -49,6 +45,7 @@ export const Product = ({ form }) => {
                 message: 'Ingrese el código del producto!',
               },
             ]}
+            normalize={(value) => (value ? value.toUpperCase() : value)}
           >
             <Input />
           </Form.Item>
@@ -64,7 +61,7 @@ export const Product = ({ form }) => {
               },
             ]}
           >
-            <Input onBlur={onBlur} />
+            <Input />
           </Form.Item>
         </Col>
         <Col xs={24} md={24} lg={5}>
@@ -80,7 +77,7 @@ export const Product = ({ form }) => {
         </Col>
       </Row>
       <Row>
-        <ProductDetails />
+        <ProductDetails form={form} />
       </Row>
       <Form.Item>
         <Row gutter={24}>
