@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Col, Form, Input, Row } from 'antd';
 import { CloseSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
-import { alignItemsRight } from '../AllForms';
+import { alignItemsCenter, alignItemsRight } from '../AllForms';
 
 export const ProductStock = ({ field }) => {
   return (
@@ -34,7 +34,7 @@ export const ProductStock = ({ field }) => {
                     name={[index, 'location']}
                     rules={[{ required: true }]}
                   >
-                    <Input placeholder='ingrese locacion' />
+                    <Input placeholder='ingrese locacion' style={alignItemsCenter} />
                   </Form.Item>
                 </div>
                 <div

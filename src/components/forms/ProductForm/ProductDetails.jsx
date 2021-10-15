@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Col, Form, Input, Row, Select } from 'antd';
+import { Col, Form, InputNumber, Row, Select } from 'antd';
 import { CloseSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import { ProductStock } from './ProductStock';
 import { alignItemsRight } from '../AllForms';
@@ -8,11 +8,11 @@ import { findTrademarkFactoraByCode } from '../../../actions/trademarks';
 
 const Option = Select.Option;
 
-export const ProductDetails = ({ form }) => {
+export const ProductDetails = ({ form, trademarks }) => {
   const setSalePrice = async (index) => {
     const trademark = form.getFieldsValue().details[index].trademark;
     const factor = Number(await findTrademarkFactoraByCode(trademark));
-    const totalValue = Number(form.getFieldsValue().details[index].costPrice) * factor;
+    const totalValue = Math.round(Number(form.getFieldsValue().details[index].costPrice) * factor);
 
     form.setFields([
       {
@@ -21,7 +21,7 @@ export const ProductDetails = ({ form }) => {
       },
     ]);
   };
-
+  console.log(trademarks);
   return (
     <Form.List name='details'>
       {(details, { add, remove }) => {
@@ -54,6 +54,9 @@ export const ProductDetails = ({ form }) => {
                         rules={[{ required: true }]}
                       >
                         <Select>
+                          {/*trademarks.forEach((el) => {
+                            <Option value={el.code}>{el.title}</Option>;
+                          })*/}
                           <Option value='CAT'>CAT</Option>
                           <Option value='CTP'>CTP</Option>
                           <Option value='DONALDSON'>DONALDSON</Option>
@@ -85,9 +88,13 @@ export const ProductDetails = ({ form }) => {
                 </Col>
                 <Col xs={24} lg={5}>
                   <Form.Item name={[index, 'costPrice']} label='Precio de Costo' rules={[{ required: true }]}>
-                    <Input
+                    <InputNumber
                       placeholder='indique precio de costo'
                       style={alignItemsRight}
+                      min={1}
+                      controls={false}
+                      decimalSeparator={','}
+                      precision={2}
                       onPressEnter={() => {
                         setSalePrice(index);
                       }}
@@ -96,7 +103,14 @@ export const ProductDetails = ({ form }) => {
                 </Col>
                 <Col xs={24} lg={5}>
                   <Form.Item name={[index, 'salePrice']} label='Precio de Venta' rules={[{ required: true }]}>
-                    <Input placeholder='indique precio de venta' style={alignItemsRight} />
+                    <InputNumber
+                      placeholder='indique precio de venta'
+                      style={alignItemsRight}
+                      min={1}
+                      controls={false}
+                      decimalSeparator={','}
+                      precision={2}
+                    />
                   </Form.Item>
                 </Col>
                 <Col xs={24} lg={10}>
@@ -113,5 +127,5 @@ export const ProductDetails = ({ form }) => {
 
 ProductDetails.propTypes = {
   form: PropTypes.object,
-  /* trademarks: PropTypes.array, */
+  trademarks: PropTypes.array,
 };

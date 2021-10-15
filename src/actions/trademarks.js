@@ -1,6 +1,7 @@
 import { fetchWithToken } from '../helpers/fetch';
 
 export const findTrademarkFactoraByCode = async (trademark) => {
+  if (!trademark) return;
   try {
     const { ok, result } = await fetchWithToken(`/trademarks/factor/${trademark.toLowerCase()}`);
 

@@ -8,18 +8,25 @@ import { emptyProduct, cancelNewProduct /* , saveNewProduct */ } from './control
 import { ProductDetails } from './ProductDetails';
 
 import './product-add.scss';
+import { getTrademarksTitle } from '../../../actions/trademarks';
 
 export const Product = ({ form }) => {
   const [product, setProduct] = useState(emptyProduct);
   const { activeProduct } = useSelector((state) => state.product);
   let code, title, category, details, measurement, status, replacement;
+  const [trademarks, setTrademarks] = useState([]);
 
-  useEffect(async () => {
-    setProduct(activeProduct /* ? activeProduct : emptyProduct */);
+  useEffect(() => {
+    setProduct(activeProduct);
     ({ code, title, category, details, measurement, status, replacement } = product);
     form.setFieldsValue({ code, title, category, details, measurement, status, replacement });
   }, [activeProduct, product]);
 
+  useEffect(async () => {
+    setTrademarks(await getTrademarksTitle());
+  }, [trademarks]);
+
+  console.log(trademarks);
   return (
     <Form
       className='--add-product__form'
@@ -77,7 +84,7 @@ export const Product = ({ form }) => {
         </Col>
       </Row>
       <Row>
-        <ProductDetails form={form} />
+        <ProductDetails form={form} trademarks={trademarks} />
       </Row>
       <Form.Item>
         <Row gutter={24}>
