@@ -6,12 +6,17 @@ export const setDisplayPdfGenerated = (show) => ({
 });
 
 export const setDisplayAddCustomerForm = (show) => ({
-  type: types.displayFormCustomerAdd,
+  type: types.displayFormCustomer,
   payload: show,
 });
 
 export const setDisplayAddProductForm = (show) => ({
-  type: types.modalsProductForm,
+  type: types.displayFormProduct,
+  payload: show,
+});
+
+export const setDisplayAddTrademarkForm = (show) => ({
+  type: types.displayFormTrademark,
   payload: show,
 });
 

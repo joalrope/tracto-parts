@@ -129,7 +129,7 @@ AddCustomer.propTypes = {
 
 export const AddCustomerForm = () => {
   const dispatch = useDispatch();
-  const { displayFormCustomerAdd } = useSelector((state) => state.modals);
+  const { displayFormCustomer } = useSelector((state) => state.modals);
   const onOk = (values) => {
     dispatch(saveNewCustomer(values));
   };
@@ -142,7 +142,7 @@ export const AddCustomerForm = () => {
     <ModalForm
       WrappedComponent={AddCustomer}
       title={'Crear Cliente'}
-      visible={displayFormCustomerAdd}
+      visible={displayFormCustomer}
       onOk={onOk}
       okText='Aceptar'
       onCancel={onCancel}

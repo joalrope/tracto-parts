@@ -119,6 +119,7 @@ export const ModalForm = ({
 
 ModalForm.propTypes = {
   WrappedComponent: PropTypes.func,
+  form: PropTypes.object,
   title: PropTypes.string,
   visible: PropTypes.bool,
   onOk: PropTypes.func,

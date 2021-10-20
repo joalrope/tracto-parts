@@ -14,23 +14,19 @@ export const Product = ({ form }) => {
   const [product, setProduct] = useState(emptyProduct);
   const { activeProduct } = useSelector((state) => state.product);
   let code, title, category, details, measurement, status, replacement;
-  const [trademarks, setTrademarks] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getTrademarksTitle());
     setProduct(activeProduct);
     ({ code, title, category, details, measurement, status, replacement } = product);
     form.setFieldsValue({ code, title, category, details, measurement, status, replacement });
   }, [activeProduct, product]);
 
-  useEffect(async () => {
-    setTrademarks(await getTrademarksTitle());
-  }, [trademarks]);
-
-  console.log(trademarks);
   return (
     <Form
       className='--add-product__form'
-      name='product-add'
+      name='product-form'
       form={form}
       initialvalue={emptyProduct}
       layout={'vertical'}
@@ -42,7 +38,7 @@ export const Product = ({ form }) => {
       }}
     >
       <Row gutter={24}>
-        <Col xs={24} md={24} lg={4}>
+        <Col xs={24} md={24} lg={5}>
           <Form.Item
             name={'code'}
             label={'Código:'}
@@ -57,7 +53,7 @@ export const Product = ({ form }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col xs={24} md={24} lg={15}>
+        <Col xs={24} md={24} lg={14}>
           <Form.Item
             label='Descripción:'
             name='title'
@@ -84,7 +80,7 @@ export const Product = ({ form }) => {
         </Col>
       </Row>
       <Row>
-        <ProductDetails form={form} trademarks={trademarks} />
+        <ProductDetails form={form} />
       </Row>
       <Form.Item>
         <Row gutter={24}>

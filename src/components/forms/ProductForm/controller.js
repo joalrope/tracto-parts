@@ -38,23 +38,23 @@ export const cancelNewProduct = () => {
 };
 
 export const emptyProduct = {
-  code: undefined,
-  title: undefined,
+  code: '',
+  title: '',
   details: [
     {
-      trademark: undefined,
+      trademark: '',
       costPrice: 0,
       salePrice: 0,
       stock: [
         {
-          location: undefined,
+          location: '',
           qty: 0,
         },
       ],
     },
   ],
-  category: undefined,
-  measurement: undefined,
-  status: undefined,
-  replacement: undefined,
+  category: '',
+  measurement: '',
+  status: '',
+  replacement: '',
 };

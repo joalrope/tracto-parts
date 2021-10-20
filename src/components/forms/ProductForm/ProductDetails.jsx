@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Col, Form, InputNumber, Row, Select } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { Col, Divider, Form, InputNumber, Row, Select, Space } from 'antd';
 import { CloseSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import { ProductStock } from './ProductStock';
 import { alignItemsRight } from '../AllForms';
 import { findTrademarkFactoraByCode } from '../../../actions/trademarks';
+import { setDisplayAddTrademarkForm } from '../../../actions/modals';
 
 const Option = Select.Option;
 
-export const ProductDetails = ({ form, trademarks }) => {
+export const ProductDetails = ({ form }) => {
+  const dispatch = useDispatch();
+  const { titles } = useSelector((state) => state.trademark);
+
   const setSalePrice = async (index) => {
     const trademark = form.getFieldsValue().details[index].trademark;
     const factor = Number(await findTrademarkFactoraByCode(trademark));
@@ -21,7 +26,13 @@ export const ProductDetails = ({ form, trademarks }) => {
       },
     ]);
   };
-  console.log(trademarks);
+
+  const listSelectOptions = titles.map((o) => <Option key={o}>{o}</Option>);
+
+  const addItem = () => {
+    dispatch(setDisplayAddTrademarkForm({ show: true, mode: 'add' }));
+  };
+
   return (
     <Form.List name='details'>
       {(details, { add, remove }) => {
@@ -29,7 +40,7 @@ export const ProductDetails = ({ form, trademarks }) => {
           <div className='--trademark-detail__row' style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
             {details.map((field, index) => (
               <Row key={field.key} gutter={24} justify='start' style={{ flexDirection: 'row' }}>
-                <Col xs={24} lg={4}>
+                <Col xs={24} lg={5}>
                   <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <div style={{ flex: '1 0 88%' }}>
                       <Form.Item
@@ -53,16 +64,26 @@ export const ProductDetails = ({ form, trademarks }) => {
                         name={[index, 'trademark']}
                         rules={[{ required: true }]}
                       >
-                        <Select>
-                          {/*trademarks.forEach((el) => {
-                            <Option value={el.code}>{el.title}</Option>;
-                          })*/}
-                          <Option value='CAT'>CAT</Option>
-                          <Option value='CTP'>CTP</Option>
-                          <Option value='DONALDSON'>DONALDSON</Option>
-                          <Option value='MAC BEE'>MAC BEE</Option>
-                          <Option value='WIX'>WIX</Option>
-                          <Option value=''>{''}</Option>
+                        <Select
+                          dropdownRender={(menu) => (
+                            <div>
+                              {menu}
+                              <Divider style={{ margin: '0px' }} />
+                              <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
+                                <a
+                                  style={{ flex: 'none', padding: '8px', display: 'block', cursor: 'pointer' }}
+                                  onClick={addItem}
+                                >
+                                  <Space>
+                                    <PlusSquareOutlined />
+                                    <span style={{ paddingTop: '4px' }}>Agregar marca</span>
+                                  </Space>
+                                </a>
+                              </div>
+                            </div>
+                          )}
+                        >
+                          {listSelectOptions}
                         </Select>
                       </Form.Item>
                     </div>
@@ -91,7 +112,7 @@ export const ProductDetails = ({ form, trademarks }) => {
                     <InputNumber
                       placeholder='indique precio de costo'
                       style={alignItemsRight}
-                      min={1}
+                      min={0.1}
                       controls={false}
                       decimalSeparator={','}
                       precision={2}
@@ -113,7 +134,7 @@ export const ProductDetails = ({ form, trademarks }) => {
                     />
                   </Form.Item>
                 </Col>
-                <Col xs={24} lg={10}>
+                <Col xs={24} lg={9}>
                   {<ProductStock field={field} />}
                 </Col>
               </Row>
@@ -127,5 +148,4 @@ export const ProductDetails = ({ form, trademarks }) => {
 
 ProductDetails.propTypes = {
   form: PropTypes.object,
-  trademarks: PropTypes.array,
 };

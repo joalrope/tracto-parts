@@ -34,11 +34,16 @@ export const types = {
   customerClearActiveCustomer: '[customer] clear active customer',
   clearCustomersLoaded: '[customer] Clear customers loaded',
 
+  trademarksLoaded: '[trademarks] Loaded Trademarks',
+  trademarksAddNew: '[trademarks] Add new Trademark title',
+  trademarksTitles: '[trademarks] Trademark titles',
+
   billingSetBillingData: '[billing] set billing data',
   billingClearBillingData: '[billing] clear billing data',
   billingUpdatePaymentConditions: '[billing] update payment conditions',
 
   displayGeneratePdf: '[display] Generate pdf',
-  displayFormCustomerAdd: '[display] Add Customer Form',
-  modalsProductForm: '[modals] Product Form',
+  displayFormCustomer: '[display] Customer Form',
+  displayFormTrademark: '[display] Trademark Form',
+  displayFormProduct: '[display] Product Form',
 };
