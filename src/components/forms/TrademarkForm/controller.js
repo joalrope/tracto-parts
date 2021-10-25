@@ -1,4 +1,4 @@
-import { setDisplayAddTrademarkForm } from '../../../actions/modals';
+import { setDisplayAddTrademarkForm } from '../../../actions/shows';
 import { createTrademark } from '../../../actions/trademarks';
 
 export const saveNewTrademark = (values) => {

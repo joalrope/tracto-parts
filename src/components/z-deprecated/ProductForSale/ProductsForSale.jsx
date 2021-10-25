@@ -7,7 +7,7 @@ import { TableAttrib } from '../../../classes/table-attrib-class';
 import { pdfColumns } from '../../../assets/data/products-for-sale.dataConfig';
 import { deleteItemProdForSale, replaceItemProdForSale } from '../../../helpers/sales/sales-utils';
 import { setProductsForSale } from '../../../actions/products';
-import { displayPdfGenerated } from '../../../actions/modals';
+import { displayPdfGenerated } from '../../../actions/shows';
 import './products-for-sale.scss';
 
 export const ProductsForSale = ({ products, tax }) => {

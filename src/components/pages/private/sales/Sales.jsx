@@ -7,7 +7,7 @@ import {
   setDisplayAddCustomerForm,
   setDisplayAddProductForm,
   // setDisplayPdfGenerated,
-} from '../../../../actions/modals';
+} from '../../../../actions/shows';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import {
   addProductForSale,
@@ -33,19 +33,21 @@ import { createSale } from '../../../../actions/sales';
 
 export const Sales = () => {
   const dispatch = useDispatch();
-  const [activeSale, setActiveSale] = useState(false);
   const [ivaTax, setIvaTax] = useState(0);
   const [controlNumber, setControlNumber] = useState('');
 
   useEffect(async () => {
-    const { controlNumber, ivaTax } = await getBillingInfo();
-    setIvaTax(ivaTax);
-    setControlNumber(controlNumber);
-  }, [activeSale]);
+    const billingInfo = await getBillingInfo();
+    if (billingInfo) {
+      const { controlNumber, ivaTax } = billingInfo;
+      setIvaTax(ivaTax);
+      setControlNumber(controlNumber);
+    }
+  }, []);
 
   const { activeProduct, productsForSale } = useSelector((state) => state.product);
   const { activeCustomer } = useSelector((state) => state.customer);
-  const { displayInvoicePdf } = useSelector((state) => state.modals);
+  const { displayInvoicePdf } = useSelector((state) => state.show);
   const customers = async (value) => await getCustomerByCode(value);
   const products = async (value) => await getProductsByCodeRegex(value);
 
@@ -105,7 +107,6 @@ export const Sales = () => {
       record.qty = 1;
       record.totalItem = record.qty * record.salePrice;
       dispatch(addProductForSale(record));
-      setActiveSale(true);
     } else {
       setStatus('info');
       setTitle('Producto repetido');
@@ -194,6 +195,10 @@ export const Sales = () => {
 
   const handleCheckIn = async () => {
     //dispatch(setDisplayPdfGenerated(true));
+    if (controlNumber === '') {
+      console.log('No hay informacion del Numero de control');
+      return;
+    }
 
     const { billingData, totals } = data;
 
@@ -229,7 +234,6 @@ export const Sales = () => {
     };
 
     dispatch(createSale(newSale));
-    setActiveSale(false);
   };
 
   return (
@@ -263,7 +267,7 @@ export const Sales = () => {
         <GeneratePdfFromHtml
           WrappedComponent={Invoice}
           data={data}
-          msgWhenUnmounting={() => msgWhenUnmounting(controlNumber, setActiveSale)}
+          msgWhenUnmounting={() => msgWhenUnmounting(controlNumber)}
         />
       )}
       <Row className='--sale-page__row'>

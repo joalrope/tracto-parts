@@ -1,4 +1,4 @@
-import { setDisplayAddProductForm } from '../../../actions/modals';
+import { setDisplayAddProductForm } from '../../../actions/shows';
 import { createProduct } from '../../../actions/products';
 
 export const saveNewProduct = (values) => {

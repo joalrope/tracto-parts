@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Checkbox, Col, Form, Input, Row } from 'antd';
@@ -11,10 +11,15 @@ import './login.scss';
 export const Login = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const [remember, setRemember] = useState(false);
 
   const onFinish = ({ email, password }) => {
     dispatch(startLogin(email, password));
     form.resetFields();
+  };
+
+  const onChangeRemember = () => {
+    setRemember(!remember);
   };
 
   const handleShowRegister = () => {
@@ -36,8 +41,8 @@ export const Login = () => {
                 name='normal_login'
                 form={form}
                 className='--login-form'
-                initialValues={{ remember: false }}
-                autoComplete='false'
+                initialValues={{ remember: { remember } }}
+                autoComplete='true'
                 onFinish={onFinish}
               >
                 <h2 className='--login-form__title'>Iniciar Sesión</h2>
@@ -55,8 +60,10 @@ export const Login = () => {
                   />
                 </Form.Item>
                 <Form.Item>
-                  <Form.Item name='remember' valuePropName='checked' noStyle>
-                    <Checkbox className='--remember-check'>Recordarme</Checkbox>
+                  <Form.Item name='remember' valuePropName={remember ? 'checked' : 'unChecked'} noStyle>
+                    <Checkbox className='--remember-check' onChange={onChangeRemember}>
+                      Recordarme
+                    </Checkbox>
                   </Form.Item>
 
                   <a className='--login-form__forgot' onClick={handleShowPasswordForgot}>

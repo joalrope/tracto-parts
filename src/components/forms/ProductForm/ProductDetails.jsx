@@ -6,7 +6,7 @@ import { CloseSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import { ProductStock } from './ProductStock';
 import { alignItemsRight } from '../AllForms';
 import { findTrademarkFactoraByCode } from '../../../actions/trademarks';
-import { setDisplayAddTrademarkForm } from '../../../actions/modals';
+import { setDisplayAddTrademarkForm } from '../../../actions/shows';
 
 const Option = Select.Option;
 

@@ -81,7 +81,7 @@ Trademark.propTypes = { form: PropTypes.object };
 
 export const TrademarkForm = () => {
   const dispatch = useDispatch();
-  const { trademarkForm } = useSelector((state) => state.modals);
+  const { trademarkForm } = useSelector((state) => state.show);
   const { show, mode } = trademarkForm;
 
   const onOk = (values) => {

@@ -4,7 +4,7 @@ import { Button, Col, Form, Row } from 'antd';
 import { Product } from '../../../forms/ProductForm/ProductForm';
 import { SearchProductForm } from '../../../forms/SearchProductForm/SearchProductForm';
 import { productClearActive } from '../../../../actions/products';
-//import { setDisplayAddProductForm } from '../../../../actions/modals';
+//import { setDisplayAddProductForm } from '../../../../actions/shows';
 import { onAccepted } from './controllers';
 import './stock.scss';
 

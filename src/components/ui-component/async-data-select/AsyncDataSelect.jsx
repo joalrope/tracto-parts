@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Select } from 'antd';
+import { Select, Spin } from 'antd';
 //import { NotFoundContent } from './NotFoundContent';
 import { SelectListItem } from './SelectListItem';
 const { Option } = Select;
@@ -8,11 +8,14 @@ const { Option } = Select;
 export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundContent, disabled }) => {
   const [options, setOptions] = useState([]);
   const [value, setValue] = useState([]);
+  const [fetching, setFetching] = React.useState(false);
 
   const onSearch = async (value) => {
     if (value) {
       setValue(value);
+      setFetching(true);
       setOptions(await dataSource(value));
+      setFetching(false);
     } else {
       setOptions([]);
     }
@@ -27,6 +30,13 @@ export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundConte
 
   const style = { width: '100%' };
 
+  const showNotFountContent = () => {
+    if (options.length === 0 && value.length > 1) {
+      return notFoundContent;
+    }
+    return null;
+  };
+
   return (
     <div>
       <Select
@@ -40,7 +50,7 @@ export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundConte
         filterOption={false}
         onSearch={onSearch}
         onChange={onChange}
-        notFoundContent={notFoundContent}
+        notFoundContent={fetching ? <Spin size='small' /> : showNotFountContent()}
         onBlur={() => setValue('')}
         disabled={disabled}
         listItemHeight={10}

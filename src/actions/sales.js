@@ -1,5 +1,5 @@
 import { fetchWithToken } from '../helpers/fetch';
-import { setDisplayPdfGenerated } from './modals';
+import { setDisplayPdfGenerated } from './shows';
 
 const urlNextbilling = '/billings/nextBilling';
 

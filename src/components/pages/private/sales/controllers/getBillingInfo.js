@@ -1,7 +1,9 @@
 import { fetchWithToken } from '../../../../../helpers/fetch';
 
 export const getBillingInfo = async () => {
-  const { result } = await fetchWithToken('/billings/getBilling');
-  const { controlNumber, ivaTax } = result;
-  return { controlNumber, ivaTax };
+  const { ok, result } = await fetchWithToken('/billings/getBilling');
+  if (ok) {
+    const { controlNumber, ivaTax } = result;
+    return { controlNumber, ivaTax };
+  }
 };

@@ -7,7 +7,7 @@ const initialState = {
   productForm: { show: false, mode: '' },
 };
 
-export const modalsReducer = (state = initialState, action) => {
+export const showReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.displayGeneratePdf:
       return {

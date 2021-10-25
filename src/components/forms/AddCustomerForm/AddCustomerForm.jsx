@@ -129,7 +129,7 @@ AddCustomer.propTypes = {
 
 export const AddCustomerForm = () => {
   const dispatch = useDispatch();
-  const { displayFormCustomer } = useSelector((state) => state.modals);
+  const { displayFormCustomer } = useSelector((state) => state.show);
   const onOk = (values) => {
     dispatch(saveNewCustomer(values));
   };

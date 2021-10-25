@@ -19,8 +19,10 @@ export const Product = ({ form }) => {
   useEffect(() => {
     dispatch(getTrademarksTitle());
     setProduct(activeProduct);
-    ({ code, title, category, details, measurement, status, replacement } = product);
-    form.setFieldsValue({ code, title, category, details, measurement, status, replacement });
+    if (product) {
+      ({ code, title, category, details, measurement, status, replacement } = product);
+      form.setFieldsValue({ code, title, category, details, measurement, status, replacement });
+    }
   }, [activeProduct, product]);
 
   return (
@@ -135,7 +137,7 @@ export const ProductForm = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const { productForm } = useSelector((state) => state.modals);
+  const { productForm } = useSelector((state) => state.show);
   const { show, mode } = productForm;
 
   const onOk = () => {

@@ -1,3 +1,4 @@
+import { Modal } from 'antd';
 import { store } from '../store/store';
 import { startLogout } from '../actions/auth';
 import history from './history/history';
@@ -58,18 +59,7 @@ const fetchWithToken = (endpoint, data, method = 'GET', header) => {
       method,
       headers: getHeaders,
     }).then((resp) => {
-      if (!resp.ok && resp.msg === 'Token no válido') {
-        sessionStorage.clear();
-        store.dispatch(startLogout());
-        const previousUrl = window.location.pathname;
-        history.push('/login');
-        history.replace(previousUrl);
-        return {
-          ok: false,
-          msg: 'unauthorized',
-          result: {},
-        };
-      }
+      checkSessionStatus(resp.status);
       return resp.json();
     });
   } else {
@@ -78,6 +68,7 @@ const fetchWithToken = (endpoint, data, method = 'GET', header) => {
       headers: postHeaders,
       body: JSON.stringify(data),
     }).then((resp) => {
+      checkSessionStatus(resp.status);
       if (resp.ok) {
         return resp.json();
       } else {
@@ -91,6 +82,35 @@ const fetchWithToken = (endpoint, data, method = 'GET', header) => {
   }
 
   return response;
+};
+
+const checkSessionStatus = (status) => {
+  if (status === 401) {
+    const previousUrl = window.location.pathname;
+    showExpiredSessionMessage();
+    history.push('/login');
+    history.replace(previousUrl);
+    return {
+      ok: false,
+      msg: 'unauthorized',
+      result: {},
+    };
+  }
+};
+
+const showExpiredSessionMessage = () => {
+  Modal.info({
+    title: 'Sesión de usuario',
+    content: ['Su sesión activa ha expirado. Por favor inicie una nueva'],
+    okText: 'Aceptar',
+    okType: 'primary',
+    confirmLoading: true,
+    autoFocusButton: null,
+    onOk() {
+      sessionStorage.clear();
+      store.dispatch(startLogout());
+    },
+  });
 };
 
 export { fetchWithoutToken, fetchWithToken };

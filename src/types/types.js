@@ -42,8 +42,8 @@ export const types = {
   billingClearBillingData: '[billing] clear billing data',
   billingUpdatePaymentConditions: '[billing] update payment conditions',
 
-  displayGeneratePdf: '[display] Generate pdf',
-  displayFormCustomer: '[display] Customer Form',
-  displayFormTrademark: '[display] Trademark Form',
-  displayFormProduct: '[display] Product Form',
+  displayGeneratePdf: '[show] Generate pdf',
+  displayFormCustomer: '[show] Customer Form',
+  displayFormTrademark: '[show] Trademark Form',
+  displayFormProduct: '[show] Product Form',
 };
