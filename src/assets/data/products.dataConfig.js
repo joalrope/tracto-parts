@@ -18,7 +18,22 @@ export const columns = [
   { title: 'Código', dataIndex: 'code', key: 'code', aling: 'center' },
   { title: 'Descripción', dataIndex: 'title', key: 'title' },
   { title: 'Marca', dataIndex: 'trademark', key: 'trademark', aling: 'center' },
-  { title: 'Cantidad', dataIndex: 'qty', key: 'qty', align: 'right' },
+  {
+    title: 'Cantidad',
+    dataIndex: 'qty',
+    key: 'qty',
+    align: 'right',
+    render: /*eslint-disable-line*/ (value) => {
+      return (
+        <span>
+          {Number(value).toLocaleString('es-CO', {
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2,
+          })}
+        </span>
+      );
+    },
+  },
   { title: 'Locación', dataIndex: 'location', key: 'location', align: 'center' },
   {
     title: 'Precio Venta',
@@ -46,7 +61,23 @@ export const forSaleColumns = [
   { title: 'Código', dataIndex: 'code', key: 'code', aling: 'center' },
   { title: 'Descripción', dataIndex: 'title', key: 'title' },
   { title: 'Marca', dataIndex: 'trademark', key: 'trademark', aling: 'center' },
-  { title: 'Cantidad', dataIndex: 'qty', key: 'qty', align: 'right', editable: true },
+  {
+    title: 'Cantidad',
+    dataIndex: 'qty',
+    key: 'qty',
+    align: 'right',
+    editable: true,
+    render: /*eslint-disable-line*/ (value) => {
+      return (
+        <span style={{ maxWidth: '100px' }}>
+          {Number(value).toLocaleString('es-CO', {
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2,
+          })}
+        </span>
+      );
+    },
+  },
   {
     title: 'Precio Venta',
     dataIndex: 'salePrice',

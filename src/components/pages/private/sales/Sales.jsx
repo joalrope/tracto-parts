@@ -1,35 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Divider, Row, Popconfirm, Button, Table } from 'antd';
-import { CloseSquareOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { findCustomerById, getCustomerByCode } from '../../../../actions/customers';
-import {
-  setDisplayAddCustomerForm,
-  setDisplayAddProductForm,
-  // setDisplayPdfGenerated,
-} from '../../../../actions/shows';
+import { Divider, Row, Button } from 'antd';
+import { ShoppingCartOutlined } from '@ant-design/icons';
+import { addProductForSale, setProductsForSale, updateProductQty } from '../../../../actions/products';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
-import {
-  addProductForSale,
-  setProductsForSale,
-  findProductById,
-  getProductsByCodeRegex,
-  updateProductQty,
-} from '../../../../actions/products';
-import { deleteItemProdForSale, replaceItemProdForSale } from '../../../../helpers/sales/sales-utils';
+import { createSale } from '../../../../actions/sales';
 import { Invoice } from '../../../templates/invoice/Invoice';
-import { AsyncDataSelect } from '../../../ui-component/async-data-select/AsyncDataSelect';
-import { NotFoundContentMsg } from '../../../ui-component/async-data-select/NotFoundContentMsg';
 import { CustomerCard } from '../../../ui-component/customer/card/CustomerCard';
 import { EditableTable } from '../../../ui-component/editable-table/EditableTable';
 import { ProductCard } from '../../../ui-component/product/card/ProductCard';
 import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
-import { ResultModal } from '../../../wrappers/ResultModal';
+import { checkInConfirm, repeatedProductConfirm } from './controllers/confirms';
 import { getBillingInfo } from './controllers/getBillingInfo';
 import { msgWhenUnmounting } from './controllers/pdfRenderResult';
 import { saleInfo } from './controllers/saleInfo';
+import { showInfoQtyAvailable } from './controllers/showInfoQtyAvailable';
+import { summary } from './components/Summary';
+import { ActionRender } from './components/ActionRender';
+import { SearchCustomer } from './components/SearchCustomer';
+import { SearchProduct } from './components/SearchProduct';
 import './sales.scss';
-import { createSale } from '../../../../actions/sales';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -48,53 +38,16 @@ export const Sales = () => {
   const { activeProduct, productsForSale } = useSelector((state) => state.product);
   const { activeCustomer } = useSelector((state) => state.customer);
   const { displayInvoicePdf } = useSelector((state) => state.show);
-  const customers = async (value) => await getCustomerByCode(value);
-  const products = async (value) => await getProductsByCodeRegex(value);
-
-  const handleDelete = (id, trademark) => {
-    const newProducts = deleteItemProdForSale(id, trademark);
-    dispatch(setProductsForSale(newProducts));
-  };
-
-  const actionRender = (record) => {
-    return (
-      <div className='action-button__column'>
-        <Popconfirm
-          title={`¿Seguro desea eliminar ${record.code}?`}
-          onConfirm={() => handleDelete(record.id, record.trademark)}
-          okText='Si'
-          cancelText='No'
-        >
-          <CloseSquareOutlined className='--action-icon__remove' />
-        </Popconfirm>
-      </div>
-    );
-  };
-
-  const actionColumn = {
-    title: '',
-    key: 'action',
-    width: 50,
-    render: actionRender,
-  };
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   if (!forSaleColumns.find((obj) => obj.key === 'action')) {
-    forSaleColumns.push(actionColumn);
+    forSaleColumns.push({
+      title: '',
+      key: 'action',
+      width: 50,
+      render: ActionRender,
+    });
   }
-
-  const customerResult = (id) => {
-    dispatch(findCustomerById(id));
-  };
-
-  const productResult = (id) => {
-    dispatch(findProductById(id));
-  };
-
-  const [showRepeatProductModal, setShowRepeatProductModal] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [status, setStatus] = useState('');
-  const [title, setTitle] = useState('');
-  const [subTitle, setSubTitle] = useState('');
 
   const setProductForSale = (record) => {
     setSelectedProduct(record);
@@ -108,93 +61,29 @@ export const Sales = () => {
       record.totalItem = record.qty * record.salePrice;
       dispatch(addProductForSale(record));
     } else {
-      setStatus('info');
-      setTitle('Producto repetido');
-      setSubTitle(`El Producto ${record.code} ya existe en la venta. ¿Desea aumentar la cantidad a vender?`);
-      setShowRepeatProductModal(true);
+      repeatedProductConfirm(record, productsForSale, selectedProduct);
     }
   };
 
-  const selectedIndex = (id, trademark) =>
-    productsForSale.findIndex((item) => item.id === id && item.trademark === trademark);
-
   const saveEditedProducts = (products) => {
     Object.values(products).map((product) => {
-      //TODO: set max qty available
+      const productAvailable = showInfoQtyAvailable(product);
+      if (!productAvailable) {
+        product.qty = product.qtyAvailable;
+      }
       product.totalItem = product.qty * product.salePrice;
     });
     dispatch(setProductsForSale(products));
   };
 
-  /* const startAddNewCustomer = (resp) => {
-    if (resp === 'ok') {
-      dispatch(setDisplayAddCustomerForm(true));
-    } else {
-      console.log(resp);
-    }
-  }; */
-  /*  const startAddNewProduct = (resp) => {
-    if (resp === 'ok') {
-      dispatch(setDisplayAddProductForm(true));
-    }
-  }; */
-
   const [amountTax, setAmountTax] = useState(0);
-
-  const summary = (pageData) => {
-    let totalInvoice = 0;
-    let totalTax = 0;
-
-    pageData.forEach(({ totalItem }) => {
-      totalInvoice += totalItem;
-      totalTax += totalItem * (ivaTax / 100);
-    });
-
-    setAmountTax(totalTax);
-
-    return (
-      <>
-        <Table.Summary.Row>
-          <Table.Summary.Cell align='right' colSpan={6}>
-            Total Venta:
-          </Table.Summary.Cell>
-          <Table.Summary.Cell align={'right'}>
-            {Number(totalInvoice).toLocaleString('es-CO', {
-              maximumFractionDigits: 2,
-              minimumFractionDigits: 2,
-            })}
-          </Table.Summary.Cell>
-        </Table.Summary.Row>
-        <Table.Summary.Row>
-          <Table.Summary.Cell align='right' colSpan={6}>
-            {`I.V.A. (${ivaTax}%):`}
-          </Table.Summary.Cell>
-          <Table.Summary.Cell align={'right'}>
-            {Number(totalTax).toLocaleString('es-CO', {
-              maximumFractionDigits: 2,
-              minimumFractionDigits: 2,
-            })}
-          </Table.Summary.Cell>
-        </Table.Summary.Row>
-        <Table.Summary.Row>
-          <Table.Summary.Cell align='right' colSpan={6}>
-            Total Factura:
-          </Table.Summary.Cell>
-          <Table.Summary.Cell align={'right'}>
-            {(Number(totalInvoice) + Number(totalTax)).toLocaleString('es-CO', {
-              maximumFractionDigits: 2,
-              minimumFractionDigits: 2,
-            })}
-          </Table.Summary.Cell>
-        </Table.Summary.Row>
-      </>
-    );
-  };
-
   const data = saleInfo(controlNumber, ivaTax);
 
-  const handleCheckIn = async () => {
-    //dispatch(setDisplayPdfGenerated(true));
+  const handleCheckIn = () => {
+    checkInConfirm(controlNumber, checkIn);
+  };
+
+  const checkIn = () => {
     if (controlNumber === '') {
       console.log('No hay informacion del Numero de control');
       return;
@@ -238,31 +127,6 @@ export const Sales = () => {
 
   return (
     <div className='--sale-page__container'>
-      {showRepeatProductModal && (
-        <ResultModal
-          status={status}
-          title={title}
-          subTitle={subTitle}
-          visible={showRepeatProductModal}
-          okText={'Si'}
-          handleOk={() => {
-            //console.log('clic Ok producto repetido');
-            const index = selectedIndex(selectedProduct.id, selectedProduct.trademark);
-            const prodForSaleSel = productsForSale[index];
-
-            selectedProduct.key = productsForSale.length + 1;
-            prodForSaleSel.qty++;
-            prodForSaleSel.totalItem = prodForSaleSel.qty * prodForSaleSel.salePrice;
-            const products = replaceItemProdForSale(prodForSaleSel, productsForSale);
-            dispatch(setProductsForSale(products));
-            setShowRepeatProductModal(false);
-          }}
-          cancelText={'No'}
-          handleCancel={() => {
-            setShowRepeatProductModal(false);
-          }}
-        />
-      )}
       {displayInvoicePdf && (
         <GeneratePdfFromHtml
           WrappedComponent={Invoice}
@@ -277,34 +141,9 @@ export const Sales = () => {
           </Divider>
           <div className='--search-inputs__container'>
             <div className='--search-customer__title'>Cliente:</div>
-            <AsyncDataSelect
-              placeholder={'Seleccione un Cliente'}
-              dataSource={customers}
-              result={customerResult}
-              notFoundContent={
-                <NotFoundContentMsg
-                  msg={'No existe el cliente, Desea agregarlo?'}
-                  noFoundResult={() => {
-                    dispatch(setDisplayAddCustomerForm(true));
-                  }}
-                />
-              }
-            />
-
+            <SearchCustomer />
             <div className='--search-product__title'>Producto:</div>
-            <AsyncDataSelect
-              placeholder={'Encuentre un Producto'}
-              dataSource={products}
-              result={productResult}
-              notFoundContent={
-                <NotFoundContentMsg
-                  msg={'No existe el producto, Desea agregarlo?'}
-                  noFoundResult={() => {
-                    dispatch(setDisplayAddProductForm({ show: true, mode: 'add' }));
-                  }}
-                />
-              }
-            />
+            <SearchProduct />
           </div>
         </div>
         <div className='--info-data__container'>
@@ -334,12 +173,11 @@ export const Sales = () => {
             <Divider className='--products-for-sale__divider' orientation='center'>
               Productos para la Venta
             </Divider>
-            {/* <ProductsForSale products={productsForSale} tax={ivaTax} /> */}
             <EditableTable
               cols={forSaleColumns}
               dataSource={productsForSale}
               saveTableData={saveEditedProducts}
-              summary={summary}
+              summary={() => summary(productsForSale, ivaTax, setAmountTax)}
             />
             <div className='--products-for-sale__check-in-container'>
               <Button

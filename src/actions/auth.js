@@ -1,7 +1,7 @@
-import Swal from 'sweetalert2';
 import { types } from '../types/types';
 import { fetchWithoutToken, fetchWithToken } from '../helpers/fetch';
 import history from '../helpers/history/history';
+import { Modal } from 'antd';
 
 export const startLogin = (email, password) => {
   return async (dispatch) => {
@@ -23,7 +23,11 @@ export const startLogin = (email, password) => {
       dispatch(checkingFinish());
     } else {
       dispatch(checkingFinish());
-      Swal.fire('Error en la autenticación', msg, 'error');
+      Modal.error({
+        title: 'Autenticacion',
+        content: [`${msg}`],
+        autoFocusButton: null,
+      });
     }
   };
 };
@@ -51,7 +55,11 @@ export const startRegister = (name, email, password) => {
         })
       );
     } else {
-      Swal.fire('Error', msg, 'error');
+      Modal.error({
+        title: 'Autenticacion',
+        content: [`${msg}`],
+        autoFocusButton: null,
+      });
     }
   };
 };

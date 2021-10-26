@@ -119,6 +119,7 @@ export const ProductDetails = ({ form }) => {
                       onPressEnter={() => {
                         setSalePrice(index);
                       }}
+                      onFocus={(e) => e.target.select()}
                     />
                   </Form.Item>
                 </Col>
@@ -131,6 +132,7 @@ export const ProductDetails = ({ form }) => {
                       controls={false}
                       decimalSeparator={','}
                       precision={2}
+                      onFocus={(e) => e.target.select()}
                     />
                   </Form.Item>
                 </Col>

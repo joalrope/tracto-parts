@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Col, Form, Input, Row } from 'antd';
+import { Col, Form, Input, InputNumber, Row } from 'antd';
 import { CloseSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import { alignItemsCenter, alignItemsRight } from '../AllForms';
 
@@ -59,7 +59,11 @@ export const ProductStock = ({ field }) => {
             </Col>
             <Col xs={24} lg={12}>
               <Form.Item name={[index, 'qty']} label='Cantidad' rules={[{ required: true }]}>
-                <Input placeholder='ingrese cantidad' style={alignItemsRight} />
+                <InputNumber
+                  placeholder='ingrese cantidad'
+                  style={alignItemsRight}
+                  onFocus={(e) => e.target.select()}
+                />
               </Form.Item>
             </Col>
           </Row>
