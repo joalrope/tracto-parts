@@ -12,7 +12,7 @@ export const increaseQty = (products, product) => {
   const productAvailable = showInfoQtyAvailable(curProduct);
 
   if (productAvailable) {
-    product.key = products.length + 1;
+    //product.key = products.length + 1;
     prodForSaleSel.qty++;
     prodForSaleSel.totalItem = prodForSaleSel.qty * prodForSaleSel.salePrice;
     const newProducts = replaceItemProdForSale(prodForSaleSel, products);

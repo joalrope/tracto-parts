@@ -5,6 +5,7 @@ import { Card, Avatar, Image, Tooltip, Carousel, Tag } from 'antd';
 import { CloseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { productClearActive } from '../../../../actions/products';
 import { getUrlImage } from '../../../../helpers/getUrlImage';
+import { getQtyAvailableByTrademark } from '../../../../helpers/products/get-qty-available';
 //import { urlImages } from '../../../../assets/data/urlImages';
 import noImage from '../../../../assets/images/no-imagen.png';
 import { getTrademarkIcons } from '../../../../helpers/getTrademarkIcons';
@@ -22,16 +23,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
     dispatch(productClearActive());
   };
 
-  let qtyAvailable = 0;
   const handleTrademarkClick = (trademark, salePrice, location) => {
-    product.details.map((detail) => {
-      if (detail.trademark === trademark) {
-        detail.stock.map((stock) => {
-          qtyAvailable = qtyAvailable + stock.qty;
-        });
-      }
-    });
-
     const selectedProduct = {
       id: product.id,
       code: product.code,
@@ -39,7 +31,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
       trademark,
       location,
       qty: 1,
-      qtyAvailable,
+      qtyAvailable: getQtyAvailableByTrademark(product.details, trademark),
       salePrice,
       totalItem: salePrice,
     };
@@ -60,6 +52,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
   };
 
   const url = getUrlImage(product.code, product.details[0].trademark);
+  console.log(url);
 
   return (
     <div className='product-card__container'>
@@ -69,7 +62,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
           <Image
             alt={`${product.code}.jpg`}
             src={url}
-            style={{ backgroundColor: '#f2bd15' }}
+            style={{ backgroundColor: '#f2bd15', height: '200px' }}
             //src={`${urlImages[product.details[0].trademark.toLowerCase()]}${product.code}.jpg`}
             fallback={noImage}
           />

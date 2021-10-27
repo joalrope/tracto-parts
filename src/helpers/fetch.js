@@ -87,9 +87,9 @@ const fetchWithToken = (endpoint, data, method = 'GET', header) => {
 const checkSessionStatus = (status) => {
   if (status === 401) {
     const previousUrl = window.location.pathname;
-    showExpiredSessionMessage();
-    history.push('/login');
-    history.replace(previousUrl);
+    sessionStorage.clear();
+    store.dispatch(startLogout());
+    showExpiredSessionMessage(previousUrl);
     return {
       ok: false,
       msg: 'unauthorized',
@@ -98,7 +98,7 @@ const checkSessionStatus = (status) => {
   }
 };
 
-const showExpiredSessionMessage = () => {
+const showExpiredSessionMessage = (url) => {
   Modal.info({
     title: 'Sesión de usuario',
     content: ['Su sesión activa ha expirado. Por favor inicie una nueva'],
@@ -107,8 +107,8 @@ const showExpiredSessionMessage = () => {
     confirmLoading: true,
     autoFocusButton: null,
     onOk() {
-      sessionStorage.clear();
-      store.dispatch(startLogout());
+      history.push('/login');
+      history.replace(url);
     },
   });
 };

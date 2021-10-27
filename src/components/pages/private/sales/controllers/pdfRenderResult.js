@@ -6,6 +6,7 @@ import { clearProductsForSale, productClearActive } from '../../../../../actions
 import { setDisplayPdfGenerated } from '../../../../../actions/shows';
 
 export const msgWhenUnmounting = (controlNumber) => {
+  const { dispatch } = store;
   Modal.confirm({
     title: 'Nota de Entrega',
     content: `¿Se imprimió correctamente la nota de entrega ${controlNumber}?`,
@@ -18,9 +19,9 @@ export const msgWhenUnmounting = (controlNumber) => {
       store.dispatch(setDisplayPdfGenerated(true));
     },
     onOk() {
-      store.dispatch(customerClearActive());
-      store.dispatch(productClearActive());
-      store.dispatch(clearProductsForSale());
+      dispatch(customerClearActive());
+      dispatch(productClearActive());
+      dispatch(clearProductsForSale());
       history.push('/app/sales');
     },
   });

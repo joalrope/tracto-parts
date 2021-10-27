@@ -31,7 +31,7 @@ export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundConte
   const style = { width: '100%' };
 
   const showNotFountContent = () => {
-    if (options.length === 0 && value.length > 1) {
+    if (options?.length === 0 && value.length > 1) {
       return notFoundContent;
     }
     return null;
@@ -45,7 +45,7 @@ export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundConte
         value={value}
         placeholder={placeholder}
         style={style}
-        defaultActiveFirstOption={false}
+        defaultActiveFirstOption={true}
         showArrow={false}
         filterOption={false}
         onSearch={onSearch}

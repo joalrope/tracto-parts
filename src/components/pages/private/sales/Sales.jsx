@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Divider, Row, Button } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
-import { addProductForSale, setProductsForSale, updateProductQty } from '../../../../actions/products';
+import { addProductForSale, setProductsForSale } from '../../../../actions/products';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import { createSale } from '../../../../actions/sales';
 import { Invoice } from '../../../templates/invoice/Invoice';
@@ -15,23 +15,26 @@ import { getBillingInfo } from './controllers/getBillingInfo';
 import { msgWhenUnmounting } from './controllers/pdfRenderResult';
 import { saleInfo } from './controllers/saleInfo';
 import { showInfoQtyAvailable } from './controllers/showInfoQtyAvailable';
+import { setItemsForBilling } from './controllers/setItemsForBilling';
 import { summary } from './components/Summary';
+import { updateQtyItemsSold } from './controllers/updateQtyItemsSold';
 import { ActionRender } from './components/ActionRender';
 import { SearchCustomer } from './components/SearchCustomer';
 import { SearchProduct } from './components/SearchProduct';
 import './sales.scss';
+import { productAlreadySale } from './controllers/productAlreadySale';
 
 export const Sales = () => {
   const dispatch = useDispatch();
   const [ivaTax, setIvaTax] = useState(0);
-  const [controlNumber, setControlNumber] = useState('');
+  const [invoiceNumber, setInvoiceNumber] = useState('');
 
   useEffect(async () => {
     const billingInfo = await getBillingInfo();
     if (billingInfo) {
       const { controlNumber, ivaTax } = billingInfo;
       setIvaTax(ivaTax);
-      setControlNumber(controlNumber);
+      setInvoiceNumber(controlNumber);
     }
   }, []);
 
@@ -51,9 +54,7 @@ export const Sales = () => {
 
   const setProductForSale = (record) => {
     setSelectedProduct(record);
-    const isLoadedProduct = productsForSale.some(
-      (product) => product.code === record.code && product.trademark === record.trademark
-    );
+    const isLoadedProduct = productAlreadySale(productsForSale, selectedProduct);
 
     if (!isLoadedProduct) {
       record.key = productsForSale.length + 1;
@@ -77,36 +78,22 @@ export const Sales = () => {
   };
 
   const [amountTax, setAmountTax] = useState(0);
-  const data = saleInfo(controlNumber, ivaTax);
+  const data = saleInfo(invoiceNumber, ivaTax);
 
   const handleCheckIn = () => {
-    checkInConfirm(controlNumber, checkIn);
+    checkInConfirm(invoiceNumber, checkIn);
   };
 
   const checkIn = () => {
-    if (controlNumber === '') {
-      console.log('No hay informacion del Numero de control');
-      return;
-    }
+    if (invoiceNumber === '') return;
 
     const { billingData, totals } = data;
 
-    const items = productsForSale.map((item) => {
-      const { id, code, title, qty, trademark, location, salePrice, totalItem } = item;
-      updateProductQty(id, { code, trademark, location, qty: -qty });
-      return {
-        code,
-        title,
-        qty,
-        trademark,
-        price: salePrice,
-        totalItem,
-        isTaxable: true,
-      };
-    });
+    const items = setItemsForBilling(productsForSale);
+    updateQtyItemsSold(productsForSale);
 
     const newSale = {
-      invoiceNumber: controlNumber,
+      invoiceNumber,
       date: billingData.date,
       coin: 'USD$',
       customer: { code: activeCustomer.code, name: activeCustomer.name },
@@ -131,7 +118,7 @@ export const Sales = () => {
         <GeneratePdfFromHtml
           WrappedComponent={Invoice}
           data={data}
-          msgWhenUnmounting={() => msgWhenUnmounting(controlNumber)}
+          msgWhenUnmounting={() => msgWhenUnmounting(invoiceNumber)}
         />
       )}
       <Row className='--sale-page__row'>
