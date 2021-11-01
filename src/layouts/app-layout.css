@@ -1,6 +1,10 @@
 .ant-layout-header {
   padding: 0 !important;
 }
+.--main-layout__container {
+  height: 100vh;
+  width: 100vw;
+}
 .--public-menu__container {
   /* // eslint-disable-next-line */
   float: left;
@@ -29,6 +33,7 @@
   float: left;
   width: 100%;
   height: 64px;
+  max-height: 64px;
   margin: 0;
   background-color: #fff;
   background-image: url('../assets/images/logo.png');
@@ -37,8 +42,15 @@
   background-position: center;
 }
 
+.--page-header__extra {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  flex: 1 0 90% !important;
+}
+
 .--layout-content__container {
-  background-color: #656565;
+  background-color: white;
   background-size: cover;
   background-repeat: no-repeat;
   height: calc(100vh - 135px);

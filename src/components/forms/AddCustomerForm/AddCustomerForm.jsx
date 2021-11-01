@@ -87,7 +87,7 @@ const AddCustomer = ({ form }) => {
         name='phone'
         rules={[
           {
-            required: true,
+            required: false,
             message: 'Por Favor indique un número telefonico!',
           },
         ]}

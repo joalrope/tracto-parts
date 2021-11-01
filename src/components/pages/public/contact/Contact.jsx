@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Col, Form, Input, Row } from 'antd';
-import { MailOutlined, PhoneOutlined } from '@ant-design/icons';
+import { HomeOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 import './contact.scss';
 
 const { TextArea } = Input;
@@ -15,8 +15,8 @@ export const Contact = () => {
         // Submit values
         // submitValues(values);
       })
-      .catch((errorInfo) => {
-        console.log(errorInfo);
+      .catch((error) => {
+        console.log(error);
       });
   };
   return (
@@ -32,7 +32,7 @@ export const Contact = () => {
             style={{ border: 0, width: '100%', height: 250 }}
             allowFullScreen={true}
             loading='lazy'
-          ></iframe>
+          />
         </div>
 
         <div className='--section-info'>
@@ -40,7 +40,7 @@ export const Contact = () => {
             <div className='--info-items__details'>
               <div className='--address-info'>
                 <div className='--info-icon'>
-                  <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABFElEQVRIieXUsUrDUBjF8R86iSiCWARXQejq4NDX0Adw6aYvoS/h6mSHutbFV6guDro4dC1Iq10cGgcTSEOS5iZdxANnyP3u9z9fuLnhP6iFazzhK/YQV3Gtkc4wRVTgKU6bwOcl8MTzOiGtJZNnPcFeHmitIOASW5m1Gc5jzzK1bVyEvMFzZsIXtFP1dryW3jMMCfhMNd5iM2fPBm4sHnhljVONy5TsG+cVi87gLQPIwvJqryEBjwXrZQrqObR4BxIVPUc4Cp1ooPzbT3sQCodj1W5yhJM6AdCrAO/VhcM+PkrgExw0CYBuSUC3KTzRXQ68vyo47OA9BR9hd5UB0MF37E7VpvWAgJHf/80D7oNG+9P6ATr5ikSn7MJTAAAAAElFTkSuQmCC' />
+                  <HomeOutlined />
                 </div>
                 <div className='--info-data'>
                   <h4>Ubicación:</h4>

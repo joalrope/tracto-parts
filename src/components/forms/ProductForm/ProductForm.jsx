@@ -143,8 +143,7 @@ export const ProductForm = () => {
   const onOk = () => {
     form
       .validateFields()
-      .then((values) => {
-        console.log(values);
+      .then((/*values*/) => {
         form.resetFields();
       })
       .catch((info) => {

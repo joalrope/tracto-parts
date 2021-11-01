@@ -46,87 +46,120 @@ export const Home = () => {
   };
 
   return (
-    <section className='--home-page__container'>
-      <div className='container' data-aos='fade-up'>
-        <div className='mt-5 row justify-content-center'>
-          <div className='col-xl-6 col-lg-8'>
-            <h1>
-              Repuestos y servicios para maquinaria pesada<span>.</span>
-            </h1>
-            <h2>
-              tenemos el mayor stock de repuestos y el personal técnico con la mayor experiencia del sector, para
-              apoyarte en mantenimiento de tú equipo
-            </h2>
-          </div>
-        </div>
-        <div className={'--query-frame__container'}>
-          <div className='--home-page__query'>
-            <div className='--query-frame__title '>
-              <h3>Consultar disponibilidad</h3>
-            </div>
-            <Form
-              name='basic'
-              layout='vertical'
-              labelCol={{
-                span: 24,
-              }}
-              wrapperCol={{
-                span: 24,
-              }}
-              onFinish={onFinish}
-
-              /*onFinishFailed={onFinishFailed} */
-            >
-              <Form.Item label='Código' name='code'>
-                <Input placeholder='Introduzca código' />
-              </Form.Item>
-            </Form>
-
-            <div className='--query-frame__message'>
-              <p>{defaultMessage}</p>
+    <main>
+      <section className='--home-page__container'>
+        <div className='container' data-aos='fade-up'>
+          <div className='mt-5 row justify-content-center'>
+            <div className='col-xl-6 col-lg-8'>
+              <h1>
+                Repuestos y servicios para maquinaria pesada<span>.</span>
+              </h1>
+              <h2>
+                tenemos el mayor stock de repuestos y el personal técnico con la mayor experiencia del sector, para
+                apoyarte en mantenimiento de tú equipo
+              </h2>
             </div>
           </div>
-        </div>
+          <div className={'--query-frame__container'}>
+            <div className='--home-page__query'>
+              <div className='--query-frame__title '>
+                <h3>Consultar disponibilidad</h3>
+              </div>
+              <Form
+                name='basic'
+                layout='vertical'
+                labelCol={{
+                  span: 24,
+                }}
+                wrapperCol={{
+                  span: 24,
+                }}
+                onFinish={onFinish}
 
-        <div className='--icon-box__container '>
-          <div className='--icon-box'>
-            <i className='ri-store-line'></i>
-            <h3>
-              <a>Marcas</a>
-            </h3>
+                /*onFinishFailed={onFinishFailed} */
+              >
+                <Form.Item label='Código' name='code'>
+                  <Input placeholder='Introduzca código' />
+                </Form.Item>
+              </Form>
+
+              <div className='--query-frame__message'>
+                <p>{defaultMessage}</p>
+              </div>
+            </div>
           </div>
-          <div className='--icon-box'>
-            <i className='ri-bar-chart-box-line'></i>
-            <h3>
-              <a>Productos</a>
-            </h3>
-          </div>
-          <div className='--icon-box'>
-            <i className='ri-bar-chart-box-line'></i>
-            <h3>
-              <a>Overhault</a>
-            </h3>
-          </div>
-          <div className='--icon-box'>
-            <i className='ri-calendar-todo-line'></i>
-            <h3>
-              <a>Mantenimiento Preventivo</a>
-            </h3>
-          </div>
-          <div className='--icon-box'>
-            <i className='ri-calendar-todo-line'></i>
-            <h3>
-              <a>Mantenimiento Correctivo</a>
-            </h3>
-          </div>
-          <div className='--icon-box'>
-            <i className='ri-calendar-todo-line'></i>
-            <h3>
-              <a>Servicio Técnico</a>
-            </h3>
+
+          <div className='--icon-box__container '>
+            <div className='--icon-box'>
+              <i className='ri-store-line' />
+              <h3>
+                <a>Marcas</a>
+              </h3>
+            </div>
+            <div className='--icon-box'>
+              <i className='ri-bar-chart-box-line' />
+              <h3>
+                <a>Productos</a>
+              </h3>
+            </div>
+            <div className='--icon-box'>
+              <i className='ri-bar-chart-box-line' />
+              <h3>
+                <a>Overhault</a>
+              </h3>
+            </div>
+            <div className='--icon-box'>
+              <i className='ri-calendar-todo-line' />
+              <h3>
+                <a>Mantenimiento Preventivo</a>
+              </h3>
+            </div>
+            <div className='--icon-box'>
+              <i className='ri-calendar-todo-line' />
+              <h3>
+                <a>Mantenimiento Correctivo</a>
+              </h3>
+            </div>
+            <div className='--icon-box'>
+              <i className='ri-calendar-todo-line' />
+              <h3>
+                <a>Servicio Técnico</a>
+              </h3>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <section className='container mt-5 trademark'>
+        <h2>Marcas</h2>
+        <article>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum assumenda id beatae. Assumenda aliquid
+            molestias voluptate excepturi porro vel unde nulla deleniti debitis nihil neque, sunt iure voluptatum, nisi
+            corrupti! Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, quos laboriosam? Iure nobis
+            natus aspernatur debitis exercitationem, sint dolorum temporibus corrupti officia iste quae iusto est qui,
+            architecto, neque autem. Obcaecati, deleniti necessitatibus? Voluptatum error repellendus dolore molestias
+            dolorem nam, consectetur ab itaque adipisci enim. Ipsam ipsum error ad ex temporibus facilis cupiditate
+            provident, libero neque optio at soluta accusantium? Minima atque voluptatum laudantium. Id beatae quos
+            pariatur laboriosam voluptatum ad in deleniti aspernatur, quaerat quibusdam, ipsam illum doloribus quae
+            maxime rerum doloremque. Consectetur odio labore aut modi magnam eius! Nam officiis facilis autem ab veniam
+            architecto iusto praesentium, quia laboriosam! Consequatur, nulla? Porro blanditiis dolorem officia
+            provident eaque nisi fugiat magni consectetur? Cumque dolores, accusamus exercitationem unde temporibus aut.
+            Iure, modi! Rerum facere blanditiis cum doloremque, labore suscipit ipsa, sint incidunt cupiditate quisquam
+            praesentium mollitia quo voluptatibus ipsam possimus sequi. Praesentium perferendis repudiandae cupiditate
+            debitis quidem, ducimus officiis voluptate. Voluptatem neque vero excepturi quo minima alias iure quidem
+            omnis nemo ipsam sit officia et reiciendis aperiam molestias consectetur laudantium, dolor recusandae quia
+            voluptatibus repellendus ipsa minus nesciunt. Quae, cumque? Explicabo enim sunt commodi distinctio porro
+            nesciunt labore, quibusdam molestiae sequi ad? Ea facere culpa fuga libero, aliquam eum, ratione maxime
+            minus nemo, aperiam optio molestias odit deleniti expedita eaque. Fugiat labore corrupti repellendus dolorum
+            a magni, debitis perferendis iusto quisquam dolor. Porro, mollitia atque aspernatur tempora voluptates illo
+            iure necessitatibus blanditiis dolor a quidem officiis sunt repudiandae vel asperiores. Labore, error
+            inventore! Quisquam maiores perferendis odit iusto? Repudiandae quo mollitia commodi error maxime nulla
+            asperiores iste laborum maiores eligendi sunt soluta enim at ipsum dolorem odit possimus, accusamus
+            perferendis. Unde aut ea cumque vitae tempora in velit eveniet dignissimos corrupti. Provident repellendus
+            sint, natus dolores enim et velit autem, ipsum error, magnam porro hic id ut officia maxime. Voluptas?
+          </p>
+        </article>
+      </section>
+    </main>
   );
 };

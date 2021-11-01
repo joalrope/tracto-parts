@@ -52,7 +52,6 @@ export const ProductCard = ({ product, setProductForSale }) => {
   };
 
   const url = getUrlImage(product.code, product.details[0].trademark);
-  console.log(url);
 
   return (
     <div className='product-card__container'>

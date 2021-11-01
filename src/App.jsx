@@ -6,7 +6,7 @@ import './App.less';
 
 function App() {
   return (
-    <div className='--app-container'>
+    <div className='--app-screen__container'>
       <Provider store={store}>
         <AppLayout />
       </Provider>

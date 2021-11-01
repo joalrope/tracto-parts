@@ -9,7 +9,6 @@ export const getUrlImage = (code, trademark) => {
   ) {
     newTrademark = `${trademark}2`;
   }
-  console.log(`${urlImages[newTrademark.toLowerCase()]}${code}.jpg`);
   return `${urlImages[newTrademark.toLowerCase()]}${code}.jpg`;
 };
 

@@ -18,6 +18,7 @@ export const ActionRender = (record) => {
         onConfirm={() => handleDelete(record.id, record.trademark)}
         okText='Si'
         cancelText='No'
+        placement='topRight'
       >
         <CloseSquareOutlined className='--action-icon__remove' />
       </Popconfirm>

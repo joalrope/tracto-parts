@@ -1,25 +1,24 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu } from 'antd';
-import { UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+//import { DiffOutlined, TrademarkCircleOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { routes } from '../router/routes';
 
 export const SiderMenu = () => {
   const location = useLocation();
 
   return (
-    <Menu theme='dark' mode='inline' selectedKeys={[location.pathname]} defaultSelectedKeys={['/app/quote']}>
-      <Menu.Item key='/app/quote' icon={<UserOutlined />}>
-        Cotizador
-        <Link to='/app/quote' />
-      </Menu.Item>
-      <Menu.Item key='/app/sales' icon={<VideoCameraOutlined />}>
-        Ventas
-        <Link to='/app/sales' />
-      </Menu.Item>
-      <Menu.Item key='/app/stock'>
-        Actualizar Productos
-        <Link to='/app/stock' />
-      </Menu.Item>
+    <Menu theme='dark' mode='inline' selectedKeys={[location.pathname]} defaultSelectedKeys={['/app/stock']}>
+      {routes.sider
+        .filter((route) => route.menu === 'sider')
+        .map((route) => {
+          return (
+            <Menu.Item key={route.path}>
+              {route.name}
+              <Link to={route.path} />
+            </Menu.Item>
+          );
+        })}
     </Menu>
   );
 };
