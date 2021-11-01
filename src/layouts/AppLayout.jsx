@@ -27,7 +27,6 @@ export const AppLayout = () => {
   const { isLoggedIn, checking } = useSelector((state) => state.auth);
   const { contentBackgroundImage, loading } = useSelector((state) => state.ui);
   const localtion = useLocation();
-  const headerRoutes = routes.header;
 
   const handleClick = (route) => {
     if (route.key === '/logout') {
@@ -58,8 +57,11 @@ export const AppLayout = () => {
             </div>
           )}
           <Menu theme='dark' mode='horizontal' selectedKeys={[localtion.pathname]} onClick={handleClick}>
-            {headerRoutes
-              .filter((route) => route.type === 'public' || (route.type === 'auth' && route.role === role))
+            {routes
+              .filter(
+                (route) =>
+                  route.menu === 'header' && (route.type === 'public' || (route.type === 'auth' && route.role === role))
+              )
               .map((route) => (
                 <Menu.Item key={route.path}>
                   {route.name}

@@ -9,11 +9,11 @@ export const SiderMenu = () => {
 
   return (
     <Menu theme='dark' mode='inline' selectedKeys={[location.pathname]} defaultSelectedKeys={['/app/stock']}>
-      {routes.sider
+      {routes
         .filter((route) => route.menu === 'sider')
         .map((route) => {
           return (
-            <Menu.Item key={route.path}>
+            <Menu.Item key={route.key}>
               {route.name}
               <Link to={route.path} />
             </Menu.Item>
