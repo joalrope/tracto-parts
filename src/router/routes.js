@@ -176,6 +176,5 @@ export const routes = [
     icon: <PrinterOutlined />,
     component: Reports,
   },
-  { key: '/app/stock', path: '/app/stock', pathTo: '/app/stock-editproducts', redirect: true },
   { key: '/', path: '/', pathTo: '/home', redirect: true },
 ];
