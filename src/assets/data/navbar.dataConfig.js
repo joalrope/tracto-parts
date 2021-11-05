@@ -64,9 +64,9 @@ export const items = [
   {
     id: 80,
     title: 'Inventario',
-    to: '/app/inventory',
+    to: '/app/stock',
     roles: arInve,
-    component: InventoryPage,
+    component: stockPage,
   },
   // {
   //   id: 90,

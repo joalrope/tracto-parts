@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { Layout, Menu, Col, Row, Space, Spin, PageHeader, Button } from 'antd';
+import { Layout, Menu, Col, Row, Space, Spin /* , PageHeader, Button */ } from 'antd';
 import {
   AntDesignOutlined,
   FacebookFilled,
   GithubOutlined,
-  EditOutlined /*LoadingOutlined ,*/,
+  /*EditOutlined /*LoadingOutlined ,,*/
 } from '@ant-design/icons'; //eslint-disable-line
 import { startLogout } from '../actions/auth';
-import { clearStore } from '../actions/ui';
+import { clearStore, setCurrentPath } from '../actions/ui';
 import { AllForms } from '../components/forms/AllForms';
 import history from '../helpers/history/history';
 import { AppRouter } from '../router/AppRouter';
@@ -24,15 +24,16 @@ const style = { fontSize: '18px', color: '$primary', verticalAlign: 'middle' };
 export const AppLayout = () => {
   const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
-  const { isLoggedIn, checking } = useSelector((state) => state.auth);
-  const { contentBackgroundImage, loading } = useSelector((state) => state.ui);
-  const localtion = useLocation();
+  const { isLoggedIn, checking, role } = useSelector((state) => state.auth);
+  const { contentBackgroundImage, loading, currentPath } = useSelector((state) => state.ui);
+  const location = useLocation();
 
   const handleClick = (route) => {
+    dispatch(setCurrentPath(route.keyPath[0]));
     if (route.key === '/logout') {
       dispatch(startLogout());
       clearStore(dispatch);
-      history.push('/home');
+      history.push('/login');
     }
   };
 
@@ -40,7 +41,11 @@ export const AppLayout = () => {
     setCollapsed(!collapsed);
   };
 
-  const role = isLoggedIn ? 'private' : 'public';
+  const getParent = () => {
+    return currentPath.substring(currentPath.lastIndexOf('/') + 1, currentPath.length).trim();
+  };
+
+  const mode = isLoggedIn ? 'private' : 'public';
   return (
     <Layout className='--main-layout__container'>
       {isLoggedIn && (
@@ -56,11 +61,11 @@ export const AppLayout = () => {
               <div className='--app__logo' />
             </div>
           )}
-          <Menu theme='dark' mode='horizontal' selectedKeys={[localtion.pathname]} onClick={handleClick}>
+          <Menu theme='dark' mode='horizontal' selectedKeys={[location.pathname]} onClick={handleClick}>
             {routes
               .filter(
                 (route) =>
-                  route.menu === 'header' && (route.type === 'public' || (route.type === 'auth' && route.role === role))
+                  route.menu === 'header' && (route.type === 'public' || (route.type === 'auth' && route.mode === mode))
               )
               .map((route) => (
                 <Menu.Item key={route.path}>
@@ -69,43 +74,27 @@ export const AppLayout = () => {
                 </Menu.Item>
               ))}
           </Menu>
+          {isLoggedIn && location.pathname.startsWith('/app') && (
+            <Menu
+              mode='horizontal'
+              selectedKeys={[location.pathname]}
+              style={{ borderBottom: '1px solid black', color: 'black', height: 35, justifyContent: 'end' }}
+            >
+              {routes
+                .filter(
+                  (route) => route.menu === 'options' && route.parent === getParent() && route.access.includes(role)
+                )
+                .map((route) => {
+                  return (
+                    <Menu.Item key={route.key} icon={route.icon} style={{ lineHeight: 1.5, margin: 5 }}>
+                      {route.name}
+                      <Link to={route.path} />
+                    </Menu.Item>
+                  );
+                })}
+            </Menu>
+          )}
         </Header>
-        {isLoggedIn && localtion.pathname.startsWith('/app') && (
-          <PageHeader
-            ghost={false}
-            onBack={() => window.history.back()}
-            style={{ padding: '4px 24px 0 24px', borderBottom: '1px dashed black' }}
-            title={localtion.pathname}
-            // subTitle='This is a subtitle'
-            extra={[
-              <Row key='1' gutter={12}>
-                <Col xs={16} sm={8}>
-                  <Link to='/app/stock'>
-                    <Button type='dashed' icon={<EditOutlined />} style={{ width: '100%', marginBottom: '5px' }}>
-                      Crear
-                    </Button>
-                  </Link>
-                </Col>
-
-                <Col xs={16} sm={8}>
-                  <Link to='/app/sales'>
-                    <Button type='dashed' icon={<EditOutlined />} style={{ width: '100%', marginBottom: '5px' }}>
-                      Actualizar
-                    </Button>
-                  </Link>
-                </Col>
-
-                <Col xs={16} sm={8}>
-                  <Link to='/app/products'>
-                    <Button type='dashed' icon={<EditOutlined />} style={{ width: '100%', marginBottom: '5px' }}>
-                      Actualizar
-                    </Button>
-                  </Link>
-                </Col>
-              </Row>,
-            ]}
-          />
-        )}
 
         <Content className='--layout-content__container' style={{ backgroundImage: `url(${contentBackgroundImage})` }}>
           {(checking || loading) && (
@@ -113,6 +102,7 @@ export const AppLayout = () => {
               <Spin /* indicator={loadingIcon}  */ size='large' />
             </div>
           )}
+
           <AppRouter />
           <AllForms />
         </Content>

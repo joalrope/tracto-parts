@@ -8,10 +8,9 @@ export const AppRouter = () => {
     <Switch>
       {routes.map((route) => {
         if (route.redirect) {
-          return <Redirect from={route.path} to={route.pathTo} key={route.key} />;
-        } else {
-          return <Route path={route.path} component={route.component} key={route.key} />;
+          return <Redirect key={route.key} to={route.pathTo} />;
         }
+        return <Route key={route.key} path={route.path} component={route.component} />;
       })}
       <Route component={NotFound} />;
     </Switch>

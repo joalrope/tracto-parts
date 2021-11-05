@@ -65,6 +65,7 @@ export const ProductDetails = ({ form }) => {
                         rules={[{ required: true }]}
                       >
                         <Select
+                          dropdownMatchSelectWidth={160}
                           dropdownRender={(menu) => (
                             <div>
                               {menu}

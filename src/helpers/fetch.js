@@ -90,6 +90,7 @@ const checkSessionStatus = (status) => {
     sessionStorage.clear();
     store.dispatch(startLogout());
     showExpiredSessionMessage(previousUrl);
+
     return {
       ok: false,
       msg: 'unauthorized',
@@ -107,8 +108,9 @@ const showExpiredSessionMessage = (url) => {
     confirmLoading: true,
     autoFocusButton: null,
     onOk() {
-      history.push('/login');
       history.replace(url);
+      history.push('/home');
+      history.push('/login');
     },
   });
 };

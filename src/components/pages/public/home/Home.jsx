@@ -12,6 +12,7 @@ const defaultMessage =
 
 export const Home = () => {
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
   const onFinish = async ({ code }) => {
     dispatch(loadingStart());
     const { ok, result } = await getProductByCode(code);
@@ -41,7 +42,9 @@ export const Home = () => {
         </div>
       ),
       okText: 'Aceptar',
-      onOk() {},
+      onOk() {
+        form.resetFields();
+      },
     });
   };
 
@@ -67,6 +70,7 @@ export const Home = () => {
               </div>
               <Form
                 name='basic'
+                form={form}
                 layout='vertical'
                 labelCol={{
                   span: 24,
@@ -78,7 +82,7 @@ export const Home = () => {
 
                 /*onFinishFailed={onFinishFailed} */
               >
-                <Form.Item label='Código' name='code'>
+                <Form.Item label='Código' name='code' normalize={(value) => (value ? value.toUpperCase() : value)}>
                   <Input placeholder='Introduzca código' />
                 </Form.Item>
               </Form>

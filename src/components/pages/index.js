@@ -11,6 +11,8 @@ import { Equipment } from './private/equipment/Equipment';
 import { Billing } from './private/billing/Billing';
 import { Stock } from './private/stock/Stock';
 import { Products } from './private/products/Products';
+import { EditProducts } from './private/products/edit-products/EditProducts.jsx';
+
 import { Quote } from './private/quote/Quote';
 import { Reports } from './private/reports/Reports';
 import { Sales } from './private/sales/Sales';
@@ -19,6 +21,7 @@ export {
   NotFound,
   About,
   Billing,
+  EditProducts,
   Forgot,
   Login,
   Register,
