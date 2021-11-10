@@ -1,19 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { Col, Divider, Form, InputNumber, Row, Select, Space } from 'antd';
-import { CloseSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
+import { Col, /*  Divider, */ Form, InputNumber, Row /*, Select  , Space */ } from 'antd';
+//import { CloseSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import { ProductStock } from './ProductStock';
 import { alignItemsRight } from '../AllForms';
 import { findTrademarkFactoraByCode } from '../../../actions/trademarks';
-import { setDisplayAddTrademarkForm } from '../../../actions/shows';
-
-const Option = Select.Option;
+import { InputTrademark } from '../aa-form-controls/InputTrademark';
 
 export const ProductDetails = ({ form }) => {
-  const dispatch = useDispatch();
-  const { titles } = useSelector((state) => state.trademark);
-
   const setSalePrice = async (index) => {
     const trademark = form.getFieldsValue().details[index].trademark;
     const factor = Number(await findTrademarkFactoraByCode(trademark));
@@ -27,12 +21,6 @@ export const ProductDetails = ({ form }) => {
     ]);
   };
 
-  const listSelectOptions = titles.map((o) => <Option key={o}>{o}</Option>);
-
-  const addItem = () => {
-    dispatch(setDisplayAddTrademarkForm({ show: true, mode: 'add' }));
-  };
-
   return (
     <Form.List name='details'>
       {(details, { add, remove }) => {
@@ -41,7 +29,8 @@ export const ProductDetails = ({ form }) => {
             {details.map((field, index) => (
               <Row key={field.key} gutter={24} justify='start' style={{ flexDirection: 'row' }}>
                 <Col xs={24} lg={5}>
-                  <div style={{ display: 'flex', flexDirection: 'row' }}>
+                  <InputTrademark details={details} field={field} index={index} add={add} remove={remove} />
+                  {/*                   <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <div style={{ flex: '1 0 88%' }}>
                       <Form.Item
                         label={
@@ -107,6 +96,7 @@ export const ProductDetails = ({ form }) => {
                       ) : null}
                     </div>
                   </div>
+                 */}
                 </Col>
                 <Col xs={24} lg={5}>
                   <Form.Item name={[index, 'costPrice']} label='Precio de Costo' rules={[{ required: true }]}>

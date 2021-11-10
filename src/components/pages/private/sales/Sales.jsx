@@ -17,7 +17,7 @@ import { saleInfo } from './controllers/saleInfo';
 import { showInfoQtyAvailable } from './controllers/showInfoQtyAvailable';
 import { setItemsForBilling } from './controllers/setItemsForBilling';
 import { summary } from './components/Summary';
-import { updateQtyItemsSold } from './controllers/updateQtyItemsSold';
+import { updateQtyItemsSold } from './controllers/updateQtyItems';
 import { ActionRender } from './components/ActionRender';
 import { SearchCustomer } from './components/SearchCustomer';
 import { SearchProduct } from './components/SearchProduct';

@@ -109,7 +109,9 @@ const AddCustomer = ({ form }) => {
 
       <Space align='baseline'>
         <Form.Item name='hasCredit' valuePropName='checked' wrapperCol={{ offset: 18 }}>
-          <Checkbox onChange={onChangeHasCredit}>Crédito</Checkbox>
+          <Checkbox indeterminate={credit} onChange={onChangeHasCredit}>
+            Crédito
+          </Checkbox>
         </Form.Item>
         {credit && (
           <Form.Item name='creditLimit' wrapperCol={{ offset: 8, span: 30 }}>

@@ -6,12 +6,14 @@ import { Register } from './public/auth/register/Register1.jsx';
 import { Contact } from './public/contact/Contact';
 import { Home } from './public/home/Home';
 
+import { AddCustomer } from './private/customer/AddCustomer';
 import { Dashboard } from './private/dashboard/Dashboard';
+import { DeliveryNotes } from './private/deliveryNotes/DeliveryNotes';
 import { Equipment } from './private/equipment/Equipment';
 import { Billing } from './private/billing/Billing';
 import { Stock } from './private/stock/Stock';
-import { Products } from './private/products/Products';
-import { EditProducts } from './private/products/edit-products/EditProducts.jsx';
+import { EditProducts } from './private/stock/edit-products/EditProducts';
+import { StockEntrance } from './private/stock/stock-entrance/StockEntrance';
 
 import { Quote } from './private/quote/Quote';
 import { Reports } from './private/reports/Reports';
@@ -21,6 +23,8 @@ export {
   NotFound,
   About,
   Billing,
+  AddCustomer,
+  DeliveryNotes,
   EditProducts,
   Forgot,
   Login,
@@ -30,7 +34,7 @@ export {
   Dashboard,
   Equipment,
   Stock,
-  Products,
+  StockEntrance,
   Quote,
   Reports,
   Sales,

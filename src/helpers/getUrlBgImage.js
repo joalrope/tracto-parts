@@ -14,7 +14,7 @@ const urlImages = {
 };
 
 const contentStyles = {
-  '/home': { backgroundImage: getUrlBgImage('/home') },
+  //'/home': { backgroundImage: getUrlBgImage('/home') },
   '/login': { backgroundImage: getUrlBgImage('/login') },
   '/register': { backgroundImage: getUrlBgImage('/login') },
 };

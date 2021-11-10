@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { Col, Form, Input, Modal, Row } from 'antd';
+import { Col, Form, Modal, Row } from 'antd';
 import { getProductByCode, productSetActive } from '../../../actions/products';
 import { emptyProduct } from '../ProductForm/controller';
+import { InputCode } from '../aa-form-controls/InputCode';
 
 export const SearchProductForm = ({ searchResult }) => {
   const [form] = Form.useForm();
@@ -49,19 +50,7 @@ export const SearchProductForm = ({ searchResult }) => {
     >
       <Row>
         <Col sx={24} lg={6}>
-          <Form.Item
-            name={['code']}
-            label={'Código:'}
-            rules={[
-              {
-                required: true,
-                message: 'El código es necesario!',
-              },
-            ]}
-            normalize={(value) => (value ? value.toUpperCase() : value)}
-          >
-            <Input onPressEnter={searchProduct} />
-          </Form.Item>
+          <InputCode onPressEnter={searchProduct} />
         </Col>
       </Row>
     </Form>

@@ -5,7 +5,7 @@ import { Product } from '../../../forms/ProductForm/ProductForm';
 import { SearchProductForm } from '../../../forms/SearchProductForm/SearchProductForm';
 import { productClearActive } from '../../../../actions/products';
 //import { setDisplayAddProductForm } from '../../../../actions/shows';
-import { onAccepted } from './controllers';
+import { onAccepted } from './edit-products/controllers';
 import './stock.scss';
 
 export const Stock = () => {

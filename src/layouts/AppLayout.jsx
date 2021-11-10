@@ -74,27 +74,27 @@ export const AppLayout = () => {
                 </Menu.Item>
               ))}
           </Menu>
-          {isLoggedIn && location.pathname.startsWith('/app') && (
-            <Menu
-              mode='horizontal'
-              selectedKeys={[location.pathname]}
-              style={{ borderBottom: '1px solid black', color: 'black', height: 35, justifyContent: 'end' }}
-            >
-              {routes
-                .filter(
-                  (route) => route.menu === 'options' && route.parent === getParent() && route.access.includes(role)
-                )
-                .map((route) => {
-                  return (
-                    <Menu.Item key={route.key} icon={route.icon} style={{ lineHeight: 1.5, margin: 5 }}>
-                      {route.name}
-                      <Link to={route.path} />
-                    </Menu.Item>
-                  );
-                })}
-            </Menu>
-          )}
         </Header>
+        {isLoggedIn && location.pathname.startsWith('/app') && (
+          <Menu
+            mode='horizontal'
+            selectedKeys={[location.pathname]}
+            style={{ borderBottom: '1px dashed black', color: 'black', height: 35, justifyContent: 'end' }}
+          >
+            {routes
+              .filter(
+                (route) => route.menu === 'options' && route.parent === getParent() && route.access.includes(role)
+              )
+              .map((route) => {
+                return (
+                  <Menu.Item key={route.key} icon={route.icon} style={{ lineHeight: 1.5, margin: 5 }}>
+                    {route.name}
+                    <Link to={route.path} />
+                  </Menu.Item>
+                );
+              })}
+          </Menu>
+        )}
 
         <Content className='--layout-content__container' style={{ backgroundImage: `url(${contentBackgroundImage})` }}>
           {(checking || loading) && (

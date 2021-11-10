@@ -4,20 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Col, Form, Input, Row } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { ModalForm } from '../../wrappers/ModalForm/ModalForm';
+import { InputCode } from '../aa-form-controls/InputCode';
 import { emptyProduct, cancelNewProduct /* , saveNewProduct */ } from './controller';
 import { ProductDetails } from './ProductDetails';
 
 import './product-add.scss';
-import { getTrademarksTitle } from '../../../actions/trademarks';
 
 export const Product = ({ form }) => {
   const [product, setProduct] = useState(emptyProduct);
   const { activeProduct } = useSelector((state) => state.product);
   let code, title, category, details, measurement, status, replacement;
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTrademarksTitle());
     setProduct(activeProduct);
     if (product) {
       ({ code, title, category, details, measurement, status, replacement } = product);
@@ -41,19 +39,7 @@ export const Product = ({ form }) => {
     >
       <Row gutter={24}>
         <Col xs={24} md={24} lg={5}>
-          <Form.Item
-            name={'code'}
-            label={'Código:'}
-            rules={[
-              {
-                required: true,
-                message: 'Ingrese el código del producto!',
-              },
-            ]}
-            normalize={(value) => (value ? value.toUpperCase() : value)}
-          >
-            <Input />
-          </Form.Item>
+          <InputCode />
         </Col>
         <Col xs={24} md={24} lg={14}>
           <Form.Item
@@ -70,13 +56,7 @@ export const Product = ({ form }) => {
           </Form.Item>
         </Col>
         <Col xs={24} md={24} lg={5}>
-          <Form.Item
-            className='--form-item__container'
-            name='category'
-            label='Categoría:'
-            /* initialValue={product.category}*/
-            rules={[{ required: true }]}
-          >
+          <Form.Item className='--form-item__container' name='category' label='Categoría:' rules={[{ required: true }]}>
             <Input placeholder='Indique una categoría' />
           </Form.Item>
         </Col>
@@ -91,7 +71,6 @@ export const Product = ({ form }) => {
               className='--form-item__container'
               name='measurement'
               label='Medidas:'
-              // initialValue={product.measurement}
               rules={[{ required: false }]}
             >
               <Input placeholder='Medidas' />
@@ -99,13 +78,7 @@ export const Product = ({ form }) => {
           </Col>
 
           <Col xs={24} lg={12}>
-            <Form.Item
-              className='--form-item__container'
-              name='status'
-              label='Estado'
-              /*  initialValue={product.status} */
-              rules={[{ required: false }]}
-            >
+            <Form.Item className='--form-item__container' name='status' label='Estado' rules={[{ required: false }]}>
               <Input placeholder='Estado del producto' />
             </Form.Item>
           </Col>
@@ -114,11 +87,9 @@ export const Product = ({ form }) => {
       <Form.Item
         label='Equivalencias:'
         name='replacement'
-        /* initialValue={product.replacement} */
         rules={[
           {
             required: false,
-            message: 'agrege la dirección del cliente!',
           },
         ]}
         style={{ display: 'inline-block', width: '100%' }}
@@ -143,7 +114,7 @@ export const ProductForm = () => {
   const onOk = () => {
     form
       .validateFields()
-      .then((/*values*/) => {
+      .then(() => {
         form.resetFields();
       })
       .catch((info) => {

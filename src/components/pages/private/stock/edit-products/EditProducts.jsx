@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Col, Form, Row } from 'antd';
 import { SearchProductForm } from '../../../../forms/SearchProductForm/SearchProductForm';
 import { Product } from '../../../../forms/ProductForm/ProductForm';
-import { onAccepted } from '../../stock/controllers';
+import { onAccepted } from '../edit-products/controllers';
 import { productClearActive } from '../../../../../actions/products';
 
 export const EditProducts = () => {
@@ -52,7 +52,7 @@ export const EditProducts = () => {
         </Col>
       </Row>
       <Row>
-        <Col className='--product-form__container'>
+        <Col className='--current-form__container'>
           {!showAddProductForm && <SearchProductForm searchResult={searchResult} />}
           {showAddProductForm && <Product form={form} />}
         </Col>

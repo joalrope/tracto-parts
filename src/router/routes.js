@@ -1,9 +1,11 @@
 import React from 'react';
 import {
   About,
+  AddCustomer,
   Billing,
   Contact,
   Dashboard,
+  DeliveryNotes,
   Equipment,
   Forgot,
   Home,
@@ -12,22 +14,25 @@ import {
   Reports,
   EditProducts,
   Sales,
+  StockEntrance,
 } from '../components/pages/index';
 
 import {
-  HomeOutlined,
-  AreaChartOutlined,
   AppstoreAddOutlined,
-  LoginOutlined,
-  TagsOutlined,
+  AreaChartOutlined,
+  BarcodeOutlined,
   DollarOutlined,
-  UserAddOutlined,
-  PrinterOutlined,
   FileDoneOutlined,
+  HomeOutlined,
+  LoginOutlined,
+  PrinterOutlined,
+  TagsOutlined,
+  UserAddOutlined,
+  UsergroupAddOutlined,
 } from '@ant-design/icons';
 
 import { access } from '../types/access';
-const { billing, dashboard, stock, products, reports, sales } = access;
+const { billing, customer, dashboard, deliveryNotes, stock, products, reports, sales } = access;
 
 export const routes = [
   {
@@ -130,8 +135,18 @@ export const routes = [
     name: 'Ventas',
     access: sales,
     redirectTo: '/app/sales-new',
-    icon: <FileDoneOutlined />,
+    icon: <BarcodeOutlined />,
     //component: Sales,
+  },
+  {
+    key: '/app/customer',
+    menu: 'sider',
+    path: '/app/customer',
+    type: 'private',
+    name: 'Clientes',
+    access: customer,
+    icon: <UsergroupAddOutlined />,
+    component: AddCustomer,
   },
   {
     key: '/app/billing',
@@ -155,6 +170,17 @@ export const routes = [
     component: EditProducts,
   },
   {
+    key: '/app/stock-entrance',
+    menu: 'options',
+    path: '/app/stock-entrance',
+    type: 'private',
+    name: 'Entrada de inventario',
+    parent: 'stock',
+    access: products,
+    icon: <TagsOutlined />,
+    component: StockEntrance,
+  },
+  {
     key: '/app/sales-new',
     menu: 'options',
     path: '/app/sales-new',
@@ -166,6 +192,17 @@ export const routes = [
     component: Sales,
   },
   {
+    key: '/app/sales-delivery-notes',
+    menu: 'options',
+    path: '/app/ssles-delivery-notes',
+    type: 'private',
+    parent: 'sales',
+    name: 'Notas de Entrega',
+    access: deliveryNotes,
+    icon: <FileDoneOutlined />,
+    component: DeliveryNotes,
+  },
+  {
     key: '/app/report-productsReports',
     menu: 'options',
     path: '/app/report-reports',
@@ -175,6 +212,17 @@ export const routes = [
     access: reports,
     icon: <PrinterOutlined />,
     component: Reports,
+  },
+  {
+    key: '/app/customer-create',
+    menu: 'options',
+    path: '/app/customer-create',
+    type: 'private',
+    name: 'Crear Cliente',
+    parent: 'customer',
+    access: customer,
+    icon: <UsergroupAddOutlined />,
+    component: AddCustomer,
   },
   { key: '/', path: '/', pathTo: '/home', redirect: true },
 ];

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Menu } from 'antd';
 import history from '../helpers/history/history';
 //import { DiffOutlined, TrademarkCircleOutlined, VideoCameraOutlined } from '@ant-design/icons';
@@ -10,6 +10,7 @@ import { setCurrentPath } from '../actions/ui';
 export const SiderMenu = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const { role } = useSelector((state) => state.auth);
 
   const handleClick = (route) => {
     const currentRoute = route.keyPath[0];
@@ -30,7 +31,7 @@ export const SiderMenu = () => {
       onClick={handleClick}
     >
       {routes
-        .filter((route) => route.menu === 'sider')
+        .filter((route) => route.menu === 'sider' && route.access.includes(role))
         .map((route) => {
           return (
             <Menu.Item key={route.key} icon={route.icon}>

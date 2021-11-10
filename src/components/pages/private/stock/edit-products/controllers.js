@@ -1,6 +1,6 @@
 import { Modal } from 'antd';
-import { createProduct, productClearActive, updateProduct } from '../../../../actions/products';
-import { setDisplayAddProductForm } from '../../../../actions/shows';
+import { createProduct, productClearActive, updateProduct } from '../../../../../actions/products';
+import { setDisplayAddProductForm } from '../../../../../actions/shows';
 
 const changesAccepted = (form, id, values, setShowAddProductForm, dispatch, mode) => {
   mode === 'edit' ? updateProduct(id, values) : dispatch(createProduct(values));
