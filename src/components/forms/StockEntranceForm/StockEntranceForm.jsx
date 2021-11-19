@@ -1,64 +1,82 @@
-import React, { useState } from 'react';
-import { Button, Checkbox, Col, Form, Modal, Row, Space } from 'antd';
-import { CloseSquareOutlined, PlusOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Checkbox, Col, Form, Row, Space } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import { InputCode } from '../aa-form-controls/InputCode';
-import { InputNumeric } from '../aa-form-controls/InputNumeric';
+import { InputCostPrice, InputNumeric, InputQty } from '../aa-form-controls/InputNumeric';
 import { InputTrademark } from '../aa-form-controls/InputTrademark';
-import { checkAmountMatch } from './controllers';
+import { RemoveIcon } from '../aa-form-controls/RemoveIcon';
+import { InputLocation } from '../aa-form-controls/InputLocation';
+import { onButtonSaveOk } from './controllers';
+import { getProductLocation, setProductsEntrance, clearProductsEntrance } from '../../../actions/products';
+import { objectMin } from '../../../helpers/object-with-max-value';
 
-const emptyEntrance = {
-  totalAmount: 0.0001,
-  items: [{ code: '', trademark: 'CTP', qty: 1, costPrice: 0 }],
-};
+const fieldsWatch = ['code', 'trademark'];
 
 export const StockEntranceForm = () => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const { productsEntrance } = useSelector((state) => state.product);
   const [hasAmountBilling, setHasAmountBilling] = useState(false);
+  const [formValues, setFormValues] = useState({ totalAmount: 0, items: productsEntrance });
+  const initialItems = { code: '', trademark: 'CTP', location: '', costPrice: 0 };
+  const emptyEntrance = {
+    totalAmount: 0.0001,
+    items: productsEntrance,
+  };
 
-  const onOk = () => {
-    form
-      .validateFields()
-      .then((values) => {
-        const { hasAmountBilling, totalAmount, items } = values;
+  useEffect(() => {
+    setFormValues(emptyEntrance);
+  }, []);
 
-        if (hasAmountBilling) {
-          const billingAmount = items
-            .map(({ qty, costPrice }) => {
-              return qty * costPrice;
-            })
-            .reduce((a, b) => a + b, 0);
-
-          checkAmountMatch(totalAmount, billingAmount, items);
-        } else {
-          console.log(`dispatch(saveNewStockEntrance(${JSON.stringify(items, null, 2)}))`);
-        }
-      })
-      .catch(({ errorFields }) => {
-        const errors = errorFields.map((field) => {
-          return `${field.errors[0]}, `;
-        });
-        Modal.warning({
-          title: 'Error al enviar los datos',
-          content: [errors],
-          okText: 'Aceptar',
-          okType: 'primary',
-          confirmLoading: true,
-          autoFocusButton: null,
-          onOk() {},
-        });
-      });
+  const onClickAddItem = (add) => {
+    const { items } = form.getFieldsValue();
+    dispatch(setProductsEntrance(items));
+    add(initialItems);
   };
 
   const onCancel = () => {
     form.resetFields();
+    dispatch(clearProductsEntrance());
+  };
+  const onClick = (form) => {
+    onButtonSaveOk(form);
+    dispatch(clearProductsEntrance());
   };
 
   const onChangeHasAmountBilling = (e) => {
     setHasAmountBilling(e.target.checked);
   };
 
+  const onFieldsChange = async (e) => {
+    const fieldChanged = e[0].name.slice(-1).pop();
+    const index = e[0].name.slice(-2)[0];
+
+    if (fieldsWatch.includes(fieldChanged)) {
+      const { items } = form.getFieldsValue();
+      const { code, trademark } = items[index];
+      const stock = await getProductLocation(code, trademark);
+      if (stock?.length > 0) {
+        const locationMin = objectMin(stock, 'qty');
+
+        form.setFields([
+          {
+            name: ['items', index, 'location'],
+            value: locationMin?.location,
+          },
+        ]);
+      }
+    }
+  };
+
   return (
-    <Form form={form} name='stock-entrance' initialValues={emptyEntrance} layout={'horizontal'}>
+    <Form
+      form={form}
+      name='stock-entrance'
+      initialValues={formValues}
+      onFieldsChange={onFieldsChange}
+      layout={'vertical'}
+    >
       <Row>
         <Col xs={24} lg={8}>
           <Form.Item name='hasAmountBilling' valuePropName='checked' wrapperCol={{ offset: 5 }}>
@@ -83,52 +101,35 @@ export const StockEntranceForm = () => {
             {items.map((field, index) => (
               <Space key={index} align='baseline'>
                 <Row key={field.code} gutter={12} align='middle' justify='space-around'>
-                  <Col xs={24} lg={6}>
+                  <Col xs={24} lg={4}>
                     <InputCode index={index} />
                   </Col>
-
-                  <Col xs={24} lg={6}>
+                  <Col xs={24} lg={5}>
                     <InputTrademark field={field} index={index} />
                   </Col>
-
-                  <Col xs={24} lg={6}>
-                    <InputNumeric
-                      name='qty'
-                      label='Cantidad'
-                      placeholder='indique la cantidad'
-                      rules={[
-                        { required: true, type: 'number', min: 0.0002, message: 'Ingrese la cantidad del producto' },
-                      ]}
-                      index={index}
-                    />
+                  <Col xs={24} lg={4}>
+                    <InputLocation index={index} />
                   </Col>
                   <Col xs={24} lg={5}>
-                    <InputNumeric
-                      name='costPrice'
-                      label='Precio'
-                      placeholder='indique el Precio'
-                      rules={[{ required: true, type: 'number', min: 0.0002, message: 'Indique el precio' }]}
-                      index={index}
-                    />
+                    <InputQty index={index} />
+                  </Col>
+                  <Col xs={24} lg={5}>
+                    <InputCostPrice index={index} />
                   </Col>
                   <Col xs={24} lg={1}>
-                    <CloseSquareOutlined
-                      style={{
-                        color: '#dc1919',
-                        fontSize: '18px',
-                        marginLeft: 5,
-                        marginBottom: 28,
+                    <RemoveIcon
+                      onClick={() => {
+                        remove(field.name);
                       }}
-                      onClick={() => remove(field.name)}
                     />
                   </Col>
                 </Row>
               </Space>
             ))}
 
-            <Row gutter={12} justify='end'>
+            <Row gutter={12} justify='start'>
               <Form.Item>
-                <Button type='dashed' onClick={() => add()} icon={<PlusOutlined />}>
+                <Button type='dashed' onClick={() => onClickAddItem(add)} icon={<PlusOutlined />}>
                   Agregar item
                 </Button>
               </Form.Item>
@@ -138,7 +139,7 @@ export const StockEntranceForm = () => {
                 <Button onClick={onCancel}>Cancelar</Button>
               </Col>
               <Col>
-                <Button type='primary' onClick={onOk}>
+                <Button type='primary' onClick={() => onClick(form)}>
                   Guardar
                 </Button>
               </Col>

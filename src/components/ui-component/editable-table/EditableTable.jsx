@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'antd';
 import { EditableRow } from './EditableRow';
 import { EditableCell } from './EditableCell';
 import './editable-table.scss';
 
-export const EditableContext = React.createContext(null);
+export const EditableContext = createContext(null);
 
-export const EditableTable = ({ dataSource, cols, summary, saveTableData }) => {
+export const EditableTable = ({ dataSource, cols, summary, saveTableData, expanded = false, pagination = false }) => {
   const handleSave = (row) => {
     const newData = [...dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
@@ -44,6 +44,15 @@ export const EditableTable = ({ dataSource, cols, summary, saveTableData }) => {
   if (summary) {
     summaryRender = (pageData) => summary(pageData);
   }
+  const renderExpander = () => {
+    expanded
+      ? {
+          rowExpandable: (record) => record.details?.length > 1,
+          expandedRowRender: /*eslint-disable-line*/ (record) => <p>{record.replacement}</p>,
+          expandRowByClick: true,
+        }
+      : {};
+  };
 
   return (
     <div className='--editable-info__container'>
@@ -53,9 +62,25 @@ export const EditableTable = ({ dataSource, cols, summary, saveTableData }) => {
         rowClassName={() => 'editable-row'}
         dataSource={dataSource}
         columns={columns}
-        pagination={false}
-        scroll={{ x: 'max-content' }}
+        size='small'
+        bordered={true}
+        pagination={pagination}
+        scroll={{ x: 'fit-content' }}
         summary={summaryRender}
+        {...renderExpander}
+        /* rowExpandable={(record) => record.details?.length > 1}
+        expandedRowRender={(record) => <p>{record.replacement}</p>}
+        expandRowByClick={true} */
+        /* pagination={{
+          total: 5600,
+          current: 1,
+          onChange: (page, pageSize) => {
+              console.log('current page: ', page)
+              this.setState({
+                  current: page
+              })
+          } 
+        }} */
       />
     </div>
   );
@@ -66,4 +91,6 @@ EditableTable.propTypes = {
   dataSource: PropTypes.array,
   summary: PropTypes.func,
   saveTableData: PropTypes.func,
+  expanded: PropTypes.bool,
+  pagination: PropTypes.bool,
 };

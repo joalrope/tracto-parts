@@ -14,6 +14,7 @@ export const types = {
   uiFinishLoading: '[ui] Finish loading',
   uiSetCurrentPath: '[ui] Set Current Path',
   uiSetContentBackground: '[ui] Set Content Background',
+  uiclearContentBackground: '[ui] clear Content Background',
   uiSetContentStyles: '[ui] Set Content styles',
 
   productSetActive: '[product] Set active',
@@ -25,9 +26,12 @@ export const types = {
   productDeleted: '[product] product deleted',
   productLoaded: '[product] Loaded products',
   productclearProductsLoaded: '[product] clear Loaded products',
-  productAddedForSale: '[product] added for sale',
+  productAddProductForSale: '[product] added for sale',
   productSetProductsForSale: '[product] set products for sale',
   productClearProductsForSale: '[product] clear products for sale',
+  productAddProductForEntrance: '[product] add entrance',
+  productSetProductsEntrance: '[product] set products entrance',
+  productClearProductsEntrance: '[product] clear products entrance',
 
   customersLoaded: '[customer] Loaded customers',
   customerSetActiveCustomer: '[customer] Set active customer',

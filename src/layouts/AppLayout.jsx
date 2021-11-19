@@ -28,12 +28,14 @@ export const AppLayout = () => {
   const { contentBackgroundImage, loading, currentPath } = useSelector((state) => state.ui);
   const location = useLocation();
 
-  const handleClick = (route) => {
-    dispatch(setCurrentPath(route.keyPath[0]));
-    if (route.key === '/logout') {
+  const handleClick = ({ key, keyPath }) => {
+    const [path] = keyPath;
+    dispatch(setCurrentPath(path));
+    if (key === '/logout') {
       dispatch(startLogout());
       clearStore(dispatch);
-      history.push('/login');
+      history.push('/home');
+      dispatch(setCurrentPath('/home'));
     }
   };
 

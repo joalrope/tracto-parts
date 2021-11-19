@@ -2,6 +2,7 @@ import { types } from '../types/types';
 import { fetchWithoutToken, fetchWithToken } from '../helpers/fetch';
 import history from '../helpers/history/history';
 import { Modal } from 'antd';
+import { setCurrentPath } from './ui';
 
 export const startLogin = (email, password) => {
   return async (dispatch) => {
@@ -20,6 +21,7 @@ export const startLogin = (email, password) => {
       sessionStorage.token = token;
       sessionStorage.isLogged = true;
       history.push('/home');
+      dispatch(setCurrentPath('/home'));
       dispatch(checkingFinish());
     } else {
       dispatch(checkingFinish());

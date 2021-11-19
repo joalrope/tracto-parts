@@ -4,15 +4,13 @@ import { useDispatch } from 'react-redux';
 import { Card, Avatar, Image, Tooltip, Carousel, Tag } from 'antd';
 import { CloseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { productClearActive } from '../../../../actions/products';
-import { getUrlImage } from '../../../../helpers/getUrlImage';
-import { getQtyAvailableByTrademark } from '../../../../helpers/products/get-qty-available';
-//import { urlImages } from '../../../../assets/data/urlImages';
 import noImage from '../../../../assets/images/no-imagen.png';
+import { getUrlIconImage } from '../../../../helpers/getUrlIconImage';
+import { getQtyAvailableByTrademark } from '../../../../helpers/products/get-qty-available';
 import { getTrademarkIcons } from '../../../../helpers/getTrademarkIcons';
 import './product-card.scss';
 
 const { Meta } = Card;
-/* <img src={`${process.env.PUBLIC_URL}/assets/icons/${item.trademark}.png`} alt={item.trademark} /> */
 
 export const ProductCard = ({ product, setProductForSale }) => {
   const dispatch = useDispatch();
@@ -51,7 +49,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
     prevArrow: <RightOutlined onClick={handleClickPrev} />,
   };
 
-  const url = getUrlImage(product.code, product.details[0].trademark);
+  const url = getUrlIconImage(product.code, product.details[0].trademark);
 
   return (
     <div className='product-card__container'>
@@ -62,11 +60,9 @@ export const ProductCard = ({ product, setProductForSale }) => {
             alt={`${product.code}.jpg`}
             src={url}
             style={{ backgroundColor: '#f2bd15', height: '200px' }}
-            //src={`${urlImages[product.details[0].trademark.toLowerCase()]}${product.code}.jpg`}
             fallback={noImage}
           />
         }
-        //actions={actions}
         size='small'
         title={
           <div className='--product-card__title-card'>
@@ -79,14 +75,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
         extra={<CloseOutlined onClick={clearActiveProduc} />}
       >
         <Meta description={<span>{product.title}</span>} />
-        <Carousel
-          myRef={carouselRef}
-          className='--product-card__carousel'
-          arrows
-          {...settings}
-          dots={false}
-          //afterChange={onChangeCarousel}
-        >
+        <Carousel myRef={carouselRef} className='--product-card__carousel' arrows {...settings} dots={false}>
           {Object.values(product.details).map((item) => {
             return (
               <div key={item.trademark} className='--product-card__details'>
@@ -104,7 +93,6 @@ export const ProductCard = ({ product, setProductForSale }) => {
                     arrows
                     {...settings}
                     dots={false}
-                    //afterChange={onChangeCarousel}
                   >
                     {Object.values(item.stock).map((stock) => {
                       return (

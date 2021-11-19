@@ -10,9 +10,7 @@ export const SearchProductForm = ({ searchResult }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
 
-  const searchProduct = async (e) => {
-    const code = e.target.value.toUpperCase();
-
+  const searchProduct = async (code) => {
     const { ok, result } = await getProductByCode(code);
     if (!ok) {
       Modal.confirm({
@@ -50,7 +48,7 @@ export const SearchProductForm = ({ searchResult }) => {
     >
       <Row>
         <Col sx={24} lg={6}>
-          <InputCode onPressEnter={searchProduct} />
+          <InputCode withResult={true} onPressEnter={searchProduct} />
         </Col>
       </Row>
     </Form>

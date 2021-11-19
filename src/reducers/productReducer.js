@@ -3,6 +3,7 @@ import { types } from '../types/types';
 const initialState = {
   products: [],
   productsForSale: [],
+  productsEntrance: [{ code: '', trademark: 'CTP', location: '', qty: 1, costPrice: 0 }],
   activeProduct: null,
 };
 
@@ -34,7 +35,7 @@ export const productReducer = (state = initialState, action) => {
         activeProduct: null,
       };
 
-    case types.productAddedForSale:
+    case types.productAddProductForSale:
       return {
         ...state,
         productsForSale: [...state.productsForSale, action.payload],
@@ -50,6 +51,24 @@ export const productReducer = (state = initialState, action) => {
       return {
         ...state,
         productsForSale: [],
+      };
+
+    case types.productAddProductForEntrance:
+      return {
+        ...state,
+        productsEntrance: [...state.productsEntrance, action.payload],
+      };
+
+    case types.productSetProductsEntrance:
+      return {
+        ...state,
+        productsEntrance: action.payload,
+      };
+
+    case types.productClearProductsEntrance:
+      return {
+        ...state,
+        productsEntrance: initialState.productsEntrance,
       };
 
     default:

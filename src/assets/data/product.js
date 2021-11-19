@@ -22,6 +22,10 @@ export const product = {
           location: 'DEP-23-H2',
           qty: 10,
         },
+        {
+          location: 'DEP-17-B8',
+          qty: 3,
+        },
       ],
       costPrice: 30.03,
       salePrice: 300.3,

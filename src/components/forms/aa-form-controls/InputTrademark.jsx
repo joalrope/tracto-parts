@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Divider, Form, Space, Select } from 'antd';
@@ -10,6 +10,7 @@ const Option = Select.Option;
 
 export const InputTrademark = ({ details, field, add, remove, index = -1 }) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const { titles } = useSelector((state) => state.trademark);
   const listSelectOptions = titles.map((o) => <Option key={o}>{o}</Option>);
 
@@ -18,7 +19,9 @@ export const InputTrademark = ({ details, field, add, remove, index = -1 }) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     dispatch(getTrademarksTitle());
+    setLoading(false);
   }, []);
 
   return (
@@ -43,9 +46,11 @@ export const InputTrademark = ({ details, field, add, remove, index = -1 }) => {
             </div>
           }
           name={index === -1 ? 'trademark' : [index, 'trademark']}
+          help='Seleccione una marca'
           rules={[{ required: true }]}
         >
           <Select
+            loading={loading}
             dropdownMatchSelectWidth={160}
             dropdownRender={(menu) => (
               <div>

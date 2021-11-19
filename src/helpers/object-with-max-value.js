@@ -5,6 +5,13 @@ export const objectMax = (array, key) => {
   return array[maxValueIndex];
 };
 
+export const objectMin = (array, key) => {
+  const targetValues = array.map((obj) => obj[key]);
+  const minValue = Math.min(...targetValues);
+  const minValueIndex = targetValues.indexOf(minValue);
+  return array[minValueIndex];
+};
+
 export const keyExists = (array, value) => {
   let result = false;
   array.map((obj) => {

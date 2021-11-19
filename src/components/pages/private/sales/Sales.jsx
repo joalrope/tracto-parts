@@ -17,7 +17,7 @@ import { saleInfo } from './controllers/saleInfo';
 import { showInfoQtyAvailable } from './controllers/showInfoQtyAvailable';
 import { setItemsForBilling } from './controllers/setItemsForBilling';
 import { summary } from './components/Summary';
-import { updateQtyItemsSold } from './controllers/updateQtyItems';
+import { updateQtyItemsSold } from '../../../../helpers/products/update-qty-items';
 import { ActionRender } from './components/ActionRender';
 import { SearchCustomer } from './components/SearchCustomer';
 import { SearchProduct } from './components/SearchProduct';
@@ -30,12 +30,16 @@ export const Sales = () => {
   const [invoiceNumber, setInvoiceNumber] = useState('');
 
   useEffect(async () => {
+    const abortController = new AbortController();
     const billingInfo = await getBillingInfo();
     if (billingInfo) {
       const { controlNumber, ivaTax } = billingInfo;
       setIvaTax(ivaTax);
       setInvoiceNumber(controlNumber);
     }
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   const { activeProduct, productsForSale } = useSelector((state) => state.product);

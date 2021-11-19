@@ -14,6 +14,7 @@ import {
   Reports,
   EditProducts,
   Sales,
+  Stock,
   StockEntrance,
 } from '../components/pages/index';
 
@@ -124,8 +125,8 @@ export const routes = [
     name: 'Inventario',
     access: stock,
     icon: <AppstoreAddOutlined />,
-    redirectTo: '/app/stock-editproducts',
-    //component: Stock,
+    //redirectTo: '/app/stock-editproducts',
+    component: Stock,
   },
   {
     key: '/app/sales',

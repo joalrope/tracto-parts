@@ -3,6 +3,13 @@ import { fetchWithToken } from '../helpers/fetch';
 import { jsonSort } from '../helpers/json-sort';
 import { types } from '../types/types';
 
+export const getProducts = async () => {
+  const { ok, result } = await fetchWithToken(`/products`);
+  if (ok) {
+    return result;
+  }
+};
+
 export const findProductByCode = (code) => {
   return async (dispatch) => {
     try {
@@ -49,9 +56,22 @@ export const getProductsByCodeRegex = async (code) => {
   }
 };
 
-export const updateProductQty = async (id, product) => {
+export const updateProductQty = async (product) => {
+  const { code } = product;
   try {
-    await fetchWithToken(`/products/qty/${id}`, product, 'PUT');
+    await fetchWithToken(`/products/qty/${code}`, product, 'PUT');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getProductLocation = async (code, trademark) => {
+  try {
+    const { ok, result } = await fetchWithToken(`/products/location/code/${code}/trademark/${trademark}`);
+    if (ok) {
+      return result;
+    }
+    return [];
   } catch (error) {
     console.log(error);
   }
@@ -103,6 +123,10 @@ export const createProduct = (product) => {
   };
 };
 
+export const saveNewStockEntrance = (products) => {
+  console.log(products);
+};
+
 export const productSetActive = (product) => ({
   type: types.productSetActive,
   payload: product,
@@ -117,7 +141,7 @@ export const clearProductsLoaded = () => ({
 });
 
 export const addProductForSale = (product) => ({
-  type: types.productAddedForSale,
+  type: types.productAddProductForSale,
   payload: product,
 });
 
@@ -125,12 +149,26 @@ export const clearProductsForSale = () => ({
   type: types.productClearProductsForSale,
 });
 
-export const setProductsForSale = (data) => ({
+export const setProductsForSale = (products) => ({
   type: types.productSetProductsForSale,
-  payload: data,
+  payload: products,
 });
 
 const setProductsLoaded = (products) => ({
   type: types.productLoaded,
   payload: products,
+});
+
+export const addProductForEntrance = (product) => ({
+  type: types.productAddProductForEntrance,
+  payload: product,
+});
+
+export const setProductsEntrance = (products) => ({
+  type: types.productSetProductsEntrance,
+  payload: products,
+});
+
+export const clearProductsEntrance = () => ({
+  type: types.productClearProductsEntrance,
 });

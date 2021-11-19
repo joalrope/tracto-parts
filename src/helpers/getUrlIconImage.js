@@ -1,6 +1,6 @@
 //import noImage from '../assets/images/no-image.jpeg';
 
-export const getUrlImage = (code, trademark) => {
+export const getUrlIconImage = (code, trademark) => {
   let newTrademark = trademark;
 
   if (
