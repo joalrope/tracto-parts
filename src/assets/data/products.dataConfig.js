@@ -125,6 +125,7 @@ export const gralColumns = [
     ellipsis: {
       showTitle: false,
     },
+    render: /*eslint-disable-line*/ (value) => <p>{String(value.toUpperCase())}</p>,
   },
   {
     title: 'Descripción',
@@ -133,9 +134,9 @@ export const gralColumns = [
     width: 120,
     ellipsis: true,
 
-    render: /*eslint-disable-line*/ (title) => (
-      <Tooltip style={{ color: 'yellow' }} placement='topLeft' title={title}>
-        {title}
+    render: /*eslint-disable-line*/ (value) => (
+      <Tooltip style={{ color: 'yellow' }} placement='topLeft' title={value}>
+        {value}
       </Tooltip>
     ),
   },
