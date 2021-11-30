@@ -1,9 +1,22 @@
 import { Modal } from 'antd';
-import { createProduct, productClearActive, updateProduct } from '../../../../../actions/products';
+import { createProduct, productClearActive, updateProduct, deleteProduct } from '../../../../../actions/products';
 import { setDisplayAddProductForm } from '../../../../../actions/shows';
 
 const changesAccepted = (form, id, values, setShowAddProductForm, dispatch, mode) => {
-  mode === 'edit' ? updateProduct(id, values) : dispatch(createProduct(values));
+  switch (mode) {
+    case 'edit':
+      updateProduct(id, values);
+      break;
+    case 'add':
+      dispatch(createProduct(values));
+      break;
+    case 'delete':
+      deleteProduct(id);
+      break;
+    default:
+      break;
+  }
+
   form.resetFields();
   dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
   setShowAddProductForm(false);
@@ -17,10 +30,20 @@ const changesRejected = (setShowAddProductForm, dispatch) => {
 };
 
 export const onAccepted = (form, id, values, setShowAddProductForm, mode) => {
+  let title;
+  let content;
+  if (mode === 'delete') {
+    title = `Eliminar ${values.code}`;
+    content = `¿Confirma eliminar el Producto`;
+  } else {
+    title = `Actualizar ${values.code}`;
+    content = '¿Desea guardar los cambios?';
+  }
+
   return (dispatch) => {
     Modal.confirm({
-      title: `Actualizar ${values.code}`,
-      content: '¿Desea guardar los cambios?',
+      title,
+      content,
       okText: 'Si',
       okType: 'primary',
       cancelText: 'No',

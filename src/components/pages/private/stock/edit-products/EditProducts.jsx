@@ -39,11 +39,22 @@ export const EditProducts = () => {
       });
   };
 
+  const onDelete = () => {
+    setModeProductForm('delete');
+  };
+
+  useEffect(() => {
+    if (modeProductForm === 'delete') {
+      onOk();
+    }
+  }, [modeProductForm]);
+
   const onCancel = () => {
     dispatch(productClearActive());
     //dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
     setShowAddProductForm(false);
   };
+
   return (
     <div className='--stock-page__container'>
       <Row>
@@ -67,8 +78,15 @@ export const EditProducts = () => {
         </Col>
         <Col xs={24} lg={12}>
           {showAddProductForm && (
-            <Button style={{ margin: '0 0 20px 0', width: '100%' }} onClick={onOk}>
+            <Button style={{ margin: '0 0 20px 0', width: '100%' }} onClick={() => onOk()}>
               Aceptar
+            </Button>
+          )}
+        </Col>
+        <Col xs={24} lg={12}>
+          {showAddProductForm && (
+            <Button style={{ margin: '0 0 20px 0', width: '100%' }} onClick={() => onDelete()}>
+              Eliminar
             </Button>
           )}
         </Col>

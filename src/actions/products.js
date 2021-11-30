@@ -108,8 +108,6 @@ export const createProduct = (product) => {
     try {
       const resultProduct = await fetchWithToken('/products', product, 'POST');
 
-      //const resultCustomer = await resp.json();
-
       const { ok, msg, result } = resultProduct;
       if (ok) {
         const product = jsonSort(result, productTemplate);
@@ -121,6 +119,18 @@ export const createProduct = (product) => {
       console.log(error);
     }
   };
+};
+
+export const deleteProduct = async (id) => {
+  try {
+    const { ok, result } = await fetchWithToken(`/products/${id}`, {}, 'DELETE');
+
+    if (ok) {
+      console.log(result);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const saveNewStockEntrance = (products) => {

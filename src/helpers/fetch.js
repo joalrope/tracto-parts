@@ -9,18 +9,24 @@ let response;
 
 const fetchWithoutToken = (endpoint, data, method = 'GET') => {
   const url = `${baseUrl}${endpoint}`;
-  //const fetching = useSelector(state => state.state)
 
   if (method === 'GET') {
-    response = fetch(url).then((resp) => {
-      if (resp.ok) {
-        return resp.json();
-      } else {
-        return {
-          ok: false,
-        };
-      }
-    });
+    response = fetch(url)
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          return {
+            ok: false,
+          };
+        }
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((e) => {
+        return catchError(e);
+      });
   } else {
     response = fetch(url, {
       method,
@@ -29,15 +35,22 @@ const fetchWithoutToken = (endpoint, data, method = 'GET') => {
         'x-role': 'basic',
       },
       body: JSON.stringify(data),
-    }).then((resp) => {
-      if (resp.ok) {
-        return resp.json();
-      } else {
-        return {
-          ok: false,
-        };
-      }
-    });
+    })
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          return {
+            ok: false,
+          };
+        }
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((e) => {
+        return catchError(e);
+      });
   }
 
   return response;
@@ -58,30 +71,68 @@ const fetchWithToken = (endpoint, data, method = 'GET', header) => {
     response = fetch(url, {
       method,
       headers: getHeaders,
-    }).then((resp) => {
-      checkSessionStatus(resp.status);
-      return resp.json();
-    });
+      //signal: setTimeout(50).signal,
+    })
+      .then((resp) => {
+        checkSessionStatus(resp.status);
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          return {
+            ok: false,
+            msg: 'No se pudo obtener el recurso',
+            result: {},
+          };
+        }
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((e) => {
+        return catchError(e);
+      });
   } else {
     response = fetch(url, {
       method,
       headers: postHeaders,
+      //signal: setTimeout(50).signal,
       body: JSON.stringify(data),
-    }).then((resp) => {
-      checkSessionStatus(resp.status);
-      if (resp.ok) {
-        return resp.json();
-      } else {
-        return {
-          ok: false,
-          msg: 'No se pudo crear el recurso',
-          result: {},
-        };
-      }
-    });
+    })
+      .then((resp) => {
+        checkSessionStatus(resp.status);
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          return {
+            ok: false,
+            msg: 'No se pudo crear el recurso',
+            result: {},
+          };
+        }
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((e) => {
+        return catchError(e);
+      });
   }
 
   return response;
+};
+
+/* const setTimeout = (time) => {
+  let controller = new AbortController();
+  setTimeout(() => controller.abort(), time * 1000);
+  return controller;
+}; */
+
+const catchError = (error) => {
+  return {
+    ok: false,
+    msg: 'La solicitud fue rechazada. Parece que no hay conección de Internet',
+    result: error,
+  };
 };
 
 const checkSessionStatus = (status) => {
@@ -94,6 +145,13 @@ const checkSessionStatus = (status) => {
     return {
       ok: false,
       msg: 'unauthorized',
+      result: {},
+    };
+  }
+  if (status === 404) {
+    return {
+      ok: false,
+      msg: 'Recurso No encontrado',
       result: {},
     };
   }

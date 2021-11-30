@@ -1,21 +1,21 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { Input, Form, Modal } from 'antd';
-import { getProductByCode } from '../../../actions/products';
-import { setDisplayAddProductForm } from '../../../actions/shows';
+//import { useDispatch } from 'react-redux';
+import { Input, Form /* , Modal */ } from 'antd';
+//import { getProductByCode } from '../../../actions/products';
+//import { setDisplayAddProductForm } from '../../../actions/shows';
 
 export const InputCode = ({ index = -1, withResult = false, onPressEnter }) => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const ref = useRef(null);
   const onDownEnter = async (e) => {
     const code = e.target.value;
-    let ok;
-    if (code?.length > 2) {
+    //let ok;
+    /*  if (code?.length > 2) {
       ({ ok } = await getProductByCode(code));
-    }
+    } */
 
-    if (!ok && code?.length > 2) {
+    /* if (!ok && code?.length > 2) {
       return Modal.confirm({
         title: 'Disponibilidad',
         content: [`El código ${code} no existe`, `¿Desea crearlo?`],
@@ -27,7 +27,7 @@ export const InputCode = ({ index = -1, withResult = false, onPressEnter }) => {
         },
         onCancel() {},
       });
-    }
+    } */
     if (withResult) {
       onPressEnter(code);
     }
@@ -46,7 +46,7 @@ export const InputCode = ({ index = -1, withResult = false, onPressEnter }) => {
       ]}
       normalize={(value) => (value ? value.toUpperCase().trim() : value)}
     >
-      <Input ref={ref} onPressEnter={onDownEnter} onBlur={onDownEnter} />
+      <Input ref={ref} onPressEnter={onDownEnter} />
     </Form.Item>
   );
 };
