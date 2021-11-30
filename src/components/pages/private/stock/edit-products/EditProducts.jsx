@@ -69,24 +69,24 @@ export const EditProducts = () => {
         </Col>
       </Row>
       <Row gutter={20}>
-        <Col xs={24} lg={12}>
+        <Col xs={24} lg={8}>
+          {showAddProductForm && (
+            <Button style={{ margin: '0 0 20px 0', width: '100%' }} onClick={() => onDelete()}>
+              Eliminar
+            </Button>
+          )}
+        </Col>
+        <Col xs={24} lg={8}>
           {showAddProductForm && (
             <Button style={{ margin: '0 0 20px 0', width: '100%' }} onClick={onCancel}>
               Cancelar
             </Button>
           )}
         </Col>
-        <Col xs={24} lg={12}>
+        <Col xs={24} lg={8}>
           {showAddProductForm && (
             <Button style={{ margin: '0 0 20px 0', width: '100%' }} onClick={() => onOk()}>
               Aceptar
-            </Button>
-          )}
-        </Col>
-        <Col xs={24} lg={12}>
-          {showAddProductForm && (
-            <Button style={{ margin: '0 0 20px 0', width: '100%' }} onClick={() => onDelete()}>
-              Eliminar
             </Button>
           )}
         </Col>
