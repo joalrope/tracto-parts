@@ -117,6 +117,13 @@ export const forSaleColumns = [
 
 export const gralColumns = [
   {
+    title: 'key',
+    dataIndex: 'key',
+    key: 'key',
+    aling: 'center',
+    width: 0,
+  },
+  {
     title: 'Código',
     dataIndex: 'code',
     key: 'code',
@@ -160,7 +167,7 @@ export const gralColumns = [
         dataIndex: ['details', 0, 'salePrice'],
         key: 'salePrice',
         align: 'right',
-        width: 50,
+        width: 70,
         ellipsis: true,
         render: /*eslint-disable-line*/ (value) => {
           return (
@@ -183,7 +190,7 @@ export const gralColumns = [
             dataIndex: ['details', 0, 'stock', 0, 'qty'],
             key: 'qty',
             align: 'right',
-            width: 50,
+            width: 60,
             ellipsis: true,
             render: /*eslint-disable-line*/ (value) => {
               return (
@@ -201,7 +208,7 @@ export const gralColumns = [
             dataIndex: ['details', 0, 'stock', 0, 'location'],
             key: 'location',
             align: 'center',
-            width: 50,
+            width: 70,
             ellipsis: {
               showTitle: false,
             },

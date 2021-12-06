@@ -1,12 +1,13 @@
 import React, { createRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Image, Form, Modal } from 'antd';
+import { Image, Modal } from 'antd';
 import Draggable from 'react-draggable';
 import logo from '../../../assets/images/logo.png';
 import './modal-form.scss';
 
 export const ModalForm = ({
   WrappedComponent,
+  form,
   title,
   visible,
   onOk,
@@ -16,7 +17,7 @@ export const ModalForm = ({
   draggable,
   width,
 }) => {
-  const [form] = Form.useForm();
+  //const [form] = Form.useForm();
   const [disable, setDisable] = useState(true);
   const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
 
@@ -93,7 +94,6 @@ export const ModalForm = ({
           .validateFields()
           .then((values) => {
             onOk(values);
-            form.resetFields();
           })
           .catch((info) => {
             console.log('Validate Failed:', info);

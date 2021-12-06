@@ -1,5 +1,5 @@
 export const setItemsForBilling = (products) => {
-  products.map((item) => {
+  return products.map((item) => {
     const { code, title, qty, trademark, salePrice, totalItem } = item;
     return {
       code,

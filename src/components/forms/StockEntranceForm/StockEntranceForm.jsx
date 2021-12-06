@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Checkbox, Col, Form, Row, Space } from 'antd';
+import { Button, Checkbox, Col, Form, Modal, Row, Space } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import {
+  getProductLocation,
+  setProductsEntrance,
+  clearProductsEntrance,
+  getProductByCode,
+  productSetActive,
+} from '../../../actions/products';
+import { objectMin } from '../../../helpers/object-with-max-value';
 import { InputCode } from '../aa-form-controls/InputCode';
 import { InputCostPrice, InputNumeric, InputQty } from '../aa-form-controls/InputNumeric';
 import { InputTrademark } from '../aa-form-controls/InputTrademark';
 import { RemoveIcon } from '../aa-form-controls/RemoveIcon';
 import { InputLocation } from '../aa-form-controls/InputLocation';
 import { onButtonSaveOk } from './controllers';
-import { getProductLocation, setProductsEntrance, clearProductsEntrance } from '../../../actions/products';
-import { objectMin } from '../../../helpers/object-with-max-value';
+import { emptyProduct } from '../ProductForm/controller';
+import { setDisplayAddProductForm } from '../../../actions/shows';
 
-const fieldsWatch = ['code', 'trademark'];
+const fieldWatchs = ['code', 'trademark'];
 
 export const StockEntranceForm = () => {
   const dispatch = useDispatch();
@@ -52,20 +60,43 @@ export const StockEntranceForm = () => {
     const fieldChanged = e[0].name.slice(-1).pop();
     const index = e[0].name.slice(-2)[0];
 
-    if (fieldsWatch.includes(fieldChanged)) {
+    if (fieldWatchs.includes(fieldChanged)) {
       const { items } = form.getFieldsValue();
       const { code, trademark } = items[index];
-      const stock = await getProductLocation(code, trademark);
-      if (stock?.length > 0) {
-        const locationMin = objectMin(stock, 'qty');
+      if (code.length > 2) {
+        const stock = await getProductLocation(code, trademark);
+        if (stock?.length > 0) {
+          const locationMin = objectMin(stock, 'qty');
 
-        form.setFields([
-          {
-            name: ['items', index, 'location'],
-            value: locationMin?.location,
-          },
-        ]);
+          form.setFields([
+            {
+              name: ['items', index, 'location'],
+              value: locationMin?.location,
+            },
+          ]);
+        }
       }
+    }
+  };
+
+  const searchProduct = async (code) => {
+    const { ok } = await getProductByCode(code);
+    if (!ok) {
+      Modal.confirm({
+        title: `El producto de código: ${code} no existe`,
+        content: '¿Desea crear este Producto?',
+        okText: 'Si',
+        okType: 'primary',
+        cancelText: 'No',
+        confirmLoading: true,
+        autoFocusButton: null,
+        onCancel() {},
+        onOk() {
+          emptyProduct['code'] = code;
+          dispatch(productSetActive(emptyProduct));
+          dispatch(setDisplayAddProductForm({ show: true, mode: 'add' }));
+        },
+      });
     }
   };
 
@@ -102,18 +133,18 @@ export const StockEntranceForm = () => {
               <Space key={index} align='baseline'>
                 <Row key={field.code} gutter={12} align='middle' justify='space-around'>
                   <Col xs={24} lg={4}>
-                    <InputCode index={index} />
+                    <InputCode index={index} withResult={true} onPressEnter={searchProduct} />
                   </Col>
                   <Col xs={24} lg={5}>
                     <InputTrademark field={field} index={index} />
                   </Col>
-                  <Col xs={24} lg={4}>
+                  <Col xs={24} lg={5}>
                     <InputLocation index={index} />
                   </Col>
                   <Col xs={24} lg={5}>
                     <InputQty index={index} />
                   </Col>
-                  <Col xs={24} lg={5}>
+                  <Col xs={24} lg={4}>
                     <InputCostPrice index={index} />
                   </Col>
                   <Col xs={24} lg={1}>

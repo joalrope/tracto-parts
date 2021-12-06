@@ -7,7 +7,7 @@ import './editable-table.scss';
 
 export const EditableContext = createContext(null);
 
-export const EditableTable = ({ dataSource, cols, summary, saveTableData, expanded = false, pagination = false }) => {
+export const EditableTable = ({ dataSource, cols, summary, saveTableData, pagination, expanded = false }) => {
   const handleSave = (row) => {
     const newData = [...dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
@@ -68,19 +68,6 @@ export const EditableTable = ({ dataSource, cols, summary, saveTableData, expand
         scroll={{ x: 'fit-content' }}
         summary={summaryRender}
         {...renderExpander}
-        /* rowExpandable={(record) => record.details?.length > 1}
-        expandedRowRender={(record) => <p>{record.replacement}</p>}
-        expandRowByClick={true} */
-        /* pagination={{
-          total: 5600,
-          current: 1,
-          onChange: (page, pageSize) => {
-              console.log('current page: ', page)
-              this.setState({
-                  current: page
-              })
-          } 
-        }} */
       />
     </div>
   );
@@ -92,5 +79,5 @@ EditableTable.propTypes = {
   summary: PropTypes.func,
   saveTableData: PropTypes.func,
   expanded: PropTypes.bool,
-  pagination: PropTypes.bool,
+  pagination: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
 };

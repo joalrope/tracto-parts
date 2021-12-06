@@ -7,7 +7,7 @@ import { parseJwt } from './parse-jwt';
 const baseUrl = process.env.REACT_APP_API_URL;
 let response;
 
-const fetchWithoutToken = (endpoint, data, method = 'GET') => {
+export const fetchWithoutToken = (endpoint, data, method = 'GET') => {
   const url = `${baseUrl}${endpoint}`;
 
   if (method === 'GET') {
@@ -56,7 +56,7 @@ const fetchWithoutToken = (endpoint, data, method = 'GET') => {
   return response;
 };
 
-const fetchWithToken = (endpoint, data, method = 'GET', header) => {
+export const fetchWithToken = (endpoint, data, method = 'GET', header) => {
   const url = `${baseUrl}${endpoint}`;
   const role = parseJwt();
   const token = sessionStorage.token;
@@ -173,4 +173,15 @@ const showExpiredSessionMessage = (url) => {
   });
 };
 
-export { fetchWithoutToken, fetchWithToken };
+/* return fetch(
+  `${endpoint}/users?${serializeQuery({
+    per_page: meta.pageSize,
+    page: meta.page - 1,
+  })}`
+) */
+
+export function serializeQuery(query) {
+  return Object.keys(query)
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(query[key])}`)
+    .join('&');
+}

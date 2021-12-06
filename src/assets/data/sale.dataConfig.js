@@ -4,13 +4,20 @@ import React from 'react';
 
 export const saleTemplate = ['invoiceNumber', 'date', 'coin', 'customer', 'items', 'taxes', 'invoiceTotal', 'payment'];
 
-export const Columns = [
+export const columns = [
+  {
+    title: 'id',
+    dataIndex: 'id',
+    key: 'id',
+    aling: 'center',
+    width: 0,
+  },
   {
     title: 'Número',
     dataIndex: 'invoiceNumber',
     key: 'invoiceNumber',
     aling: 'center',
-    width: 20,
+    width: 30,
     ellipsis: {
       showTitle: false,
     },
@@ -19,7 +26,7 @@ export const Columns = [
     title: 'Fecha',
     dataIndex: 'date',
     key: 'date',
-    width: 20,
+    width: 30,
     ellipsis: true,
 
     /* render: /*eslint-disable-line (title) => (
@@ -47,10 +54,24 @@ export const Columns = [
     align: 'right',
     width: 30,
     ellipsis: true,
-    render: /*eslint-disable-line*/ (value) => {
+    render: /*eslint-disable-line*/ (value) => (
+      <span>
+        {Number(value).toLocaleString('es-CO', {
+          maximumFractionDigits: 2,
+          minimumFractionDigits: 2,
+        })}
+      </span>
+    ),
+  },
+  {
+    title: '',
+    dataIndex: 'items',
+    key: 'items',
+    width: 0,
+    render: /*eslint-disable-line*/ (items) => {
       return (
         <span>
-          {Number(value).toLocaleString('es-CO', {
+          {Number(items.lenght).toLocaleString('es-CO', {
             maximumFractionDigits: 2,
             minimumFractionDigits: 2,
           })}

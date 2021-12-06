@@ -9,7 +9,7 @@ export const updateQtyItemsSold = (products) => {
 
 export const updateQtyItemsEntrance = (products) => {
   products.map((item) => {
-    const { code, qty, trademark, location } = item;
-    updateProductQty({ code, trademark, location, qty: qty });
+    const { code, trademark, location, qty } = item;
+    updateProductQty({ code, trademark, location, qty });
   });
 };

@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 import { Col, Divider, Row } from 'antd';
 import { getSales } from '../../../../actions/sales';
 import { loadingFinish, loadingStart } from '../../../../actions/ui';
-import { Columns } from '../../../../assets/data/sale.dataConfig';
+import { columns } from '../../../../assets/data/sale.dataConfig';
 import { EditableTable } from '../../../ui-component/editable-table/EditableTable';
+import { PrintActionRender } from './PrintActionRender';
 
 export const DeliveryNotes = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,16 @@ export const DeliveryNotes = () => {
       abortController.abort();
     };
   }, []);
+
+  if (!columns.find((obj) => obj.key === 'action')) {
+    columns.push({
+      title: '',
+      key: 'action',
+      width: 10,
+      render: PrintActionRender,
+    });
+  }
+
   return (
     <Row className='--stock-page__row' justify='center'>
       <Col xs={24} lg={14}>
@@ -29,7 +40,7 @@ export const DeliveryNotes = () => {
             <Divider className='--products__divider' orientation='center'>
               Notas de Entregas
             </Divider>
-            <EditableTable cols={Columns} dataSource={sales} pagination={true} />
+            <EditableTable cols={columns} dataSource={sales} pagination={true} />
           </div>
         )}
       </Col>

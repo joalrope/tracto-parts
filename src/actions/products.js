@@ -3,8 +3,8 @@ import { fetchWithToken } from '../helpers/fetch';
 import { jsonSort } from '../helpers/json-sort';
 import { types } from '../types/types';
 
-export const getProducts = async () => {
-  const { ok, result } = await fetchWithToken(`/products`);
+export const getProducts = async (page, pageSize) => {
+  const { ok, result } = await fetchWithToken(`/products/page/${page}/size/${pageSize}`);
   if (ok) {
     return result;
   }
@@ -90,9 +90,6 @@ export const findProductById = (id) => {
     try {
       const { ok, result } = await fetchWithToken(`/products/${id}`);
       const product = jsonSort(result, activeProductTemplate);
-
-      /*  const urlImage = await getProductImage(product.code, product.details[0].trademark);
-      console.log(urlImage); */
 
       if (ok) {
         dispatch(productSetActive(product));

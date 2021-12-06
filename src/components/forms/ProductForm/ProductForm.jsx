@@ -5,9 +5,8 @@ import { Col, Form, Input, Row } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { ModalForm } from '../../wrappers/ModalForm/ModalForm';
 import { InputCode } from '../aa-form-controls/InputCode';
-import { emptyProduct, cancelNewProduct /* , saveNewProduct */ } from './controller';
+import { emptyProduct, cancelNewProduct /* , saveNewProduct */, saveNewProduct } from './controller';
 import { ProductDetails } from './ProductDetails';
-
 import './product-add.scss';
 
 export const Product = ({ form }) => {
@@ -114,8 +113,8 @@ export const ProductForm = () => {
   const onOk = () => {
     form
       .validateFields()
-      .then(() => {
-        form.resetFields();
+      .then((values) => {
+        dispatch(saveNewProduct(values, form));
       })
       .catch((info) => {
         console.log('Validate Failed:', info);
@@ -132,6 +131,7 @@ export const ProductForm = () => {
       WrappedComponent={Product}
       title={mode === 'add' ? 'Crear Producto' : 'Actualizar Producto'}
       visible={show}
+      form={form}
       onOk={onOk}
       okText='Aceptar'
       onCancel={onCancel}

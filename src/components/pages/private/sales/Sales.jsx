@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Divider, Row, Button } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
+import moment from 'moment';
 import { addProductForSale, setProductsForSale } from '../../../../actions/products';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import { createSale } from '../../../../actions/sales';
+import { updateQtyItemsSold } from '../../../../helpers/products/update-qty-items';
 import { Invoice } from '../../../templates/invoice/Invoice';
 import { CustomerCard } from '../../../ui-component/customer/card/CustomerCard';
 import { EditableTable } from '../../../ui-component/editable-table/EditableTable';
@@ -16,13 +18,12 @@ import { msgWhenUnmounting } from './controllers/pdfRenderResult';
 import { saleInfo } from './controllers/saleInfo';
 import { showInfoQtyAvailable } from './controllers/showInfoQtyAvailable';
 import { setItemsForBilling } from './controllers/setItemsForBilling';
+import { productAlreadySale } from './controllers/productAlreadySale';
 import { summary } from './components/Summary';
-import { updateQtyItemsSold } from '../../../../helpers/products/update-qty-items';
 import { ActionRender } from './components/ActionRender';
 import { SearchCustomer } from './components/SearchCustomer';
 import { SearchProduct } from './components/SearchProduct';
 import './sales.scss';
-import { productAlreadySale } from './controllers/productAlreadySale';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -108,8 +109,8 @@ export const Sales = () => {
       payment: {
         onCredit: false,
         creditDays: 0,
-        isPaid: false,
-        paymentDate: '',
+        isPaid: true,
+        paymentDate: moment().format('DD/MM/YYYY'),
       },
     };
 
@@ -169,6 +170,7 @@ export const Sales = () => {
               dataSource={productsForSale}
               saveTableData={saveEditedProducts}
               summary={() => summary(productsForSale, ivaTax, setAmountTax)}
+              pagination={false}
             />
             <div className='--products-for-sale__check-in-container'>
               <Button

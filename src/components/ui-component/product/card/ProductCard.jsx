@@ -14,7 +14,7 @@ const { Meta } = Card;
 
 export const ProductCard = ({ product, setProductForSale }) => {
   const dispatch = useDispatch();
-  const carouselRef = useRef('');
+  const trademarkCarouselRef = useRef('');
   const stockCarouselRef = useRef('');
 
   const clearActiveProduc = () => {
@@ -37,11 +37,11 @@ export const ProductCard = ({ product, setProductForSale }) => {
   };
 
   const handleClickPrev = () => {
-    carouselRef.current.prev();
+    trademarkCarouselRef.current.prev();
   };
 
   const handleClickNext = () => {
-    carouselRef.current.next();
+    trademarkCarouselRef.current.next();
   };
 
   const settings = {
@@ -75,7 +75,7 @@ export const ProductCard = ({ product, setProductForSale }) => {
         extra={<CloseOutlined onClick={clearActiveProduc} />}
       >
         <Meta description={<span>{product.title}</span>} />
-        <Carousel myRef={carouselRef} className='--product-card__carousel' arrows {...settings} dots={false}>
+        <Carousel myRef={trademarkCarouselRef} className='--product-card__carousel' arrows {...settings} dots={false}>
           {Object.values(product.details).map((item) => {
             return (
               <div key={item.trademark} className='--product-card__details'>
