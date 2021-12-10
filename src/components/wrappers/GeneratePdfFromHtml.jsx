@@ -29,16 +29,18 @@ export const GeneratePdfFromHtml = ({ WrappedComponent, data, msgWhenUnmounting 
 
         dispatch(setDisplayPdfGenerated(false));
       },
-      margin: [40, 40, 40, 40],
+      margin: [20, 20, 20, 20],
     });
   }, []);
 
   useEffect(() => {
+    const abortController = new AbortController();
     return (urlBlob) => {
       URL.revokeObjectURL(urlBlob);
       if (msgWhenUnmounting) {
         msgWhenUnmounting();
       }
+      abortController.abort();
     };
   });
 

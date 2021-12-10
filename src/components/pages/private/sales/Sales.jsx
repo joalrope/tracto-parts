@@ -6,15 +6,15 @@ import moment from 'moment';
 import { addProductForSale, setProductsForSale } from '../../../../actions/products';
 import { forSaleColumns } from '../../../../assets/data/products.dataConfig';
 import { createSale } from '../../../../actions/sales';
-import { updateQtyItemsSold } from '../../../../helpers/products/update-qty-items';
-import { Invoice } from '../../../templates/invoice/Invoice';
+//import { updateQtyItemsSold } from '../../../../helpers/products/update-qty-items';
+//import { Invoice } from '../../../pdfs/invoice/Invoice';
 import { CustomerCard } from '../../../ui-component/customer/card/CustomerCard';
 import { EditableTable } from '../../../ui-component/editable-table/EditableTable';
 import { ProductCard } from '../../../ui-component/product/card/ProductCard';
-import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
+//import { GeneratePdfFromHtml } from '../../../wrappers/GeneratePdfFromHtml';
 import { checkInConfirm, repeatedProductConfirm } from './controllers/confirms';
 import { getBillingInfo } from './controllers/getBillingInfo';
-import { msgWhenUnmounting } from './controllers/pdfRenderResult';
+//import { msgWhenUnmounting } from './controllers/pdfRenderResult';
 import { saleInfo } from './controllers/saleInfo';
 import { showInfoQtyAvailable } from './controllers/showInfoQtyAvailable';
 import { setItemsForBilling } from './controllers/setItemsForBilling';
@@ -45,8 +45,8 @@ export const Sales = () => {
 
   const { activeProduct, productsForSale } = useSelector((state) => state.product);
   const { activeCustomer } = useSelector((state) => state.customer);
-  const { displayInvoicePdf } = useSelector((state) => state.show);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  //const { displayInvoicePdf } = useSelector((state) => state.show);
+  //const [selectedProduct, setSelectedProduct] = useState(null);
 
   if (!forSaleColumns.find((obj) => obj.key === 'action')) {
     forSaleColumns.push({
@@ -58,8 +58,9 @@ export const Sales = () => {
   }
 
   const setProductForSale = (record) => {
-    setSelectedProduct(record);
-    const isLoadedProduct = productAlreadySale(productsForSale, selectedProduct);
+    console.log(record);
+    //setSelectedProduct(record);
+    const isLoadedProduct = productAlreadySale(productsForSale, record);
 
     if (!isLoadedProduct) {
       record.key = productsForSale.length + 1;
@@ -67,7 +68,7 @@ export const Sales = () => {
       record.totalItem = record.qty * record.salePrice;
       dispatch(addProductForSale(record));
     } else {
-      repeatedProductConfirm(record, productsForSale, selectedProduct);
+      repeatedProductConfirm(record, productsForSale);
     }
   };
 
@@ -95,7 +96,6 @@ export const Sales = () => {
     const { billingData, totals } = data;
 
     const items = setItemsForBilling(productsForSale);
-    updateQtyItemsSold(productsForSale);
 
     const newSale = {
       invoiceNumber,
@@ -113,19 +113,20 @@ export const Sales = () => {
         paymentDate: moment().format('DD/MM/YYYY'),
       },
     };
-
+    console.log(newSale);
+    //updateQtyItemsSold(productsForSale);
     dispatch(createSale(newSale));
   };
 
   return (
     <div className='--sale-page__container'>
-      {displayInvoicePdf && (
+      {/* {displayInvoicePdf && (
         <GeneratePdfFromHtml
           WrappedComponent={Invoice}
           data={data}
           msgWhenUnmounting={() => msgWhenUnmounting(invoiceNumber)}
         />
-      )}
+      )} */}
       <Row className='--sale-page__row'>
         <div className='--search-data__container'>
           <Divider className='--search-data__divider' orientation='center'>

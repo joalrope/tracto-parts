@@ -2,7 +2,7 @@ import { types } from '../types/types';
 
 const initialState = {
   displayInvoicePdf: false,
-  displayFormCustomer: false,
+  customerForm: { show: false, mode: '' },
   trademarkForm: { show: false, mode: '' },
   productForm: { show: false, mode: '' },
 };
@@ -18,7 +18,7 @@ export const showReducer = (state = initialState, action) => {
     case types.displayFormCustomer:
       return {
         ...state,
-        displayFormCustomer: action.payload,
+        customerForm: { ...action.payload },
       };
 
     case types.displayFormTrademark:

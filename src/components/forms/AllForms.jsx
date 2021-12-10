@@ -1,5 +1,5 @@
 import React from 'react';
-import { AddCustomerForm } from './AddCustomerForm/AddCustomerForm';
+import { CustomerForm } from './CustomerForm/CustomerForm';
 import { ProductForm } from './ProductForm/ProductForm';
 import { TrademarkForm } from './TrademarkForm/TrademarkForm';
 import './all-forms.scss';
@@ -7,7 +7,7 @@ import './all-forms.scss';
 export const AllForms = () => {
   return (
     <div className='--all-forms__container'>
-      <AddCustomerForm />
+      <CustomerForm />
       <ProductForm />
       <TrademarkForm />
     </div>

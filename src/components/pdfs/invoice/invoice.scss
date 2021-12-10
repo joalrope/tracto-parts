@@ -16,7 +16,7 @@
 }
 
 .separator {
-  padding-top: 5pt;
+  padding-top: 8.5pt;
   height: 2pt;
   line-height: 0pt;
   text-align: left;
@@ -40,7 +40,7 @@
 .address p {
   padding: 0;
   margin: 0;
-  text-align: center;
+  text-align: start;
 }
 
 .address p:last-child {
@@ -207,7 +207,8 @@
 
 .invoiced-products-for-sale-table {
   width: 100%;
-  margin-top: 2pt;
+  margin-top: 1pt;
+  border-top: thin solid black;
   border-right: thin solid black;
   border-bottom: thin solid black;
 }
@@ -237,7 +238,11 @@
   padding: 0 5pt;
   //padding-bottom: 1pt;
   border-left: thin solid black;
-  border-top: thin solid black;
+  //border-top: thin solid black;
+}
+
+.invoiced-products-for-sale-table thead tr th {
+  border-bottom: thin solid black;
 }
 
 .invoice-footer {

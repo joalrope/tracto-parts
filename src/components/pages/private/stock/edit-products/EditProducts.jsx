@@ -59,7 +59,7 @@ export const EditProducts = () => {
     <div className='--stock-page__container'>
       <Row>
         <Col xs={24} md={24} className='--stock-page__container'>
-          <h4>Actualizar Producto</h4>
+          <h4>Crear o Actualizar Producto</h4>
         </Col>
       </Row>
       <Row>

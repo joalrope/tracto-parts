@@ -31,12 +31,24 @@ export const saveNewCustomer = (values) => {
       creditLimit: values.creditLimit,
     };
     dispatch(createCustomer(newCustomer));
-    dispatch(setDisplayAddCustomerForm(false));
+    dispatch(setDisplayAddCustomerForm({ show: false, mode: '' }));
   };
 };
 
 export const cancelNewCustomer = () => {
   return (dispatch) => {
-    dispatch(setDisplayAddCustomerForm(false));
+    dispatch(setDisplayAddCustomerForm({ show: false, mode: '' }));
   };
+};
+
+export const emptyCustomer = {
+  code: '',
+  name: '',
+  address: '',
+  phone: '',
+  email: '',
+  isCo: false,
+  contact: [{ contactName: '', contactPhone: '', contactEmail: '' }],
+  hasCredit: false,
+  creditLimit: 0,
 };

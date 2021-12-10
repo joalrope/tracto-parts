@@ -81,6 +81,7 @@ Trademark.propTypes = { form: PropTypes.object };
 
 export const TrademarkForm = () => {
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
   const { trademarkForm } = useSelector((state) => state.show);
   const { show, mode } = trademarkForm;
 
@@ -96,12 +97,14 @@ export const TrademarkForm = () => {
       onOk() {
         dispatch(addNewTrademarksTitle(newTrademark));
         dispatch(saveNewTrademark(values));
+        form.resetFields();
       },
     });
   };
 
   const onCancel = () => {
     dispatch(cancelNewTrademark());
+    form.resetFields();
   };
 
   return (
@@ -109,6 +112,7 @@ export const TrademarkForm = () => {
       WrappedComponent={Trademark}
       title={mode === 'add' ? 'Crear Marca' : 'Actualizar Marca'}
       visible={show}
+      form={form}
       onOk={onOk}
       okText='Aceptar'
       onCancel={onCancel}

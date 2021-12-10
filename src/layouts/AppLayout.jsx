@@ -11,6 +11,7 @@ import {
 import { startLogout } from '../actions/auth';
 import { clearStore, setCurrentPath } from '../actions/ui';
 import { AllForms } from '../components/forms/AllForms';
+import { AllPdfs } from '../components/pdfs/AllPdfs';
 import history from '../helpers/history/history';
 import { AppRouter } from '../router/AppRouter';
 import { routes } from '../router/routes';
@@ -107,6 +108,7 @@ export const AppLayout = () => {
 
           <AppRouter />
           <AllForms />
+          <AllPdfs />
         </Content>
         <Row>
           <Col xs={0} sm={24}>

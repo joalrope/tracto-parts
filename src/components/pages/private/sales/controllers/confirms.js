@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'antd';
 import { increaseQty } from '../controllers/increaseQty';
 
-export const repeatedProductConfirm = (record, productsForSale, selectedProduct) => {
+export const repeatedProductConfirm = (record, productsForSale) => {
   Modal.confirm({
     title: 'Producto repetido',
     content: [
@@ -15,7 +15,7 @@ export const repeatedProductConfirm = (record, productsForSale, selectedProduct)
     autoFocusButton: null,
     okText: 'Si',
     onOk() {
-      increaseQty(productsForSale, selectedProduct);
+      increaseQty(productsForSale, record);
     },
     cancelText: 'No',
   });

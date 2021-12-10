@@ -20,10 +20,10 @@ export const findCustomerByCode = (code) => {
   };
 };
 
-export const getCustomerByCode = async (code) => {
+export const getCustomerByCodeRegex = async (code) => {
   try {
     if (code.length > 1) {
-      const { ok, result } = await fetchWithToken(`/customers/code/${code}`);
+      const { ok, result } = await fetchWithToken(`/customers/regex/${code}`);
       if (ok) {
         const json = await result;
         return JSON.parse(
@@ -33,6 +33,17 @@ export const getCustomerByCode = async (code) => {
     } else {
       return [];
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCustomerByCode = async (code) => {
+  try {
+    const cust = await fetchWithToken(`/customers/code/${code}`);
+    const customer = await cust;
+
+    return customer;
   } catch (error) {
     console.log(error);
   }
@@ -70,6 +81,26 @@ export const createCustomer = (customer) => {
       console.log(error);
     }
   };
+};
+
+export const updateCustomer = async (id, customer) => {
+  try {
+    await fetchWithToken(`/customers/${id}`, customer, 'PUT');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteCustomer = async (id) => {
+  try {
+    const { ok, msg } = await fetchWithToken(`/customers/${id}`, {}, 'DELETE');
+
+    if (ok) {
+      return { ok, msg };
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const customerSetActive = (customer) => ({
