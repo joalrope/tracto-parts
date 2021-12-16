@@ -79,8 +79,6 @@ export const Home = () => {
                   span: 24,
                 }}
                 onFinish={onFinish}
-
-                /*onFinishFailed={onFinishFailed} */
               >
                 <Form.Item label='Código' name='code' normalize={(value) => (value ? value.toUpperCase() : value)}>
                   <Input placeholder='Introduzca código' />

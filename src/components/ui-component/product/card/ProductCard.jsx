@@ -33,7 +33,6 @@ export const ProductCard = ({ product, setProductForSale }) => {
       salePrice,
       totalItem: salePrice,
     };
-    console.log(selectedProduct.code);
     setProductForSale(selectedProduct);
   };
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import { getBillingInfo } from '../../pages/private/sales/controllers/getBillingInfo';
 import { GeneratePdfFromHtml } from '../../wrappers/GeneratePdfFromHtml';
 import { msgWhenUnmounting } from './controllers/msgWhenUnmounting';
@@ -20,18 +19,19 @@ export const Invoice = ({ data }) => {
 };
 
 export const InvoicePdf = () => {
-  const { displayInvoicePdf } = useSelector((state) => state.show);
   const [ivaTax, setIvaTax] = useState(0);
   const [invoiceNumber, setInvoiceNumber] = useState('');
 
   useEffect(async () => {
     const abortController = new AbortController();
     const billingInfo = await getBillingInfo();
+
     if (billingInfo) {
       const { controlNumber, ivaTax } = billingInfo;
       setIvaTax(ivaTax);
       setInvoiceNumber(controlNumber);
     }
+
     return () => {
       abortController.abort();
     };
@@ -40,15 +40,11 @@ export const InvoicePdf = () => {
   const data = pdfInfo(invoiceNumber, ivaTax);
 
   return (
-    <div>
-      {displayInvoicePdf && (
-        <GeneratePdfFromHtml
-          WrappedComponent={Invoice}
-          data={data}
-          msgWhenUnmounting={() => msgWhenUnmounting(invoiceNumber)}
-        />
-      )}
-    </div>
+    <GeneratePdfFromHtml
+      WrappedComponent={Invoice}
+      data={data}
+      msgWhenUnmounting={() => msgWhenUnmounting(invoiceNumber)}
+    />
   );
 };
 
