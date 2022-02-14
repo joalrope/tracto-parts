@@ -59,7 +59,7 @@
 
 .--pdf-content__container {
   position: absolute;
-  /*bottom: 1192pt;*/
+  bottom: 1192pt;
 }
 
 .--layout-content__spinner {
