@@ -10,17 +10,20 @@ import { ProductDetails } from './ProductDetails';
 import './product-add.scss';
 
 export const Product = ({ form }) => {
-  const [product, setProduct] = useState(emptyProduct);
+  const { productForm } = useSelector((state) => state.show);
+  const { mode, value } = productForm;
   const { activeProduct } = useSelector((state) => state.product);
+  const [product, setProduct] = useState({});
   let code, title, category, details, measurement, status, replacement;
 
   useEffect(() => {
-    setProduct(activeProduct);
+    emptyProduct['code'] = value?.toUpperCase();
+    setProduct(mode === 'add' ? emptyProduct : activeProduct);
     if (product) {
       ({ code, title, category, details, measurement, status, replacement } = product);
-      form.setFieldsValue({ code, title, category, details, measurement, status, replacement });
     }
-  }, [activeProduct, product]);
+    form.setFieldsValue({ code, title, category, details, measurement, status, replacement });
+  }, [product, activeProduct, value]);
 
   return (
     <Form
@@ -122,8 +125,8 @@ export const ProductForm = () => {
   };
 
   const onCancel = (form) => {
-    form.resetFields();
     dispatch(cancelNewProduct());
+    form.resetFields();
   };
 
   return (

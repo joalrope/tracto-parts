@@ -2,9 +2,9 @@ import { types } from '../types/types';
 
 const initialState = {
   displayInvoicePdf: false,
-  customerForm: { show: false, mode: '' },
-  trademarkForm: { show: false, mode: '' },
-  productForm: { show: false, mode: '' },
+  customerForm: { show: false, mode: '', value: '' },
+  trademarkForm: { show: false, mode: '', value: '' },
+  productForm: { show: false, mode: '', value: '' },
 };
 
 export const showReducer = (state = initialState, action) => {

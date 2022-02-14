@@ -199,7 +199,7 @@ export const CustomerForm = () => {
       okText='Aceptar'
       onCancel={onCancel}
       cancelText={'Cancelar'}
-      width={'30vw'}
+      width={'45vw'}
     />
   );
 };

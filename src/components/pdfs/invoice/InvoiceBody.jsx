@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TableAttrib } from '../../../classes/table-attrib-class';
-import { pdfColumns } from '../../../assets/data/products-for-sale.dataConfig';
+import { invoiceCols } from '../../../assets/data/products-for-sale.dataConfig';
 import './invoice.scss';
 
 export const InvoiceBody = ({ products }) => {
-  const column = new TableAttrib(pdfColumns);
+  const column = new TableAttrib(invoiceCols);
 
   return (
     <div className='invoice-body'>

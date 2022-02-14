@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { findProductById, getProductsByCodeRegex } from '../../../../../actions/products';
 import { setDisplayAddProductForm } from '../../../../../actions/shows';
@@ -7,7 +7,11 @@ import { NotFoundContentMsg } from '../../../../ui-component/async-data-select/N
 
 export const SearchProduct = () => {
   const dispatch = useDispatch();
-  const products = async (value) => await getProductsByCodeRegex(value);
+  const [value, setValue] = useState('');
+  const products = async (value) => {
+    setValue(value);
+    return await getProductsByCodeRegex(value);
+  };
 
   const productResult = (id) => {
     dispatch(findProductById(id));
@@ -20,9 +24,10 @@ export const SearchProduct = () => {
       result={productResult}
       notFoundContent={
         <NotFoundContentMsg
+          value={value}
           msg={'No existe el producto, Desea agregarlo?'}
-          noFoundResult={() => {
-            dispatch(setDisplayAddProductForm({ show: true, mode: 'add' }));
+          noFoundResult={(value) => {
+            dispatch(setDisplayAddProductForm({ show: true, mode: 'add', value }));
           }}
         />
       }

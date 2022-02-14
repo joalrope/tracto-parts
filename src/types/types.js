@@ -39,7 +39,6 @@ export const types = {
   clearCustomersLoaded: '[customer] Clear customers loaded',
 
   trademarksLoaded: '[trademarks] Loaded Trademarks',
-  trademarksAddNew: '[trademarks] Add new Trademark title',
   trademarksTitles: '[trademarks] Trademark titles',
 
   billingSetBillingData: '[billing] set billing data',

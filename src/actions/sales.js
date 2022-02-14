@@ -1,5 +1,4 @@
 import { fetchWithToken } from '../helpers/fetch';
-import { setDisplayPdfGenerated } from './shows';
 
 const urlNextbilling = '/billings/nextBilling';
 
@@ -11,13 +10,12 @@ export const getSales = async () => {
 };
 
 export const createSale = (sale) => {
-  return async (dispatch) => {
+  return async () => {
     try {
       const resultSale = await fetchWithToken('/sales/', sale, 'POST');
 
       const { ok } = resultSale;
       if (ok) {
-        dispatch(setDisplayPdfGenerated(true));
         await fetchWithToken(urlNextbilling, {}, 'PATCH');
       }
     } catch (error) {

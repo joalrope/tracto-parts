@@ -1,4 +1,4 @@
-export const pdfColumns = [
+export const invoiceCols = [
   {
     name: 'id',
     title: 'id',
@@ -28,18 +28,18 @@ export const pdfColumns = [
     class: 'text-left',
   },
   {
-    name: 'title',
-    title: 'Descripción',
-    type: 'string',
-    visible: true,
-    class: 'text-left',
-  },
-  {
     name: 'trademark',
     title: 'Marca',
     type: 'string',
     visible: true,
     class: 'text-center',
+  },
+  {
+    name: 'title',
+    title: 'Descripción',
+    type: 'string',
+    visible: true,
+    class: 'text-left',
   },
   {
     name: 'salePrice',

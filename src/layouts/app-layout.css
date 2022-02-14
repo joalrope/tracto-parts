@@ -59,10 +59,7 @@
 
 .--pdf-content__container {
   position: absolute;
-  bottom: 1192pt;
-  /* bottom: 1195pt; */
-  /*display: flex;
-  flex-direction: column;*/
+  /*bottom: 1192pt;*/
 }
 
 .--layout-content__spinner {

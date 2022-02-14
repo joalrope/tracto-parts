@@ -4,33 +4,9 @@ import { Col, Form, Input, Modal, Row } from 'antd';
 import { ModalForm } from '../../wrappers/ModalForm/ModalForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveNewTrademark, cancelNewTrademark } from './controller';
-import { addNewTrademarksTitle } from '../../../actions/trademarks';
+import { getTrademarksTitle } from '../../../actions/trademarks';
 
 export const Trademark = ({ form }) => {
-  /* const setTrademark = async (e) => {
-    const code = e.target.value.toUpperCase();
-
-    const { ok, result } = await getProductByCode(code);
-    if (!ok) {
-      Modal.confirm({
-        title: `El producto de código: ${code} no existe`,
-        content: '¿Desea crear este Producto?',
-        okText: 'Si',
-        okType: 'primary',
-        cancelText: 'No',
-        confirmLoading: true,
-        autoFocusButton: null,
-        onCancel() {},
-        onOk() {
-          emptyProduct['code'] = code;
-          dispatch(productSetActive(emptyProduct));
-        },
-      });
-    } else {
-      dispatch(productSetActive(result));
-    }
-  }; */
-
   return (
     <Form
       name='trademark-form'
@@ -95,8 +71,8 @@ export const TrademarkForm = () => {
       okText: 'Si',
       cancelText: 'No',
       onOk() {
-        dispatch(addNewTrademarksTitle(newTrademark));
         dispatch(saveNewTrademark(values));
+        dispatch(getTrademarksTitle());
         form.resetFields();
       },
     });

@@ -4,12 +4,12 @@ import { startLogout } from '../actions/auth';
 import history from './history/history';
 import { parseJwt } from './parse-jwt';
 
-const baseUrl = process.env.REACT_APP_API_URL;
+//const baseUrl = process.env.REACT_APP_API_URL;
+const baseUrl = 'https://api-tractocenter.herokuapp.com/api';
 let response;
 
 export const fetchWithoutToken = (endpoint, data, method = 'GET') => {
   const url = `${baseUrl}${endpoint}`;
-
   if (method === 'GET') {
     response = fetch(url)
       .then((resp) => {

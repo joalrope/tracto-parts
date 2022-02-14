@@ -4,7 +4,7 @@ import { Button } from 'antd';
 
 const buttonWidth = '75px';
 
-export const NotFoundContentMsg = ({ msg, noFoundResult }) => {
+export const NotFoundContentMsg = ({ msg, noFoundResult, value }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <p> {msg}</p>
@@ -16,7 +16,7 @@ export const NotFoundContentMsg = ({ msg, noFoundResult }) => {
         >
           Cancelar
         </Button> */}
-        <Button onClick={() => noFoundResult('ok')} style={{ width: buttonWidth }} size='small' type='primary'>
+        <Button onClick={() => noFoundResult(value)} style={{ width: buttonWidth }} size='small' type='primary'>
           Aceptar
         </Button>
       </div>
@@ -25,6 +25,7 @@ export const NotFoundContentMsg = ({ msg, noFoundResult }) => {
 };
 
 NotFoundContentMsg.propTypes = {
+  value: PropTypes.string,
   msg: PropTypes.string,
   noFoundResult: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 };

@@ -40,8 +40,3 @@ const setTrademarksLoaded = (trademarks) => ({
   type: types.trademarksTitles,
   payload: trademarks,
 });
-
-export const addNewTrademarksTitle = (title) => ({
-  type: types.trademarksAddNew,
-  payload: title,
-});

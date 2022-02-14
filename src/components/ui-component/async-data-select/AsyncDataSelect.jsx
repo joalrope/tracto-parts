@@ -56,8 +56,7 @@ export const AsyncDataSelect = ({ placeholder, dataSource, result, notFoundConte
         listItemHeight={10}
         listHeight={250}
       >
-        {options &&
-          options.length >= 0 &&
+        {options.length > 0 &&
           options.map((obj) => (
             <Option key={obj.value} value={obj.value}>
               <SelectListItem item={obj} />
@@ -72,7 +71,7 @@ AsyncDataSelect.propTypes = {
   dataSource: PropTypes.func,
   placeholder: PropTypes.string,
   result: PropTypes.func,
-  notFoundContent: PropTypes.object,
+  notFoundContent: PropTypes.element,
   style: PropTypes.object,
   disabled: PropTypes.bool,
 };

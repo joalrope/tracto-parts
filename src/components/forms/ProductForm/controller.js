@@ -14,12 +14,12 @@ export const saveNewProduct = (values, form) => {
       autoFocusButton: null,
       onCancel() {
         form.resetFields();
-        dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
+        dispatch(setDisplayAddProductForm({ show: false, mode: 'add' }));
       },
       onOk() {
         dispatch(createProduct(values));
         form.resetFields();
-        dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
+        dispatch(setDisplayAddProductForm({ show: false, mode: 'add' }));
       },
     });
   };
@@ -27,7 +27,7 @@ export const saveNewProduct = (values, form) => {
 
 export const cancelNewProduct = () => {
   return (dispatch) => {
-    dispatch(setDisplayAddProductForm({ show: false, mode: '' }));
+    dispatch(setDisplayAddProductForm({ show: false, mode: 'add', value: '' }));
   };
 };
 

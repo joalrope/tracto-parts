@@ -8,15 +8,15 @@ export const getNextNumberBilling = () => {
 };
 
 export const SetBilling = (data) => ({
-  type: types.invoiceSetBillingData,
+  type: types.billingSetBillingData,
   payload: data,
 });
 
 export const ClearBilling = () => ({
-  type: types.invoiceClearBillingData,
+  type: types.billingClearBillingData,
 });
 
 export const UpdatePaymentConditions = (paymentConditions) => ({
-  type: types.invoiceUpdatePaymentConditions,
+  type: types.billingUpdatePaymentConditions,
   payload: paymentConditions,
 });

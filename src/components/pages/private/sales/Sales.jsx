@@ -21,6 +21,8 @@ import { ActionRender } from './components/ActionRender';
 import { SearchCustomer } from './components/SearchCustomer';
 import { SearchProduct } from './components/SearchProduct';
 import './sales.scss';
+import { setDisplayPdfGenerated } from '../../../../actions/shows';
+import { SetBilling } from '../../../../actions/billings';
 
 export const Sales = () => {
   const dispatch = useDispatch();
@@ -80,10 +82,6 @@ export const Sales = () => {
   const [amountTax, setAmountTax] = useState(0);
   const data = saleInfo(invoiceNumber, ivaTax);
 
-  const handleCheckIn = () => {
-    checkInConfirm(invoiceNumber, checkIn);
-  };
-
   const checkIn = () => {
     if (invoiceNumber === '') return;
 
@@ -95,7 +93,7 @@ export const Sales = () => {
       invoiceNumber,
       date: billingData.date,
       coin: 'USD$',
-      customer: { code: activeCustomer.code, name: activeCustomer.name },
+      customer: activeCustomer,
       items,
       purchaseTotal: totals.purchaseTotal,
       taxes: [{ title: 'ivaTax', rate: billingData.ivaTax, amount: amountTax }],
@@ -107,8 +105,18 @@ export const Sales = () => {
         paymentDate: moment().format('DD/MM/YYYY'),
       },
     };
-    updateQtyItemsSold(productsForSale);
-    dispatch(createSale(newSale));
+
+    dispatch(SetBilling(newSale));
+    dispatch(setDisplayPdfGenerated(true));
+
+    if (process.env.NODE_ENV === 'production') {
+      updateQtyItemsSold(productsForSale);
+      dispatch(createSale(newSale));
+    }
+  };
+
+  const handleCheckIn = () => {
+    checkInConfirm(invoiceNumber, checkIn);
   };
 
   return (

@@ -25,12 +25,6 @@ export const trademarkReducer = (state = initialState, action) => {
         titles: [...action.payload],
       };
 
-    case types.trademarksAddNew:
-      return {
-        ...state,
-        titles: [...state.titles, action.payload],
-      };
-
     default:
       return state;
   }

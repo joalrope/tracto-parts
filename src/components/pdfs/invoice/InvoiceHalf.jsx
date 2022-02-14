@@ -6,9 +6,13 @@ import { InvoiceBody } from './InvoiceBody';
 import './invoice.scss';
 
 export const InvoiceHalf = ({ data }) => {
-  const { billingData, activeCustomer, productsForSale, totals } = data;
-  let clonedProducts = JSON.parse(JSON.stringify(productsForSale));
-  let customer = JSON.parse(JSON.stringify(activeCustomer));
+  const { date, invoiceNumber, customer, items, purchaseTotal, taxes, invoiceTotal, payment } = data;
+  let clonedProducts = JSON.parse(JSON.stringify(items));
+  const { onCredit, creditDays } = payment;
+  const paymentConditions = onCredit ? `Venta a crédito ${creditDays} días` : 'Venta al contado';
+
+  customer['paymentConditions'] = paymentConditions;
+
   let i = 0;
 
   const products = clonedProducts.map((product) => {
@@ -17,6 +21,7 @@ export const InvoiceHalf = ({ data }) => {
       id: product.id,
       item: `0${i}`,
       code: product.code,
+      trademark: product.trademark,
       title: product.title,
       qty: product.qty,
       salePrice: product.salePrice,
@@ -31,6 +36,7 @@ export const InvoiceHalf = ({ data }) => {
       products[i] = {
         id: i,
         item: i < 10 ? `0${i}` : `${i}`,
+        trademark: '',
         code: '',
         title: '',
         qty: '',
@@ -42,9 +48,9 @@ export const InvoiceHalf = ({ data }) => {
 
   return (
     <div className='invoice-container'>
-      <InvoiceHeader customer={customer} billing={billingData} />
+      <InvoiceHeader customer={customer} billing={{ date, invoiceNumber }} />
       <InvoiceBody products={products} />
-      <InvoiceFooter totals={totals} />
+      <InvoiceFooter totals={{ purchaseTotal, ivaTaxAmount: taxes[0].amount, invoiceTotal }} />
     </div>
   );
 };
