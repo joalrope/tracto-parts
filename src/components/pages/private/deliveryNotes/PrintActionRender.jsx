@@ -8,7 +8,6 @@ import { SetBilling } from '../../../../actions/billings';
 export const PrintActionRender = (record) => {
   const dispatch = useDispatch();
   const printDeliveryNote = (data) => {
-    console.log(data);
     dispatch(SetBilling(data));
     dispatch(setDisplayPdfGenerated(true));
   };

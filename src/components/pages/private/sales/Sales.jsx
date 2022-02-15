@@ -44,7 +44,6 @@ export const Sales = () => {
 
   const { activeProduct, productsForSale } = useSelector((state) => state.product);
   const { activeCustomer } = useSelector((state) => state.customer);
-  console.log(activeCustomer);
 
   if (!forSaleColumns.find((obj) => obj.key === 'action')) {
     forSaleColumns.push({
